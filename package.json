@@ -44,7 +44,7 @@
         "@types/jest": "^29.5.2",
         "@types/node": "^18.16.3",
         "@types/semver": "^7.5.0",
-        "@typescript-eslint/eslint-plugin": "^5.59.8",
+        "@typescript-eslint/eslint-plugin": "^5.59.9",
         "@typescript-eslint/parser": "^5.59.9",
         "dependency-cruiser": "^12.12.1",
         "eslint": "^8.41.0",
