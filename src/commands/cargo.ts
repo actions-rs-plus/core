@@ -33,8 +33,7 @@ export class Cargo {
 
             return new Cargo(path_to_cargo);
         } catch (error) {
-            core.error("cargo is not installed by default for some virtual environments, \
-see https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions");
+            core.error("cargo is not installed by default for some virtual environments, see https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions");
             core.error("To install it, use this action: https://github.com/actions-rs/toolchain");
 
             throw error;
