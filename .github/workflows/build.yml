@@ -161,6 +161,7 @@ jobs:
 
       - name: Run tests
         shell: bash
+        id: tests
         env:
           JEST_JUNIT_OUTPUT_DIR: reports/
           JEST_JUNIT_OUTPUT_NAME: unit-tests-report.xml
