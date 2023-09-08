@@ -20,7 +20,7 @@
         "format": "prettier --write \"src/**/*.ts\"",
         "clean": "rm -rf ./dist/* && rm tsconfig.tsbuildinfo && npm run build",
         "test": "jest --watchAll",
-        "test:ci": "jest --config ./jest.config.ci.ts",
+        "test:ci": "jest",
         "deps:ci": "depcruise --output-type err src",
         "deps:graph": "depcruise --output-type dot src | dot -T svg > dependency-graph.svg",
         "deps:report": "depcruise --output-type err-html --output-to dependency-report.html src"
