@@ -1,19 +1,8 @@
-// {
-//   "clearMocks": true,
-//   "moduleFileExtensions": ["js", "ts"],
-//   "testEnvironment": "node",
-//   "testMatch": ["**/*.test.ts"],
-//   "testRunner": "jest-circus/runner",
-//   "transform": {
-//     "^.+\\.ts$": "ts-jest"
-//   },
-//   "verbose": true
-// }
 // For a detailed explanation regarding each configuration property, visit:
 // https://jestjs.io/docs/en/configuration.html
+import type { Config } from "jest";
 
-// eslint-disable-next-line no-undef
-module.exports = {
+const config: Config = {
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 
@@ -68,11 +57,7 @@ module.exports = {
     // globalTeardown: undefined,
 
     // A set of global variables that need to be available in all test environments
-    globals: {
-        "ts-jest": {
-            tsconfig: "./tsconfig.json",
-        },
-    },
+    globals: {},
 
     // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
     // maxWorkers: "50%",
@@ -174,7 +159,7 @@ module.exports = {
 
     // A map from regular expressions to paths to transformers
     transform: {
-        "^.+\\.tsx?$": "ts-jest",
+        "^.+\\.tsx?$": ["ts-jest", { tsconfig: "./tsconfig.json" }],
     },
 
     // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
@@ -195,3 +180,5 @@ module.exports = {
     // Whether to use watchman for file crawling
     // watchman: true,
 };
+
+export default config;

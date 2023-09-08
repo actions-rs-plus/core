@@ -5,7 +5,7 @@ module.exports = {
     overrides: [
         {
             // the TS parser and TS specific rules
-            files: ["src/**/*.ts"],
+            files: ["src/**/*.ts", "*.ts"],
             parser: "@typescript-eslint/parser",
             settings: {
                 "import/resolver": {
@@ -74,7 +74,7 @@ module.exports = {
                 "@typescript-eslint/no-for-in-array": "error",
                 "@typescript-eslint/no-misused-promises": "error",
                 "@typescript-eslint/no-non-null-assertion": "error",
-                "@typescript-eslint/no-parameter-properties": ["error", { allows: ["readonly"] }],
+                "@typescript-eslint/parameter-properties": "error",
                 "@typescript-eslint/no-require-imports": "error",
                 "@typescript-eslint/no-this-alias": "error",
                 "@typescript-eslint/no-throw-literal": "error",
@@ -90,7 +90,7 @@ module.exports = {
                 "@typescript-eslint/promise-function-async": "off",
                 "@typescript-eslint/require-await": "error",
                 "@typescript-eslint/restrict-plus-operands": "error",
-                "@typescript-eslint/sort-type-union-intersection-members": "error",
+                "@typescript-eslint/sort-type-constituents": "error",
                 "@typescript-eslint/unbound-method": "error",
                 "@typescript-eslint/unified-signatures": "error",
                 "@typescript-eslint/explicit-module-boundary-types": "error",

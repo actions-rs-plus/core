@@ -12,8 +12,9 @@ on:
 permissions:
   contents: read
   checks: write
+  pull-requests: write
   issues: write
-  packages: read
+  packages: write
 
 concurrency:
   group: "${{ github.workflow }} @ ${{ github.ref_name }}"
@@ -27,10 +28,13 @@ jobs:
       code: ${{ steps.filter.outputs.code }}
     steps:
       - name: Checkout
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          show-progress: false
+          submodules: true
 
       - name: Check if we actually made changes
-        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50
+        uses: dorny/paths-filter@4512585405083f25c027a35db413c2b3b9006d50 # tag=v2.11.1
         id: filter
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -44,20 +48,24 @@ jobs:
     if: ${{ needs.changes.outputs.code == 'true' }}
     steps:
       - name: Check out code
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          submodules: true
 
       - name: Set up node
-        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
+          node-version-file: ".nvmrc"
           cache: "npm"
           cache-dependency-path: package-lock.json
-          node-version-file: ".nvmrc"
-          registry-url: https://npm.pkg.github.com
+
+      - name: Ensure latest version of npm, older versions v8 have broken caching
+        shell: bash
+        run: |
+          npm install --location=global npm@latest
 
       - name: Download dependencies
         shell: bash
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           npm ci
 
@@ -68,10 +76,13 @@ jobs:
       - warm-up-cache
     steps:
       - name: Check out code
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          show-progress: false
+          submodules: true
 
       - name: Set up node
-        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -81,10 +92,11 @@ jobs:
         shell: bash
         run: |
           npm ci --offline
+
       - name: Run build
         shell: bash
         run: |
-          npm run build
+          npm run release:build
 
   npm-lint:
     name: Lint the code
@@ -93,10 +105,13 @@ jobs:
       - warm-up-cache
     steps:
       - name: Check out code
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          show-progress: false
+          submodules: true
 
       - name: Set up node
-        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -106,6 +121,7 @@ jobs:
         shell: bash
         run: |
           npm ci --offline
+
       - name: Run lint
         shell: bash
         run: |
@@ -113,7 +129,7 @@ jobs:
         continue-on-error: true
 
       - name: Annotate Code Linting Results
-        uses: ataylorme/eslint-annotate-action@v2
+        uses: ataylorme/eslint-annotate-action@a1bf7cb320a18aa53cb848a267ce9b7417221526 # 1.2.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           report-json: reports/lint-report.json
@@ -125,12 +141,14 @@ jobs:
       - warm-up-cache
     steps:
       - name: Check out code
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
         with:
+          show-progress: false
+          submodules: true
           fetch-depth: 0
 
       - name: Set up node
-        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -140,12 +158,14 @@ jobs:
         shell: bash
         run: |
           npm ci --offline
+
       - name: Run tests
+        shell: bash
         env:
           JEST_JUNIT_OUTPUT_DIR: reports/
           JEST_JUNIT_OUTPUT_NAME: unit-tests-report.xml
         run: |
-          npm run test:ci -- --coverage --testLocationInResults --reporters=default --reporters=jest-junit
+          npm run test:ci
         continue-on-error: true
 
       - name: Upload unit-test results
@@ -154,19 +174,18 @@ jobs:
           check_name: Unit-test results
           files: reports/unit-tests-report.xml
 
-      - name: Setup Code Climate test-reporter
+      - name: Upload to Coveralls
+        uses: coverallsapp/github-action@3dfc5567390f6fa9267c0ee9c251e4c8c3f18949 # v2.2.3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: coverage/lcov.info
+
+      - name: Fail if tests failed
         shell: bash
+        if: steps.tests.outcome != 'success'
         run: |
-          # download test reporter as a static binary
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-      - name: Run code-climate-test-reporter
-        shell: bash
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        run: |
-          ./cc-test-reporter format-coverage coverage/lcov.info --input-type lcov --output reports/codeclimate.json
-          ./cc-test-reporter upload-coverage --input reports/codeclimate.json
+          echo "Tests failed"
+          exit 1
 
   npm-dependencies:
     name: Validate dependencies
@@ -175,10 +194,12 @@ jobs:
       - warm-up-cache
     steps:
       - name: Check out code
-        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          show-progress: false
 
       - name: Set up node
-        uses: actions/setup-node@8c91899e586c5b171469028077307d293428b516
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -188,10 +209,12 @@ jobs:
         shell: bash
         run: |
           npm ci --offline
+
       - name: Check dependencies
         shell: bash
         run: |
           npm run deps:ci
+
   all-done:
     name: All done
     # this is the job that should be marked as required on GitHub. It's the only one that'll reliably trigger
@@ -213,6 +236,7 @@ jobs:
         run: |
           echo "One / more upstream failed or was cancelled. Failing job..."
           exit 1
+
       - name: Success!
         shell: bash
         run: |
