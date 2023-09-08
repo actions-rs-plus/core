@@ -28,5 +28,11 @@ module.exports = {
                 parser: "typescript",
             },
         },
+        {
+            files: ["*.yaml", "*.yml"],
+            options: {
+                tabWidth: 2,
+            },
+        },
     ],
 };
