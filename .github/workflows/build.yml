@@ -96,7 +96,7 @@ jobs:
       - name: Run build
         shell: bash
         run: |
-          npm run release:build
+          npm run build
 
   npm-lint:
     name: Lint the code
