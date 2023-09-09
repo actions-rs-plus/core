@@ -7,7 +7,11 @@
     "description": "Core functionality for the @actions-rs-plus repos",
     "main": "dist/core.js",
     "typings": "dist/core.d.ts",
-    "files": ["dist/**/*.js", "dist/**/*.js.map", "dist/**/*.d.ts"],
+    "files": [
+        "dist/**/*.js",
+        "dist/**/*.js.map",
+        "dist/**/*.d.ts"
+    ],
     "scripts": {
         "build": "tsc -p .",
         "watch": "tsc -p . -w",
@@ -39,18 +43,21 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-import-resolver-typescript": "^3.6.0",
         "eslint-plugin-import": "^2.28.1",
-        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-prettier": "^5.0.0",
         "husky": "^8.0.3",
         "jest": "^29.6.4",
         "jest-junit": "^16.0.0",
         "lint-staged": "^13.3.0",
-        "prettier": "^2.8.8",
+        "prettier": "^3.0.3",
         "ts-jest": "^29.1.1",
         "ts-node": "^10.9.1",
         "typescript": "^4.9.5"
     },
     "lint-staged": {
-        "*.{ts,tsx}": ["npm run test:lint:fix", "depcruise --validate -- "]
+        "*.{ts,tsx}": [
+            "npm run test:lint:fix",
+            "depcruise --validate -- "
+        ]
     },
     "dependencies": {
         "@actions/cache": "^3.2.2",
