@@ -23,7 +23,8 @@
         "test:ci": "jest",
         "deps:ci": "depcruise --output-type err src",
         "deps:graph": "depcruise --output-type dot src | dot -T svg > dependency-graph.svg",
-        "deps:report": "depcruise --output-type err-html --output-to dependency-report.html src"
+        "deps:report": "depcruise --output-type err-html --output-to dependency-report.html src",
+        "release": "semantic-release"
     },
     "repository": {
         "type": "git",
