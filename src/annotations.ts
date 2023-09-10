@@ -22,10 +22,7 @@
 import * as os from "os";
 
 export type AnnotationLevel = "failure" | "notice" | "warning";
-interface CommandProperties {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    [key: string]: any;
-}
+type CommandProperties = Record<string, unknown>;
 
 export interface Annotation {
     path: string;
@@ -39,9 +36,8 @@ export interface Annotation {
     raw_details?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function toCommandValue(input: any): string {
-    if (input === null || input === undefined) {
+function toCommandValue(input: unknown): string {
+    if (!input) {
         return "";
     } else if (typeof input === "string" || input instanceof String) {
         return input as string;
@@ -49,13 +45,11 @@ function toCommandValue(input: any): string {
     return JSON.stringify(input);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-export function escapeData(s: any): string {
+export function escapeData(s: unknown): string {
     return toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/explicit-module-boundary-types
-export function escapeProperty(s: any): string {
+export function escapeProperty(s: unknown): string {
     return toCommandValue(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A").replace(/:/g, "%3A").replace(/,/g, "%2C");
 }
 

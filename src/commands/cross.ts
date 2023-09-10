@@ -16,9 +16,9 @@ export class Cross {
     public static async getOrInstall(): Promise<Cross> {
         try {
             return await Cross.get();
-        } catch (error) {
-            core.debug(`${error}`);
-            return Cross.install();
+        } catch (error: unknown) {
+            core.debug(`${String(error)}`);
+            return await Cross.install();
         }
     }
 

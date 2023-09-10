@@ -14,7 +14,7 @@ export async function resolveVersion(crate: string): Promise<string> {
 
     const resp = await client.getJson<CratesIO>(url);
 
-    if (null === resp.result) {
+    if (resp.result === null) {
         throw new Error("Unable to fetch latest crate version");
     }
 
@@ -101,7 +101,7 @@ export class Cargo {
                 return res;
             }
         } else {
-            return this.install(program, version);
+            return await this.install(program, version);
         }
     }
 
@@ -116,7 +116,7 @@ export class Cargo {
         args.push(program);
 
         try {
-            core.startGroup(`Installing "${program} = ${version || "latest"}"`);
+            core.startGroup(`Installing "${program} = ${version ?? "latest"}"`);
             await this.call(args);
         } finally {
             core.endGroup();
@@ -135,7 +135,7 @@ export class Cargo {
             core.info(`${program} is not installed, installing it now`);
         }
 
-        return this.installCached(program, version);
+        return await this.installCached(program, version);
     }
 
     public call(args: string[], options?: exec.ExecOptions): Promise<number> {

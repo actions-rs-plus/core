@@ -169,6 +169,5 @@ module.exports = {
                 alphabetize: { order: "asc", caseInsensitive: true },
             },
         ],
-        yoda: ["error", "always", { onlyEquality: true, exceptRange: true }],
     },
 };

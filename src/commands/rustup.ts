@@ -32,9 +32,9 @@ export class RustUp {
     public static async getOrInstall(): Promise<RustUp> {
         try {
             return await RustUp.get();
-        } catch (error) {
-            core.debug(`Unable to find "rustup" executable, installing it now. Reason: ${error}`);
-            return RustUp.install();
+        } catch (error: unknown) {
+            core.debug(`Unable to find "rustup" executable, installing it now. Reason: ${String(error)}`);
+            return await RustUp.install();
         }
     }
 
@@ -55,7 +55,7 @@ export class RustUp {
         switch (process.platform) {
             case "darwin":
             case "linux": {
-                // eslint-disable-line prettier/prettier
+            // eslint-disable-line prettier/prettier
                 const rustupSh = await tc.downloadTool("https://sh.rustup.rs");
 
                 // While the `rustup-init.sh` is properly executed as is,
