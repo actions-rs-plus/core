@@ -1,0 +1,62 @@
+name: Release
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+concurrency:
+  group: "${{ github.workflow }}"
+  cancel-in-progress: true # only last step is important, which runs or doesn't
+
+on:
+  workflow_dispatch: # releasing is manual as we don't want to release every time
+
+permissions:
+  contents: write # to write tags
+  packages: write # to write tags to Docker registry
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Only on main
+        if: github.ref != 'refs/heads/main'
+        shell: bash
+        run: |
+          echo "Only to be executed on main"
+          exit 1
+
+      - name: Checkout
+        uses: actions/checkout@3df4ab11eba7bda6032a0b82a6bb43b11571feac # v4.0.0
+        with:
+          show-progress: false
+          # token: ${{ secrets.TOKEN_TO_TRIGGER_SUBSEQUENT_WORKFLOWS }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@5e21ff4d9bc1a8cf6de233a3057d20ec6b3fb69d # v3.8.1
+        with:
+          node-version-file: ".nvmrc"
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          npm ci --ignore-scripts
+
+      - name: Build
+        shell: bash
+        run: |
+          npm run build
+
+      - name: Release
+        # env:
+        #   GITHUB_TOKEN: ${{ secrets.TOKEN_TO_TRIGGER_SUBSEQUENT_WORKFLOWS }}
+        shell: bash
+        run: |
+          npm run release
