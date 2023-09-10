@@ -10,7 +10,7 @@ import type { CratesIO } from "../schema";
 
 export async function resolveVersion(crate: string): Promise<string> {
     const url = `https://crates.io/api/v1/crates/${crate}`;
-    const client = new http.HttpClient("@actions-rs (https://github.com/actions-rs-plus/)");
+    const client = new http.HttpClient("@actions-rs-plus (https://github.com/actions-rs-plus/)");
 
     const resp = await client.getJson<CratesIO>(url);
 
@@ -78,7 +78,7 @@ export class Cargo {
             const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
 
             if (cacheKey) {
-                core.info(`Using cached \`${program}\` with version ${version}`);
+                core.info(`Using cached \`${program}\` with version ${version} from ${cacheKey}`);
                 return program;
             } else {
                 const res = await this.install(program, version);
