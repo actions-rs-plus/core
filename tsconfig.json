@@ -108,9 +108,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "jest.setup.js",
-    "jest.config.ts",
-    "jest.config.ci.ts",
+    "*.ts",
     ".eslintrc.js",
     ".dependency-cruiser.js",
   ]
