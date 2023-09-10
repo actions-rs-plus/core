@@ -62,7 +62,7 @@ jobs:
       - name: Ensure latest version of npm, older versions v8 have broken caching
         shell: bash
         run: |
-          npm install --location=global npm@9
+          npm install --location=global npm@latest
 
       - name: Download dependencies
         shell: bash
