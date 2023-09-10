@@ -1,8 +1,19 @@
-// eslint-disable-next-line no-undef
 module.exports = {
-    // parser: , // Specifies the ESLint parser, use default (which can handle JS)
-    env: {},
+    env: {
+        browser: true,
+        es2021: true,
+        node: true,
+    },
     overrides: [
+        {
+            env: {
+                node: true,
+            },
+            files: [".eslintrc.{js,cjs}"],
+            parserOptions: {
+                sourceType: "script",
+            },
+        },
         {
             // the TS parser and TS specific rules
             files: ["src/**/*.ts", "*.ts"],
@@ -15,19 +26,13 @@ module.exports = {
             parserOptions: {
                 ecmaVersion: "latest", // Allows for the parsing of modern ECMAScript features
                 sourceType: "module", // Allows for the use of imports
-                // eslint-disable-next-line no-undef
                 tsconfigRootDir: __dirname,
                 project: "./tsconfig.json",
                 ecmaFeatures: {
                     jsx: true,
                 },
             },
-            extends: [
-                "plugin:import/typescript",
-                "plugin:@typescript-eslint/recommended",
-                // 'react-app',
-                "prettier", // prettier now has built in support for typescript in eslint-config-prettier 8
-            ],
+            extends: [],
             rules: {
                 "@typescript-eslint/array-type": ["error", { default: "array" }],
                 "@typescript-eslint/await-thenable": "error",
@@ -90,24 +95,21 @@ module.exports = {
                 "@typescript-eslint/promise-function-async": "off",
                 "@typescript-eslint/require-await": "error",
                 "@typescript-eslint/restrict-plus-operands": "error",
+                "@typescript-eslint/return-await": "error",
                 "@typescript-eslint/sort-type-constituents": "error",
+                "@typescript-eslint/strict-boolean-expressions": "off",
                 "@typescript-eslint/unbound-method": "error",
                 "@typescript-eslint/unified-signatures": "error",
                 "@typescript-eslint/explicit-module-boundary-types": "error",
             },
         },
     ],
-    extends: [
-        "eslint:recommended",
-        // "plugin:react/recommended",
-        "plugin:prettier/recommended", // Enables eslint-plugin-prettier and displays prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
-    ],
+    extends: ["eslint:recommended", "standard-with-typescript", "plugin:import/typescript", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
     plugins: ["import"],
     parserOptions: {
-        ecmaVersion: "latest", // Allows for the parsing of modern ECMAScript features
+        ecmaVersion: "latest",
         sourceType: "module",
     },
-    ignorePatterns: ["!.prettierrc.js", "!.dependency-cruiser.js"],
     rules: {
         "sort-imports": [
             "error",
@@ -118,9 +120,9 @@ module.exports = {
         "import/no-unresolved": "error",
         "import/newline-after-import": "error",
         "import/no-duplicates": "error",
-        eqeqeq: 2,
+        eqeqeq: ["error", "always"],
         "no-fallthrough": "error",
-        "no-return-await": "error",
+        "no-return-await": "off",
         "require-await": "error",
         "prefer-template": "error",
         curly: "error",
@@ -144,7 +146,7 @@ module.exports = {
             },
         ],
         "class-methods-use-this": "off",
-        indent: ["error", 4],
+        // indent: ["error", 4],
         "max-len": "off",
         "no-dupe-class-members": "off",
         "no-extra-semi": "off",
@@ -167,10 +169,6 @@ module.exports = {
                 alphabetize: { order: "asc", caseInsensitive: true },
             },
         ],
-    },
-    settings: {
-        react: {
-            version: "18.0",
-        },
+        yoda: ["error", "always", { onlyEquality: true, exceptRange: true }],
     },
 };
