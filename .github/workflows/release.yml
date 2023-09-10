@@ -56,8 +56,8 @@ jobs:
           npm run build
 
       - name: Release
-        # env:
-        #   GITHUB_TOKEN: ${{ secrets.TOKEN_TO_TRIGGER_SUBSEQUENT_WORKFLOWS }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
         run: |
           npm run release
