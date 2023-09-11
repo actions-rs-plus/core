@@ -3,7 +3,6 @@
     "include": [
         "src/**/*.ts",
         "*.ts",
-        "jest.setup.js",
         ".eslintrc.js",
         ".dependency-cruiser.js"
     ]
