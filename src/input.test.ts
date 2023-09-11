@@ -1,4 +1,4 @@
-import { getInput, getInputBool, getInputList } from "./input";
+import { getInput, getInputAsArray, getInputBool, getInputList } from "./input";
 
 describe("input", () => {
     describe("getInput", () => {
@@ -41,21 +41,26 @@ describe("input", () => {
     });
 
     describe("getInputList", () => {
-        it("empty", () => {
-            process.env["INPUT_VALUE"] = "";
-            expect(getInputList("value")).toStrictEqual([]);
+        test.each([
+            ["", []],
+            [", ,, ", []],
+            ["one,two,three", ["one", "two", "three"]],
+            [",one , two , three", ["one", "two", "three"]],
+        ])('getInputList("%s") == %s', (input, expected) => {
+            process.env["INPUT_VALUE"] = input;
+            expect(getInputList("value")).toStrictEqual(expected);
         });
-        it('", ,, "', () => {
-            process.env["INPUT_VALUE"] = ", ,, ";
-            expect(getInputList("value")).toStrictEqual([]);
-        });
-        it('"one,two,three"', () => {
-            process.env["INPUT_VALUE"] = "one,two,three";
-            expect(getInputList("value")).toStrictEqual(["one", "two", "three"]);
-        });
-        it('",one , two , three"', () => {
-            process.env["INPUT_VALUE"] = ",one , two , three";
-            expect(getInputList("value")).toStrictEqual(["one", "two", "three"]);
+    });
+
+    describe("getInputAsArray", () => {
+        test.each([
+            ["", []],
+            ["\n \n\n ", []],
+            ["one\ntwo\nthree", ["one", "two", "three"]],
+            ["\none \n two \n three", ["one", "two", "three"]],
+        ])('getInputAsArray("%s") == %s', (input, expected) => {
+            process.env["INPUT_VALUE"] = input;
+            expect(getInputAsArray("value")).toStrictEqual(expected);
         });
     });
 });
