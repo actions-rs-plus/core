@@ -109,6 +109,7 @@ module.exports = {
     parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
+        project: "tsconfig.dev.json",
     },
     rules: {
         "sort-imports": [
