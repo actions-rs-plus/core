@@ -4,8 +4,6 @@ import * as github from "@actions/github";
 
 import { Check } from "checks";
 
-// jest.mock("@actions/github");
-
 describe("check", () => {
     beforeEach(() => {
         github.context.sha = "sha";

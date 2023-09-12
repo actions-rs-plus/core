@@ -1,9 +1,12 @@
 {
-    "extends": "./tsconfig.json",
-    "include": [
-        "src/**/*.ts",
-        "*.ts",
-        ".eslintrc.js",
-        ".dependency-cruiser.js"
-    ]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+  },
+  "include": [
+    "src/**/*.ts",
+    "*.ts",
+    ".eslintrc.js",
+    ".dependency-cruiser.js"
+  ]
 }
