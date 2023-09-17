@@ -1,16 +1,14 @@
 import * as os from "os";
 
 import * as core from "@actions/core";
-import * as exec from "@actions/exec";
 import * as io from "@actions/io";
 
+import { BaseProgram } from "./base-program";
 import { Cargo } from "./cargo";
 
-export class Cross {
-    private readonly path: string;
-
+export class Cross extends BaseProgram {
     private constructor(path: string) {
-        this.path = path;
+        super(path);
     }
 
     public static async getOrInstall(): Promise<Cross> {
@@ -53,9 +51,5 @@ export class Cross {
             process.chdir(cwd);
             core.endGroup();
         }
-    }
-
-    public call(args: string[], options?: exec.ExecOptions): Promise<number> {
-        return exec.exec(this.path, args, options);
     }
 }

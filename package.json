@@ -16,8 +16,8 @@
         "registry": "https://npm.pkg.github.com"
     },
     "scripts": {
-        "build": "tsc -p .",
-        "watch": "tsc -p . -w",
+        "build": "tsc --project tsconfig.build.json",
+        "watch": "tsc --project . --watch",
         "lint": "eslint src --ext=ts,tsx",
         "lint:fix": "npm run lint -- --fix",
         "format": "prettier --write \"src/**/*.ts\"",

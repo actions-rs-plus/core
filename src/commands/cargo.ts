@@ -2,11 +2,12 @@ import * as path from "path";
 
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
-import * as exec from "@actions/exec";
 import * as http from "@actions/http-client";
 import * as io from "@actions/io";
 
 import type { CratesIO } from "../schema";
+
+import { BaseProgram } from "./base-program";
 
 export async function resolveVersion(crate: string): Promise<string> {
     const url = `https://crates.io/api/v1/crates/${crate}`;
@@ -20,18 +21,17 @@ export async function resolveVersion(crate: string): Promise<string> {
 
     return resp.result.crate.newest_version;
 }
-export class Cargo {
-    private readonly path;
 
+export class Cargo extends BaseProgram {
     private constructor(path_to_cargo: string) {
-        this.path = path_to_cargo;
+        super(path_to_cargo);
     }
 
     public static async get(): Promise<Cargo> {
         try {
-            const path_to_cargo = await io.which("cargo", true);
+            const pathToCargo = await io.which("cargo", true);
 
-            return new Cargo(path_to_cargo);
+            return new Cargo(pathToCargo);
         } catch (error) {
             core.error("cargo is not installed by default for some virtual environments, see https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions");
             core.error("To install it, use this action: https://github.com/actions-rs/toolchain");
@@ -136,9 +136,5 @@ export class Cargo {
         }
 
         return await this.installCached(program, version);
-    }
-
-    public call(args: string[], options?: exec.ExecOptions): Promise<number> {
-        return exec.exec(this.path, args, options);
     }
 }
