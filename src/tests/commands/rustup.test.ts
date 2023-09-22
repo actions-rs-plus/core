@@ -3,6 +3,7 @@ import * as io from "@actions/io";
 import { RustUp } from "core";
 
 jest.mock("@actions/io");
+
 describe("rustup", () => {
     beforeEach(() => {
         jest.resetAllMocks();

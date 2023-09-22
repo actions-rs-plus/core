@@ -1,21 +1,13 @@
 import * as core from "@actions/core";
-import * as github from "@actions/github";
 import * as io from "@actions/io";
 
 import { Cross } from "core";
 
 jest.mock("@actions/exec");
-jest.mock("@actions/cache");
 
 describe("cross", () => {
     beforeEach(() => {
         jest.resetAllMocks();
-        github.context.sha = "sha";
-
-        jest.spyOn(github.context, "repo", "get").mockReturnValue({
-            repo: "repo",
-            owner: "owner",
-        });
     });
 
     it("Cross", async () => {

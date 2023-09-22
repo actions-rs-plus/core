@@ -1,4 +1,3 @@
-import * as github from "@actions/github";
 import * as http from "@actions/http-client";
 import { type TypedResponse } from "@actions/http-client/lib/interfaces";
 
@@ -7,18 +6,10 @@ import { resolveVersion } from "commands/crates";
 import { type CratesIO } from "schema";
 
 jest.mock("@actions/http-client");
-jest.mock("@actions/exec");
-jest.mock("@actions/cache");
 
 describe("resolveVersion", () => {
     beforeEach(() => {
         jest.resetAllMocks();
-        github.context.sha = "sha";
-
-        jest.spyOn(github.context, "repo", "get").mockReturnValue({
-            repo: "repo",
-            owner: "owner",
-        });
     });
 
     it("resolves", async () => {
