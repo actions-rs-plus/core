@@ -1,6 +1,5 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-
 import * as io from "@actions/io";
 
 import { Cross } from "core";
@@ -20,9 +19,9 @@ describe("cross", () => {
     });
 
     it("Cross", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValue("/home/user/.cross/bin/cross");
+        const spy = jest.spyOn(io, "which").mockResolvedValue("/home/user/.cargo/bin/cross");
 
-        await expect(Cross.get()).resolves.not.toBeNull();
+        await expect(Cross.get()).resolves.toEqual({ path: "/home/user/.cargo/bin/cross" });
 
         expect(spy).toHaveBeenCalledTimes(1);
     });
