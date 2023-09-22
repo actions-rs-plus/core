@@ -180,6 +180,19 @@ describe("cargo", () => {
         expect(spy3).toHaveBeenCalledTimes(1);
     });
 
+    it("Cargo findOrInstall not found", async () => {
+        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo").mockRejectedValueOnce(new Error("Could not find path to cog"));
+
+        const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
+
+        const cargo = await Cargo.get();
+
+        await expect(cargo.installCached("cog")).resolves.toBe("cog");
+
+        expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"]]]);
+    });
+
     it("Cargo findOrInstall not found with explicit version latest", async () => {
         const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo").mockRejectedValueOnce(new Error("Could not find path to cog"));
 
