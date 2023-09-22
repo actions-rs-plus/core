@@ -1,3 +1,4 @@
+import * as cache from "@actions/cache";
 import * as exec from "@actions/exec";
 import * as github from "@actions/github";
 
@@ -11,6 +12,7 @@ import { type CratesIO } from "schema";
 jest.mock("@actions/http-client");
 jest.mock("@actions/io");
 jest.mock("@actions/exec");
+jest.mock("@actions/cache");
 
 describe("cargo", () => {
     beforeEach(() => {
@@ -215,5 +217,18 @@ describe("cargo", () => {
         expect(spy.mock.calls).toEqual([["cargo", true]]);
         expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"]]]);
         expect(spy3).toHaveBeenCalledTimes(1);
+    });
+
+    it("Cargo findOrInstall with primary key", async () => {
+        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo").mockRejectedValueOnce(new Error("Could not find path to cog"));
+
+        const spy2 = jest.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+
+        const cargo = await Cargo.get();
+
+        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
+
+        expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog", []]]);
     });
 });
