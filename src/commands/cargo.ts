@@ -15,7 +15,18 @@ export async function resolveVersion(crate: string): Promise<string> {
 
     const resp = await client.getJson<CratesIO>(url);
 
-    if (resp.result === null) {
+    if (resp.statusCode === 404) {
+        throw new Error("Could not find package");
+    }
+
+    if (!resp.result) {
+        throw new Error("Unable to fetch latest crate version");
+    }
+
+    if ("errors" in resp.result || !resp.result?.crate?.newest_version) {
+        core.error("Unable to fetch latest crate version: ");
+        core.error(JSON.stringify(resp.result, null, 2));
+
         throw new Error("Unable to fetch latest crate version");
     }
 
@@ -23,8 +34,8 @@ export async function resolveVersion(crate: string): Promise<string> {
 }
 
 export class Cargo extends BaseProgram {
-    private constructor(path_to_cargo: string) {
-        super(path_to_cargo);
+    private constructor(pathToCargo: string) {
+        super(pathToCargo);
     }
 
     public static async get(): Promise<Cargo> {
@@ -82,6 +93,7 @@ export class Cargo extends BaseProgram {
                 return program;
             } else {
                 const res = await this.install(program, version);
+
                 try {
                     core.info(`Caching \`${program}\` with key ${programKey}`);
                     await cache.saveCache(paths, programKey);
@@ -98,6 +110,7 @@ export class Cargo extends BaseProgram {
                         throw error;
                     }
                 }
+
                 return res;
             }
         } else {
@@ -130,7 +143,9 @@ export class Cargo extends BaseProgram {
      */
     public async findOrInstall(program: string, version?: string): Promise<string> {
         try {
-            return await io.which(program, true);
+            void (await io.which(program, true));
+
+            return program;
         } catch (error) {
             core.info(`${program} is not installed, installing it now`);
         }
