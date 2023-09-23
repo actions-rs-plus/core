@@ -11,10 +11,6 @@ jest.mock("@actions/exec");
 jest.mock("@actions/cache");
 
 describe("cargo", () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    });
-
     it("Cargo", async () => {
         const spy = jest.spyOn(io, "which").mockResolvedValue("/home/user/.cargo/bin/cargo");
 

@@ -8,10 +8,6 @@ import { type CratesIO } from "schema";
 jest.mock("@actions/http-client");
 
 describe("resolveVersion", () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    });
-
     it("resolves", async () => {
         const version = "1.0.107";
 
