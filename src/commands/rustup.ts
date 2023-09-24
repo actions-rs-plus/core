@@ -55,7 +55,6 @@ export class RustUp {
         switch (process.platform) {
             case "darwin":
             case "linux": {
-            // eslint-disable-line prettier/prettier
                 const rustupSh = await tc.downloadTool("https://sh.rustup.rs");
 
                 // While the `rustup-init.sh` is properly executed as is,
@@ -201,7 +200,7 @@ expected at least ${PROFILES_MIN_VERSION}`);
         if (stdout) {
             return stdout;
         } else {
-            throw new Error(`Unable to find the ${program}`);
+            throw new Error(`Unable to find "${program}"`);
         }
     }
 

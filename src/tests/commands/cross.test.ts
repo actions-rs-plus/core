@@ -6,12 +6,8 @@ import { Cross } from "core";
 jest.mock("@actions/exec");
 
 describe("cross", () => {
-    beforeEach(() => {
-        jest.resetAllMocks();
-    });
-
     it("Cross", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValue("/home/user/.cargo/bin/cross");
+        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cross");
 
         await expect(Cross.get()).resolves.toEqual({ path: "/home/user/.cargo/bin/cross" });
 

@@ -19,7 +19,7 @@ const config: Config = {
     collectCoverage: false,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
-    collectCoverageFrom: ["<rootDir>/src/**/*.ts"],
+    collectCoverageFrom: ["<rootDir>/src/**/*.ts", "!<rootDir>/src/**/*.d.ts"],
 
     // The directory where Jest should output its coverage files
     coverageDirectory: "coverage",
@@ -90,7 +90,7 @@ const config: Config = {
     reporters: ["default"],
 
     // Automatically reset mock state between every test
-    // resetMocks: false,
+    resetMocks: true,
 
     // Reset the module registry before running each individual test
     // resetModules: false,
@@ -99,7 +99,7 @@ const config: Config = {
     // resolver: undefined,
 
     // Automatically restore mock state between every test
-    // restoreMocks: false,
+    restoreMocks: true,
 
     // The root directory that Jest should scan for tests and modules within
     rootDir: "./",
