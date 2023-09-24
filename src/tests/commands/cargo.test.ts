@@ -12,7 +12,7 @@ jest.mock("@actions/cache");
 
 describe("cargo", () => {
     it("Cargo", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValue("/home/user/.cargo/bin/cargo");
+        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
         await expect(Cargo.get()).resolves.toEqual({ path: "/home/user/.cargo/bin/cargo" });
 
@@ -78,7 +78,7 @@ describe("cargo", () => {
 
         const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
-        const spy3 = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValue({
+        const spy3 = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -118,7 +118,7 @@ describe("cargo", () => {
 
         const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
-        const spy3 = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValue({
+        const spy3 = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {

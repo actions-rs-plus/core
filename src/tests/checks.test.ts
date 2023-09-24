@@ -20,7 +20,7 @@ describe("check", () => {
         const client = jest.mocked(getOctokit("token"));
 
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        const createSpy = jest.spyOn(client.rest.checks, "create").mockResolvedValue({
+        const createSpy = jest.spyOn(client.rest.checks, "create").mockResolvedValueOnce({
             data: { id: 5 },
         } as Awaited<ReturnType<typeof client.rest.checks.create>>);
 
@@ -44,12 +44,12 @@ describe("check", () => {
         const client = jest.mocked(getOctokit("token"));
 
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "create").mockResolvedValue({
+        jest.spyOn(client.rest.checks, "create").mockResolvedValueOnce({
             data: { id: 5 },
         } as Awaited<ReturnType<typeof client.rest.checks.create>>);
 
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "update").mockResolvedValue({
+        jest.spyOn(client.rest.checks, "update").mockResolvedValueOnce({
             data: { id: 5 },
         } as Awaited<ReturnType<typeof client.rest.checks.update>>);
 
@@ -62,12 +62,12 @@ describe("check", () => {
         const client = jest.mocked(getOctokit("token"));
 
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "create").mockResolvedValue({
+        jest.spyOn(client.rest.checks, "create").mockResolvedValueOnce({
             data: { id: 5 },
         } as Awaited<ReturnType<typeof client.rest.checks.create>>);
 
         // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "update").mockResolvedValue({
+        jest.spyOn(client.rest.checks, "update").mockResolvedValueOnce({
             data: { id: 5 },
         } as Awaited<ReturnType<typeof client.rest.checks.update>>);
 
