@@ -200,7 +200,7 @@ expected at least ${PROFILES_MIN_VERSION}`);
         if (stdout) {
             return stdout;
         } else {
-            throw new Error(`Unable to find the ${program}`);
+            throw new Error(`Unable to find "${program}"`);
         }
     }
 
