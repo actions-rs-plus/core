@@ -32,14 +32,6 @@ describe("rustup", () => {
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
-    // it("getOrInstall", async () => {
-    //     const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
-
-    //     await expect(RustUp.getOrInstall()).resolves.toEqual({ path: "/home/user/.cargo/bin/rustup" });
-
-    //     expect(spy).toHaveBeenCalledTimes(1);
-    // });
-
     it("getOrInstall install", async () => {
         // prepare instance to return after installation
         const prepared = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
@@ -382,5 +374,69 @@ describe("rustup", () => {
         expect.assertions(1);
 
         await expect(rustup.version()).rejects.toThrowError("Unable to determine version");
+    });
+
+    it("supportProfiles", async () => {
+        jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+
+        const rustup = await RustUp.get();
+
+        jest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+            options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
+
+            return Promise.resolve(0);
+        });
+
+        expect.assertions(1);
+
+        await expect(rustup.supportProfiles()).resolves.toEqual(true);
+    });
+
+    it("supportProfiles fail", async () => {
+        jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+
+        const rustup = await RustUp.get();
+
+        jest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+            options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
+
+            return Promise.resolve(0);
+        });
+
+        expect.assertions(1);
+
+        await expect(rustup.supportProfiles()).resolves.toEqual(false);
+    });
+
+    it("supportComponents", async () => {
+        jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+
+        const rustup = await RustUp.get();
+
+        jest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+            options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
+
+            return Promise.resolve(0);
+        });
+
+        expect.assertions(1);
+
+        await expect(rustup.supportComponents()).resolves.toEqual(true);
+    });
+
+    it("supportComponents fail", async () => {
+        jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+
+        const rustup = await RustUp.get();
+
+        jest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+            options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
+
+            return Promise.resolve(0);
+        });
+
+        expect.assertions(1);
+
+        await expect(rustup.supportComponents()).resolves.toEqual(false);
     });
 });
