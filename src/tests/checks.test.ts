@@ -9,23 +9,20 @@ import { Check } from "checks";
 jest.mock("@octokit/plugin-rest-endpoint-methods", () => {
     return {
         restEndpointMethods: () => {
+            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+            const fn = () => {
+                return {
+                    data: {
+                        id: 5,
+                    },
+                };
+            };
+
             return {
                 rest: {
                     checks: {
-                        create: () => {
-                            return {
-                                data: {
-                                    id: 5,
-                                },
-                            };
-                        },
-                        update: () => {
-                            return {
-                                data: {
-                                    id: 5,
-                                },
-                            };
-                        },
+                        create: fn,
+                        update: fn,
                     },
                 },
             };
