@@ -1,7 +1,6 @@
 import { getOctokit } from "@actions/github";
 
 import * as github from "@actions/github";
-import { jest } from "@jest/globals";
 
 import { Check } from "checks";
 
