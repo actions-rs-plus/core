@@ -4,6 +4,33 @@ import * as github from "@actions/github";
 
 import { Check } from "checks";
 
+// I hate doing thing like this, but it's the only way I could figure out on how
+// to properly mock out the client.rest methods
+jest.mock("@octokit/plugin-rest-endpoint-methods", () => {
+    return {
+        restEndpointMethods: () => {
+            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+            const fn = () => {
+                return {
+                    data: {
+                        id: 5,
+                    },
+                };
+            };
+
+            return {
+                rest: {
+                    checks: {
+                        create: fn,
+                        update: fn,
+                    },
+                },
+            };
+        },
+        legacyRestEndpointMethods: () => {},
+    };
+});
+
 describe("check", () => {
     beforeEach(() => {
         github.context.sha = "sha";
@@ -17,12 +44,9 @@ describe("check", () => {
     it("startCheck", async () => {
         expect.assertions(2);
 
-        const client = jest.mocked(getOctokit("token"));
+        const client = getOctokit("token");
 
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        const createSpy = jest.spyOn(client.rest.checks, "create").mockResolvedValueOnce({
-            data: { id: 5 },
-        } as Awaited<ReturnType<typeof client.rest.checks.create>>);
+        const createSpy = jest.spyOn(client.rest.checks, "create");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
@@ -41,17 +65,7 @@ describe("check", () => {
     });
 
     it("cancelCheck", async () => {
-        const client = jest.mocked(getOctokit("token"));
-
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "create").mockResolvedValueOnce({
-            data: { id: 5 },
-        } as Awaited<ReturnType<typeof client.rest.checks.create>>);
-
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "update").mockResolvedValueOnce({
-            data: { id: 5 },
-        } as Awaited<ReturnType<typeof client.rest.checks.update>>);
+        const client = getOctokit("token");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
@@ -59,17 +73,7 @@ describe("check", () => {
     });
 
     it("finishCheck", async () => {
-        const client = jest.mocked(getOctokit("token"));
-
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "create").mockResolvedValueOnce({
-            data: { id: 5 },
-        } as Awaited<ReturnType<typeof client.rest.checks.create>>);
-
-        // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-        jest.spyOn(client.rest.checks, "update").mockResolvedValueOnce({
-            data: { id: 5 },
-        } as Awaited<ReturnType<typeof client.rest.checks.update>>);
+        const client = getOctokit("token");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
