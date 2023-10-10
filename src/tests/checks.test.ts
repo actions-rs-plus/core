@@ -69,7 +69,7 @@ describe("check", () => {
     });
 
     it("cancelCheck", async () => {
-        const client = jest.mocked(getOctokit("token"));
+        const client = getOctokit("token");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
@@ -77,7 +77,7 @@ describe("check", () => {
     });
 
     it("finishCheck", async () => {
-        const client = jest.mocked(getOctokit("token"));
+        const client = getOctokit("token");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
