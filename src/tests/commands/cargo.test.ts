@@ -21,10 +21,12 @@ describe("cargo", () => {
 
     it("Cargo not found", async () => {
         const spy = jest.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
+        const spy2 = jest.spyOn(core, "error").mockImplementation(() => {});
 
         await expect(Cargo.get()).rejects.toThrow("Could not find path to cargo");
 
         expect(spy).toHaveBeenCalledTimes(1);
+        expect(spy2).toHaveBeenCalledTimes(2);
     });
 
     it("Cargo findOrInstall", async () => {
@@ -173,7 +175,7 @@ describe("cargo", () => {
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
         const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
         const spy2 = jest.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
-        const spy3 = jest.spyOn(core, "warning");
+        const spy3 = jest.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
@@ -200,7 +202,7 @@ describe("cargo", () => {
     it("Cargo findOrInstall with primary key, cache save fails 3", async () => {
         const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
         const spy2 = jest.spyOn(cache, "saveCache").mockRejectedValue(new (jest.requireActual("@actions/cache").ReserveCacheError)("failed reserve space"));
-        const spy3 = jest.spyOn(core, "warning");
+        const spy3 = jest.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
