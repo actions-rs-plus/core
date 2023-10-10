@@ -31,6 +31,7 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall", async () => {
         const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo").mockResolvedValueOnce("/home/kristof/.cargo/bin/cog");
+
         const cargo = await Cargo.get();
 
         await expect(cargo.findOrInstall("cog")).resolves.toBe("cog");
