@@ -44,7 +44,7 @@
         "@typescript-eslint/eslint-plugin": "7.1.1",
         "@typescript-eslint/parser": "7.1.1",
         "conventional-changelog-conventionalcommits": "7.0.2",
-        "dependency-cruiser": "16.2.2",
+        "dependency-cruiser": "16.2.3",
         "eslint": "8.57.0",
         "eslint-config-prettier": "9.1.0",
         "eslint-config-standard-with-typescript": "43.0.1",
