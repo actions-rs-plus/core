@@ -112,11 +112,11 @@ export class RustUp {
 
         await this.call(args);
 
-        if (options && options.default) {
+        if (options?.default) {
             await this.call(["default", name]);
         }
 
-        if (options && options.override) {
+        if (options?.override) {
             await this.call(["override", "set", name]);
         }
 
