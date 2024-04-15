@@ -1,4 +1,5 @@
 code:
+  - ".nvmrc"
   - "src/**"
   - "package.json"
   - "package-lock.json"
