@@ -175,11 +175,12 @@ jobs:
           check_name: Unit-test results
           files: reports/unit-tests-report.xml
 
-      - name: Upload to Coveralls
-        uses: coverallsapp/github-action@643bc377ffa44ace6394b2b5d0d3950076de9f63 # v2.3.0
+      - name: Upload coverage results (to Codecov.io)
+        uses: codecov/codecov-action@5ecb98a3c6b747ed38dc09f787459979aebb39be # v4.3.1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: coverage/lcov.info
+          fail_ci_if_error: true
+          file: coverage/lcov.info
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Fail if tests failed
         shell: bash
