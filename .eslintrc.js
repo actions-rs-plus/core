@@ -30,7 +30,7 @@ module.exports = {
                 ecmaVersion: "latest", // Allows for the parsing of modern ECMAScript features
                 sourceType: "module", // Allows for the use of imports
                 tsconfigRootDir: __dirname,
-                project: "./tsconfig.dev.json",
+                project: "./tsconfig.json",
                 ecmaFeatures: {
                     jsx: true,
                 },
@@ -112,7 +112,7 @@ module.exports = {
     parserOptions: {
         ecmaVersion: "latest",
         sourceType: "module",
-        project: "tsconfig.dev.json",
+        project: "tsconfig.json",
     },
     rules: {
         "sort-imports": [

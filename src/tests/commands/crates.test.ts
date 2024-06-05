@@ -1,17 +1,16 @@
 import * as http from "@actions/http-client";
 import { type TypedResponse } from "@actions/http-client/lib/interfaces";
 
-import { resolveVersion } from "commands/crates";
+import { resolveVersion } from "@/commands/crates";
+import { type CratesIO } from "@/schema";
 
-import { type CratesIO } from "schema";
-
-jest.mock("@actions/http-client");
+vitest.mock("@actions/http-client");
 
 describe("resolveVersion", () => {
     it("resolves", async () => {
         const version = "1.0.107";
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+        const spy = vitest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -39,7 +38,7 @@ describe("resolveVersion", () => {
             },
         };
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = vitest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrowError(
             'Unable to fetch latest crate version of "serde_json", server returned {\n  "errors": [\n    {\n      "detail": "Not Found"\n    }\n  ]\n}',
@@ -55,7 +54,7 @@ describe("resolveVersion", () => {
             result: null,
         };
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = vitest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrowError("Unable to fetch latest crate version");
 
@@ -71,7 +70,7 @@ describe("resolveVersion", () => {
             },
         };
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = vitest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrowError("Unable to fetch latest crate version");
 
