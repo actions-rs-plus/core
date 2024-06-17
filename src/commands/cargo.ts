@@ -18,8 +18,12 @@ export class Cargo extends BaseProgram {
 
             return new Cargo(pathToCargo);
         } catch (error) {
-            core.error("cargo is not installed by default for some virtual environments, see https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions");
-            core.error("To install it, use this action: https://github.com/actions-rs/toolchain");
+            core.error(
+                "cargo is not installed by default for some virtual environments, see https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions",
+            );
+            core.error(
+                "To install it, use this action: https://github.com/actions-rs/toolchain",
+            );
 
             throw error;
         }
@@ -46,7 +50,12 @@ export class Cargo extends BaseProgram {
      * As the $PATH should be already tuned properly at this point,
      * returned value at the moment is simply equal to the `program` argument.
      */
-    public async installCached(program: string, version?: string, primaryKey?: string, restoreKeys: string[] = []): Promise<string> {
+    public async installCached(
+        program: string,
+        version?: string,
+        primaryKey?: string,
+        restoreKeys: string[] = [],
+    ): Promise<string> {
         if (version === "latest") {
             version = await resolveVersion(program);
         }
@@ -60,10 +69,16 @@ export class Cargo extends BaseProgram {
                 return `${program}-${version}-${key}`;
             });
 
-            const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
+            const cacheKey = await cache.restoreCache(
+                paths,
+                programKey,
+                programRestoreKeys,
+            );
 
             if (cacheKey) {
-                core.info(`Using cached \`${program}\` with version ${version} from ${cacheKey}`);
+                core.info(
+                    `Using cached \`${program}\` with version ${version} from ${cacheKey}`,
+                );
                 return program;
             } else {
                 const res = await this.install(program, version);
@@ -75,7 +90,9 @@ export class Cargo extends BaseProgram {
                     if (error instanceof Error) {
                         if (error.name === cache.ValidationError.name) {
                             throw error;
-                        } else if (error.name === cache.ReserveCacheError.name) {
+                        } else if (
+                            error.name === cache.ReserveCacheError.name
+                        ) {
                             core.warning(error.message);
                         }
                     } else if (typeof error === "string") {
@@ -88,7 +105,7 @@ export class Cargo extends BaseProgram {
                 return res;
             }
         } else {
-            return await this.install(program, version);
+            return this.install(program, version);
         }
     }
 
@@ -115,7 +132,10 @@ export class Cargo extends BaseProgram {
     /**
      * Find the cargo sub-command or install it
      */
-    public async findOrInstall(program: string, version?: string): Promise<string> {
+    public async findOrInstall(
+        program: string,
+        version?: string,
+    ): Promise<string> {
         try {
             void (await io.which(program, true));
 
@@ -124,6 +144,6 @@ export class Cargo extends BaseProgram {
             core.info(`${program} is not installed, installing it now`);
         }
 
-        return await this.installCached(program, version);
+        return this.installCached(program, version);
     }
 }

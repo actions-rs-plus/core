@@ -2,7 +2,7 @@
 module.exports = {
     arrowParens: "always",
     bracketSpacing: true,
-    printWidth: 200,
+    printWidth: 80,
     quoteProps: "as-needed",
     semi: true,
     singleQuote: false,
@@ -11,25 +11,34 @@ module.exports = {
     trailingComma: "all",
     overrides: [
         {
-            files: "*.js",
-            options: {
-                parser: "babel",
-            },
-        },
-        {
-            files: "*.json",
-            options: {
-                parser: "json",
-            },
-        },
-        {
-            files: "*.ts",
+            files: ["*.ts", "*.tsx"],
             options: {
                 parser: "typescript",
             },
         },
         {
+            files: ["*.cjs"],
+        },
+        {
+            files: ["**/*.json"],
+            options: {
+                trailingComma: "none",
+            },
+        },
+        {
+            files: ["**/*.json"],
+            options: {
+                trailingComma: "none",
+            },
+        },
+        {
             files: ["*.yaml", "*.yml"],
+            options: {
+                tabWidth: 2,
+            },
+        },
+        {
+            files: ["package.json", "package-lock.json"],
             options: {
                 tabWidth: 2,
             },

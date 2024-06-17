@@ -6,7 +6,12 @@
   "include": [
     "src/**/*.ts",
     "*.ts",
+    "*.js",
+    "*.cjs",
+    ".dependency-cruiser.js",
+    ".prettierrc.js",
     ".eslintrc.js",
-    ".dependency-cruiser.js"
+    ".releaserc.js",
+    ".eslintrc.js"
   ]
 }

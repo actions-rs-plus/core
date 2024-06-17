@@ -1,4 +1,9 @@
-import { getInput, getInputAsArray, getInputBool, getInputList } from "../input";
+import {
+    getInput,
+    getInputAsArray,
+    getInputBool,
+    getInputList,
+} from "../input";
 
 describe("input", () => {
     describe("getInput", () => {
