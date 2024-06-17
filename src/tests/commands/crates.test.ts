@@ -11,15 +11,17 @@ describe("resolveVersion", () => {
     it("resolves", async () => {
         const version = "1.0.107";
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
-            statusCode: 200,
-            headers: {},
-            result: {
-                crate: {
-                    newest_version: version,
+        const spy = jest
+            .spyOn(http.HttpClient.prototype, "getJson")
+            .mockResolvedValueOnce({
+                statusCode: 200,
+                headers: {},
+                result: {
+                    crate: {
+                        newest_version: version,
+                    },
                 },
-            },
-        });
+            });
 
         await expect(resolveVersion("serde_json")).resolves.toBe(version);
 
@@ -39,7 +41,9 @@ describe("resolveVersion", () => {
             },
         };
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = jest
+            .spyOn(http.HttpClient.prototype, "getJson")
+            .mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrowError(
             'Unable to fetch latest crate version of "serde_json", server returned {\n  "errors": [\n    {\n      "detail": "Not Found"\n    }\n  ]\n}',
@@ -55,9 +59,13 @@ describe("resolveVersion", () => {
             result: null,
         };
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = jest
+            .spyOn(http.HttpClient.prototype, "getJson")
+            .mockResolvedValueOnce(response);
 
-        await expect(resolveVersion("serde_json")).rejects.toThrowError("Unable to fetch latest crate version");
+        await expect(resolveVersion("serde_json")).rejects.toThrowError(
+            "Unable to fetch latest crate version",
+        );
 
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -71,9 +79,13 @@ describe("resolveVersion", () => {
             },
         };
 
-        const spy = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = jest
+            .spyOn(http.HttpClient.prototype, "getJson")
+            .mockResolvedValueOnce(response);
 
-        await expect(resolveVersion("serde_json")).rejects.toThrowError("Unable to fetch latest crate version");
+        await expect(resolveVersion("serde_json")).rejects.toThrowError(
+            "Unable to fetch latest crate version",
+        );
 
         expect(spy).toHaveBeenCalledTimes(1);
     });
