@@ -46,7 +46,11 @@ describe("check", () => {
 
         const createSpy = vitest.spyOn(client.rest.checks, "create");
 
-        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
+        const check: Check = await Check.startCheck(
+            client,
+            "check-name",
+            "in_progress",
+        );
 
         expect(check).toBeInstanceOf(Check);
         expect(createSpy.mock.calls).toMatchObject([
@@ -65,7 +69,11 @@ describe("check", () => {
     it("cancelCheck", async () => {
         const client = github.getOctokit("token");
 
-        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
+        const check: Check = await Check.startCheck(
+            client,
+            "check-name",
+            "in_progress",
+        );
 
         await expect(check.cancelCheck()).resolves.toBe(undefined);
     });
@@ -73,8 +81,18 @@ describe("check", () => {
     it("finishCheck", async () => {
         const client = github.getOctokit("token");
 
-        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
+        const check: Check = await Check.startCheck(
+            client,
+            "check-name",
+            "in_progress",
+        );
 
-        await expect(check.finishCheck("success", { summary: "Summary", text: "text", title: "title" })).resolves.toBe(undefined);
+        await expect(
+            check.finishCheck("success", {
+                summary: "Summary",
+                text: "text",
+                title: "title",
+            }),
+        ).resolves.toBe(undefined);
     });
 });

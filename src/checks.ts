@@ -15,7 +15,11 @@ export class Check {
     private readonly checkName: string;
     private readonly checkId: number;
 
-    private constructor(client: InstanceType<typeof GitHub>, checkName: string, checkId: number) {
+    private constructor(
+        client: InstanceType<typeof GitHub>,
+        checkName: string,
+        checkId: number,
+    ) {
         this.client = client;
         this.checkName = checkName;
         this.checkId = checkId;
@@ -24,7 +28,11 @@ export class Check {
     /**
      * Starts a new Check and returns check ID.
      */
-    public static async startCheck(client: InstanceType<typeof GitHub>, checkName: string, status: "completed" | "in_progress" | "queued" = "in_progress"): Promise<Check> {
+    public static async startCheck(
+        client: InstanceType<typeof GitHub>,
+        checkName: string,
+        status: "completed" | "in_progress" | "queued" = "in_progress",
+    ): Promise<Check> {
         const { owner, repo } = github.context.repo;
 
         const response = await client.rest.checks.create({
@@ -42,7 +50,16 @@ export class Check {
     //     public async sendAnnotations(annotations: Array<octokit.ChecksCreateParamsOutputAnnotations>): Promise<void> {
     //     }
 
-    public async finishCheck(conclusion: "action_required" | "cancelled" | "failure" | "neutral" | "success" | "timed_out", output: Output): Promise<void> {
+    public async finishCheck(
+        conclusion:
+            | "action_required"
+            | "cancelled"
+            | "failure"
+            | "neutral"
+            | "success"
+            | "timed_out",
+        output: Output,
+    ): Promise<void> {
         const { owner, repo } = github.context.repo;
 
         // TODO: Check for errors

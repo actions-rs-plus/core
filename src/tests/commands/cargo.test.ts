@@ -14,7 +14,9 @@ describe("cargo", () => {
     it("Cargo", async () => {
         const spy = vitest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
-        await expect(Cargo.get()).resolves.toEqual({ path: "/home/user/.cargo/bin/cargo" });
+        await expect(Cargo.get()).resolves.toEqual({
+            path: "/home/user/.cargo/bin/cargo",
+        });
 
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -23,7 +25,9 @@ describe("cargo", () => {
         const spy = vitest.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
         const spy2 = vitest.spyOn(core, "error").mockImplementation(() => {});
 
-        await expect(Cargo.get()).rejects.toThrow("Could not find path to cargo");
+        await expect(Cargo.get()).rejects.toThrow(
+            "Could not find path to cargo",
+        );
 
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy2).toHaveBeenCalledTimes(2);
@@ -56,7 +60,9 @@ describe("cargo", () => {
             ["cargo", true],
             ["cog", true],
         ]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "cog"]],
+        ]);
     });
 
     it("Cargo findOrInstall not found with version", async () => {
@@ -72,7 +78,12 @@ describe("cargo", () => {
             ["cargo", true],
             ["cog", true],
         ]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/cargo",
+                ["install", "--version", "5.9", "cog"],
+            ],
+        ]);
     });
 
     it("Cargo findOrInstall not found with explicit version latest", async () => {
@@ -87,8 +98,7 @@ describe("cargo", () => {
                 crate: {
                     newest_version: "6.0",
                 },
-            },
-        });
+            });
 
         const cargo = await Cargo.get();
 
@@ -98,7 +108,12 @@ describe("cargo", () => {
             ["cargo", true],
             ["cog", true],
         ]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/cargo",
+                ["install", "--version", "6.0", "cog"],
+            ],
+        ]);
         expect(spy3).toHaveBeenCalledTimes(1);
     });
 
@@ -112,7 +127,9 @@ describe("cargo", () => {
         await expect(cargo.installCached("cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "cog"]],
+        ]);
     });
 
     it("Cargo findOrInstall not found with explicit version latest", async () => {
@@ -127,15 +144,19 @@ describe("cargo", () => {
                 crate: {
                     newest_version: "6.0",
                 },
-            },
-        });
+            });
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", "latest")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/cargo",
+                ["install", "--version", "6.0", "cog"],
+            ],
+        ]);
         expect(spy3).toHaveBeenCalledTimes(1);
     });
 
@@ -144,7 +165,9 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
+        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe(
+            "cog",
+        );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
     });
@@ -154,7 +177,9 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog", ["cog1", "cog2", "cog3"])).resolves.toBe("cog");
+        await expect(
+            cargo.installCached("cog", "5.9", "cog", ["cog1", "cog2", "cog3"]),
+        ).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
     });
@@ -166,10 +191,14 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
+        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe(
+            "cog",
+        );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog", []]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-5.9-cog", []],
+        ]);
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
@@ -179,10 +208,14 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
+        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe(
+            "cog",
+        );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-5.9-cog"],
+        ]);
         expect(spy3.mock.calls).toEqual([["failed to save cache"]]);
     });
 
@@ -193,10 +226,14 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).rejects.toBeInstanceOf(UnMockedValidationError);
+        await expect(
+            cargo.installCached("cog", "5.9", "cog"),
+        ).rejects.toBeInstanceOf(UnMockedValidationError);
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-5.9-cog"],
+        ]);
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 3", async () => {
@@ -206,10 +243,14 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
+        await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe(
+            "cog",
+        );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-5.9-cog"],
+        ]);
         expect(spy3.mock.calls).toEqual([["failed reserve space"]]);
     });
 
@@ -227,9 +268,13 @@ describe("cargo", () => {
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).rejects.toEqual(special);
+        await expect(cargo.installCached("cog", "5.9", "cog")).rejects.toEqual(
+            special,
+        );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-5.9-cog"],
+        ]);
     });
 });

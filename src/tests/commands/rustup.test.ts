@@ -27,7 +27,9 @@ describe("rustup", () => {
     it("get", async () => {
         const spy = vitest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
 
-        await expect(RustUp.get()).resolves.toEqual({ path: "/home/user/.cargo/bin/rustup" });
+        await expect(RustUp.get()).resolves.toEqual({
+            path: "/home/user/.cargo/bin/rustup",
+        });
 
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -42,7 +44,9 @@ describe("rustup", () => {
         const spy1 = vitest.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to rustup"));
         const spy2 = vitest.spyOn(RustUp, "install").mockResolvedValueOnce(rustup);
 
-        await expect(RustUp.getOrInstall()).resolves.toEqual({ path: "/home/user/.cargo/bin/rustup" });
+        await expect(RustUp.getOrInstall()).resolves.toEqual({
+            path: "/home/user/.cargo/bin/rustup",
+        });
 
         expect(spy1).toHaveBeenCalledTimes(1);
         expect(spy2).toHaveBeenCalledTimes(1);
@@ -58,7 +62,10 @@ describe("rustup", () => {
         await expect(RustUp.install()).rejects.toThrow(/Unknown platform/);
     });
 
-    test.each([["linux" as typeof process.platform], ["darwin" as typeof process.platform]])("install %s", async (platform: typeof process.platform) => {
+    test.each([
+        ["linux" as typeof process.platform],
+        ["darwin" as typeof process.platform],
+    ])("install %s", async (platform: typeof process.platform) => {
         Object.defineProperty(process, "platform", {
             value: platform,
         });
@@ -70,7 +77,9 @@ describe("rustup", () => {
 
         await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
         expect(downloadSpy.mock.calls).toEqual([["https://sh.rustup.rs"]]);
-        expect(execSpy.mock.calls).toEqual([["/tmp/rustup.sh", ["--default-toolchain", "none", "-y"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["/tmp/rustup.sh", ["--default-toolchain", "none", "-y"]],
+        ]);
     });
 
     it("install win32", async () => {
@@ -85,7 +94,9 @@ describe("rustup", () => {
 
         await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
         expect(downloadSpy.mock.calls).toEqual([["https://win.rustup.rs"]]);
-        expect(execSpy.mock.calls).toEqual([["C:\\TEMP\\rustup.exe", ["--default-toolchain", "none", "-y"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["C:\\TEMP\\rustup.exe", ["--default-toolchain", "none", "-y"]],
+        ]);
     });
 
     it("installToolchain", async () => {
@@ -98,7 +109,12 @@ describe("rustup", () => {
         expect.assertions(2);
 
         await expect(rustup.installToolchain("stable")).resolves.toEqual(0);
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable"],
+            ],
+        ]);
     });
 
     it("installToolchain stable-x86_64-pc-windows-msvc", async () => {
@@ -110,8 +126,15 @@ describe("rustup", () => {
 
         expect.assertions(2);
 
-        await expect(rustup.installToolchain("stable-x86_64-pc-windows-msvc")).resolves.toEqual(0);
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable-x86_64-pc-windows-msvc"]]]);
+        await expect(
+            rustup.installToolchain("stable-x86_64-pc-windows-msvc"),
+        ).resolves.toEqual(0);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable-x86_64-pc-windows-msvc"],
+            ],
+        ]);
     });
 
     it("installToolchain components", async () => {
@@ -129,7 +152,20 @@ describe("rustup", () => {
             }),
         ).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--component", "clippy", "--component", "rust-doc"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                [
+                    "toolchain",
+                    "install",
+                    "stable",
+                    "--component",
+                    "clippy",
+                    "--component",
+                    "rust-doc",
+                ],
+            ],
+        ]);
     });
 
     it("installToolchain noSelfUpdate", async () => {
@@ -147,7 +183,12 @@ describe("rustup", () => {
             }),
         ).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--no-self-update"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable", "--no-self-update"],
+            ],
+        ]);
     });
 
     it("installToolchain allowDowngrade", async () => {
@@ -165,7 +206,12 @@ describe("rustup", () => {
             }),
         ).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--allow-downgrade"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable", "--allow-downgrade"],
+            ],
+        ]);
     });
 
     it("installToolchain force", async () => {
@@ -183,7 +229,12 @@ describe("rustup", () => {
             }),
         ).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--force"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable", "--force"],
+            ],
+        ]);
     });
 
     it("installToolchain default", async () => {
@@ -202,7 +253,10 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable"]],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable"],
+            ],
             ["/home/user/.cargo/bin/rustup", ["default", "stable"]],
         ]);
     });
@@ -223,7 +277,10 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable"]],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable"],
+            ],
             ["/home/user/.cargo/bin/rustup", ["override", "set", "stable"]],
         ]);
     });
@@ -237,9 +294,16 @@ describe("rustup", () => {
 
         expect.assertions(2);
 
-        await expect(rustup.addTarget("x86_64-apple-darwin")).resolves.toEqual(0);
+        await expect(rustup.addTarget("x86_64-apple-darwin")).resolves.toEqual(
+            0,
+        );
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["target", "add", "x86_64-apple-darwin"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["target", "add", "x86_64-apple-darwin"],
+            ],
+        ]);
     });
 
     it("addTarget forToolchain", async () => {
@@ -251,9 +315,22 @@ describe("rustup", () => {
 
         expect.assertions(2);
 
-        await expect(rustup.addTarget("x86_64-apple-darwin", "nightly")).resolves.toEqual(0);
+        await expect(
+            rustup.addTarget("x86_64-apple-darwin", "nightly"),
+        ).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["target", "add", "--toolchain", "nightly", "x86_64-apple-darwin"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                [
+                    "target",
+                    "add",
+                    "--toolchain",
+                    "nightly",
+                    "x86_64-apple-darwin",
+                ],
+            ],
+        ]);
     });
 
     it("which", async () => {
@@ -264,12 +341,15 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.which("cargo")).resolves.toEqual("/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo");
+        await expect(rustup.which("cargo")).resolves.toEqual(
+            "/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo",
+        );
     });
 
     it("which", async () => {
@@ -280,12 +360,15 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stderr?.(Buffer.from("error: not a file: '/home/kristof/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/clippy'"));
 
-            return Promise.resolve(1);
-        });
+                return Promise.resolve(1);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.which("clippy")).rejects.toThrowError('Unable to find "clippy"');
+        await expect(rustup.which("clippy")).rejects.toThrowError(
+            'Unable to find "clippy"',
+        );
     });
 
     it("setProfile", async () => {
@@ -299,7 +382,9 @@ describe("rustup", () => {
 
         await expect(rustup.setProfile("full")).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["set", "profile", "full"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/rustup", ["set", "profile", "full"]],
+        ]);
     });
 
     it("selfUpdate", async () => {
@@ -313,7 +398,9 @@ describe("rustup", () => {
 
         await expect(rustup.selfUpdate()).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["self", "update"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/rustup", ["self", "update"]],
+        ]);
     });
 
     it("activeToolchain", async () => {
@@ -324,12 +411,15 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("stable-x86_64-unknown-linux-gnu (default)"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.activeToolchain()).resolves.toEqual("stable-x86_64-unknown-linux-gnu");
+        await expect(rustup.activeToolchain()).resolves.toEqual(
+            "stable-x86_64-unknown-linux-gnu",
+        );
     });
 
     it("activeToolchain none set", async () => {
@@ -343,7 +433,9 @@ describe("rustup", () => {
 
         expect.assertions(1);
 
-        await expect(rustup.activeToolchain()).rejects.toThrowError("Unable to determine active toolchain");
+        await expect(rustup.activeToolchain()).rejects.toThrowError(
+            "Unable to determine active toolchain",
+        );
     });
 
     it("version", async () => {
@@ -354,8 +446,9 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -373,7 +466,9 @@ describe("rustup", () => {
 
         expect.assertions(1);
 
-        await expect(rustup.version()).rejects.toThrowError("Unable to determine version");
+        await expect(rustup.version()).rejects.toThrowError(
+            "Unable to determine version",
+        );
     });
 
     it("supportProfiles", async () => {
@@ -384,8 +479,9 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -400,8 +496,9 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -416,8 +513,9 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -432,8 +530,9 @@ describe("rustup", () => {
         vitest.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
