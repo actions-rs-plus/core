@@ -1,4 +1,4 @@
 {
     "jest.enable": false,
-    "prettier.configPath": "./.prettierrc.js"
+    "prettier.configPath": "./.prettierrc.cjs"
 }

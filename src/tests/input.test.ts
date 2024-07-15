@@ -1,4 +1,5 @@
 import { getInput, getInputAsArray, getInputBool, getInputList } from "@/input";
+import { describe, expect, it, test } from "vitest";
 
 describe("input", () => {
     describe("getInput", () => {

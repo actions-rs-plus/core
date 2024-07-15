@@ -1,41 +1,34 @@
 import * as github from "@actions/github";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Check } from "@/checks";
 
-// I hate doing thing like this, but it's the only way I could figure out on how
-// to properly mock out the client.rest methods
-vitest.mock("@octokit/plugin-rest-endpoint-methods", () => {
-    return {
-        restEndpointMethods: () => {
-            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-            const fn = () => {
-                return {
-                    data: {
-                        id: 5,
-                    },
-                };
-            };
-
-            return {
-                rest: {
-                    checks: {
-                        create: fn,
-                        update: fn,
-                    },
-                },
-            };
-        },
-        legacyRestEndpointMethods: () => {},
-    };
-});
-
 describe("check", () => {
     beforeEach(() => {
+        let fakeResult = {
+            data: {
+                id: 5,
+            },
+        };
+
         github.context.sha = "sha";
 
-        vitest.spyOn(github.context, "repo", "get").mockReturnValue({
+        vi.spyOn(github.context, "repo", "get").mockReturnValue({
             repo: "repo",
             owner: "owner",
+        });
+
+        let client = github.getOctokit("token");
+
+        vi.spyOn(github, "getOctokit").mockReturnValue({
+            ...client,
+            rest: {
+                ...client.rest,
+                checks: {
+                    create: vi.fn().mockResolvedValue(fakeResult),
+                    update: vi.fn().mockResolvedValue(fakeResult),
+                } as unknown as ReturnType<typeof github.getOctokit>["rest"]["checks"],
+            },
         });
     });
 
@@ -44,13 +37,9 @@ describe("check", () => {
 
         const client = github.getOctokit("token");
 
-        const createSpy = vitest.spyOn(client.rest.checks, "create");
+        const createSpy = vi.spyOn(client.rest.checks, "create");
 
-        const check: Check = await Check.startCheck(
-            client,
-            "check-name",
-            "in_progress",
-        );
+        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
         expect(check).toBeInstanceOf(Check);
         expect(createSpy.mock.calls).toMatchObject([
@@ -69,11 +58,7 @@ describe("check", () => {
     it("cancelCheck", async () => {
         const client = github.getOctokit("token");
 
-        const check: Check = await Check.startCheck(
-            client,
-            "check-name",
-            "in_progress",
-        );
+        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
         await expect(check.cancelCheck()).resolves.toBe(undefined);
     });
@@ -81,11 +66,7 @@ describe("check", () => {
     it("finishCheck", async () => {
         const client = github.getOctokit("token");
 
-        const check: Check = await Check.startCheck(
-            client,
-            "check-name",
-            "in_progress",
-        );
+        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
         await expect(
             check.finishCheck("success", {
