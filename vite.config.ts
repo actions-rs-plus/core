@@ -9,6 +9,7 @@ export default defineConfig({
         setupFiles: ["./test.setup.ts"],
         coverage: {
             reportsDirectory: "coverage",
+            reporter: ["json", "html", "text"],
         },
     },
 });
