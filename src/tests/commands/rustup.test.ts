@@ -20,7 +20,9 @@ vi.mock("node:os", () => {
 
 describe("rustup", () => {
     it("get", async () => {
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        const spy = vi
+            .spyOn(io, "which")
+            .mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
 
         await expect(RustUp.get()).resolves.toEqual({
             path: "/home/user/.cargo/bin/rustup",
@@ -31,12 +33,16 @@ describe("rustup", () => {
 
     it("getOrInstall install", async () => {
         // prepare instance to return after installation
-        const prepared = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        const prepared = vi
+            .spyOn(io, "which")
+            .mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
         const rustup = await RustUp.get();
         prepared.mockClear();
 
         // actual test
-        const spy1 = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to rustup"));
+        const spy1 = vi
+            .spyOn(io, "which")
+            .mockRejectedValue(new Error("Could not find path to rustup"));
         const spy2 = vi.spyOn(RustUp, "install").mockResolvedValueOnce(rustup);
 
         await expect(RustUp.getOrInstall()).resolves.toEqual({
@@ -55,37 +61,47 @@ describe("rustup", () => {
         await expect(RustUp.install()).rejects.toThrow(/Unknown platform/);
     });
 
-    test.each([["linux" as typeof process.platform], ["darwin" as typeof process.platform]])(
-        "install %s",
-        async (platform: typeof process.platform) => {
-            vi.spyOn(fs, "chmod").mockResolvedValueOnce();
-            osMocks.platform.mockReturnValueOnce(platform);
+    test.each([
+        ["linux" as typeof process.platform],
+        ["darwin" as typeof process.platform],
+    ])("install %s", async (platform: typeof process.platform) => {
+        vi.spyOn(fs, "chmod").mockResolvedValueOnce();
+        osMocks.platform.mockReturnValueOnce(platform);
 
-            const downloadSpy = vi.spyOn(tc, "downloadTool").mockResolvedValueOnce("/tmp/rustup.sh");
-            const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const downloadSpy = vi
+            .spyOn(tc, "downloadTool")
+            .mockResolvedValueOnce("/tmp/rustup.sh");
+        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
-            expect.assertions(3);
+        expect.assertions(3);
 
-            await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
-            expect(downloadSpy.mock.calls).toEqual([["https://sh.rustup.rs"]]);
-            expect(execSpy.mock.calls).toEqual([["/tmp/rustup.sh", ["--default-toolchain", "none", "-y"]]]);
-        },
-    );
+        await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
+        expect(downloadSpy.mock.calls).toEqual([["https://sh.rustup.rs"]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["/tmp/rustup.sh", ["--default-toolchain", "none", "-y"]],
+        ]);
+    });
 
     it("install win32", async () => {
         osMocks.platform.mockReturnValueOnce("win32");
-        const downloadSpy = vi.spyOn(tc, "downloadTool").mockResolvedValueOnce("C:\\TEMP\\rustup.exe");
+        const downloadSpy = vi
+            .spyOn(tc, "downloadTool")
+            .mockResolvedValueOnce("C:\\TEMP\\rustup.exe");
         const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         expect.assertions(3);
 
         await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
         expect(downloadSpy.mock.calls).toEqual([["https://win.rustup.rs"]]);
-        expect(execSpy.mock.calls).toEqual([["C:\\TEMP\\rustup.exe", ["--default-toolchain", "none", "-y"]]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["C:\\TEMP\\rustup.exe", ["--default-toolchain", "none", "-y"]],
+        ]);
     });
 
     it("installToolchain", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
@@ -95,12 +111,18 @@ describe("rustup", () => {
 
         await expect(rustup.installToolchain("stable")).resolves.toEqual(0);
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable"],
+                undefined,
+            ],
         ]);
     });
 
     it("installToolchain stable-x86_64-pc-windows-msvc", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
@@ -108,18 +130,29 @@ describe("rustup", () => {
 
         expect.assertions(2);
 
-        await expect(rustup.installToolchain("stable-x86_64-pc-windows-msvc")).resolves.toEqual(0);
+        await expect(
+            rustup.installToolchain("stable-x86_64-pc-windows-msvc"),
+        ).resolves.toEqual(0);
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable-x86_64-pc-windows-msvc"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable-x86_64-pc-windows-msvc"],
+                undefined,
+            ],
         ]);
     });
 
     it("installToolchain components", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0).mockResolvedValueOnce(0);
+        const execSpy = vi
+            .spyOn(exec, "exec")
+            .mockResolvedValueOnce(0)
+            .mockResolvedValueOnce(0);
 
         expect.assertions(2);
 
@@ -132,18 +165,31 @@ describe("rustup", () => {
         expect(execSpy.mock.calls).toEqual([
             [
                 "/home/user/.cargo/bin/rustup",
-                ["toolchain", "install", "stable", "--component", "clippy", "--component", "rust-doc"],
+                [
+                    "toolchain",
+                    "install",
+                    "stable",
+                    "--component",
+                    "clippy",
+                    "--component",
+                    "rust-doc",
+                ],
                 undefined,
             ],
         ]);
     });
 
     it("installToolchain noSelfUpdate", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0).mockResolvedValueOnce(0);
+        const execSpy = vi
+            .spyOn(exec, "exec")
+            .mockResolvedValueOnce(0)
+            .mockResolvedValueOnce(0);
 
         expect.assertions(2);
 
@@ -154,16 +200,25 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--no-self-update"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable", "--no-self-update"],
+                undefined,
+            ],
         ]);
     });
 
     it("installToolchain allowDowngrade", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0).mockResolvedValueOnce(0);
+        const execSpy = vi
+            .spyOn(exec, "exec")
+            .mockResolvedValueOnce(0)
+            .mockResolvedValueOnce(0);
 
         expect.assertions(2);
 
@@ -174,16 +229,25 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--allow-downgrade"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable", "--allow-downgrade"],
+                undefined,
+            ],
         ]);
     });
 
     it("installToolchain force", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0).mockResolvedValueOnce(0);
+        const execSpy = vi
+            .spyOn(exec, "exec")
+            .mockResolvedValueOnce(0)
+            .mockResolvedValueOnce(0);
 
         expect.assertions(2);
 
@@ -194,16 +258,25 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable", "--force"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable", "--force"],
+                undefined,
+            ],
         ]);
     });
 
     it("installToolchain default", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0).mockResolvedValueOnce(0);
+        const execSpy = vi
+            .spyOn(exec, "exec")
+            .mockResolvedValueOnce(0)
+            .mockResolvedValueOnce(0);
 
         expect.assertions(2);
 
@@ -214,17 +287,26 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable"],
+                undefined,
+            ],
             ["/home/user/.cargo/bin/rustup", ["default", "stable"], undefined],
         ]);
     });
 
     it("installToolchain override", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0).mockResolvedValueOnce(0);
+        const execSpy = vi
+            .spyOn(exec, "exec")
+            .mockResolvedValueOnce(0)
+            .mockResolvedValueOnce(0);
 
         expect.assertions(2);
 
@@ -235,13 +317,23 @@ describe("rustup", () => {
         ).resolves.toEqual(0);
 
         expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["toolchain", "install", "stable"], undefined],
-            ["/home/user/.cargo/bin/rustup", ["override", "set", "stable"], undefined],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["toolchain", "install", "stable"],
+                undefined,
+            ],
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["override", "set", "stable"],
+                undefined,
+            ],
         ]);
     });
 
     it("addTarget", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
@@ -249,45 +341,67 @@ describe("rustup", () => {
 
         expect.assertions(2);
 
-        await expect(rustup.addTarget("x86_64-apple-darwin")).resolves.toEqual(0);
-
-        expect(execSpy.mock.calls).toEqual([
-            ["/home/user/.cargo/bin/rustup", ["target", "add", "x86_64-apple-darwin"], undefined],
-        ]);
-    });
-
-    it("addTarget forToolchain", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
-
-        const rustup = await RustUp.get();
-
-        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-
-        expect.assertions(2);
-
-        await expect(rustup.addTarget("x86_64-apple-darwin", "nightly")).resolves.toEqual(0);
+        await expect(rustup.addTarget("x86_64-apple-darwin")).resolves.toEqual(
+            0,
+        );
 
         expect(execSpy.mock.calls).toEqual([
             [
                 "/home/user/.cargo/bin/rustup",
-                ["target", "add", "--toolchain", "nightly", "x86_64-apple-darwin"],
+                ["target", "add", "x86_64-apple-darwin"],
+                undefined,
+            ],
+        ]);
+    });
+
+    it("addTarget forToolchain", async () => {
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
+
+        const rustup = await RustUp.get();
+
+        const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+
+        expect.assertions(2);
+
+        await expect(
+            rustup.addTarget("x86_64-apple-darwin", "nightly"),
+        ).resolves.toEqual(0);
+
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                [
+                    "target",
+                    "add",
+                    "--toolchain",
+                    "nightly",
+                    "x86_64-apple-darwin",
+                ],
                 undefined,
             ],
         ]);
     });
 
     it("which", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(
-                Buffer.from("/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo"),
-            );
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from(
+                        "/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo",
+                    ),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -297,27 +411,35 @@ describe("rustup", () => {
     });
 
     it("which", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stderr?.(
-                Buffer.from(
-                    "error: not a file: '/home/kristof/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/clippy'",
-                ),
-            );
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stderr?.(
+                    Buffer.from(
+                        "error: not a file: '/home/kristof/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/clippy'",
+                    ),
+                );
 
-            return Promise.resolve(1);
-        });
+                return Promise.resolve(1);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.which("clippy")).rejects.toThrowError('Unable to find "clippy"');
+        await expect(rustup.which("clippy")).rejects.toThrowError(
+            'Unable to find "clippy"',
+        );
     });
 
     it("setProfile", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
@@ -327,11 +449,19 @@ describe("rustup", () => {
 
         await expect(rustup.setProfile("full")).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["set", "profile", "full"], undefined]]);
+        expect(execSpy.mock.calls).toEqual([
+            [
+                "/home/user/.cargo/bin/rustup",
+                ["set", "profile", "full"],
+                undefined,
+            ],
+        ]);
     });
 
     it("selfUpdate", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
@@ -341,49 +471,71 @@ describe("rustup", () => {
 
         await expect(rustup.selfUpdate()).resolves.toEqual(0);
 
-        expect(execSpy.mock.calls).toEqual([["/home/user/.cargo/bin/rustup", ["self", "update"], undefined]]);
+        expect(execSpy.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/rustup", ["self", "update"], undefined],
+        ]);
     });
 
     it("activeToolchain", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(Buffer.from("stable-x86_64-unknown-linux-gnu (default)"));
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from("stable-x86_64-unknown-linux-gnu (default)"),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.activeToolchain()).resolves.toEqual("stable-x86_64-unknown-linux-gnu");
+        await expect(rustup.activeToolchain()).resolves.toEqual(
+            "stable-x86_64-unknown-linux-gnu",
+        );
     });
 
     it("activeToolchain none set", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, _options) => {
-            return Promise.resolve(1);
-        });
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, _options) => {
+                return Promise.resolve(1);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.activeToolchain()).rejects.toThrowError("Unable to determine active toolchain");
+        await expect(rustup.activeToolchain()).rejects.toThrowError(
+            "Unable to determine active toolchain",
+        );
     });
 
     it("version", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -391,29 +543,41 @@ describe("rustup", () => {
     });
 
     it("version none set", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, _options) => {
-            return Promise.resolve(1);
-        });
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, _options) => {
+                return Promise.resolve(1);
+            },
+        );
 
         expect.assertions(1);
 
-        await expect(rustup.version()).rejects.toThrowError("Unable to determine version");
+        await expect(rustup.version()).rejects.toThrowError(
+            "Unable to determine version",
+        );
     });
 
     it("supportProfiles", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -421,15 +585,21 @@ describe("rustup", () => {
     });
 
     it("supportProfiles fail", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -437,15 +607,21 @@ describe("rustup", () => {
     });
 
     it("supportComponents", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 
@@ -453,15 +629,21 @@ describe("rustup", () => {
     });
 
     it("supportComponents fail", async () => {
-        vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(io, "which").mockResolvedValueOnce(
+            "/home/user/.cargo/bin/rustup",
+        );
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
-            options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
+        vi.spyOn(exec, "exec").mockImplementationOnce(
+            (_commandLine, _args, options) => {
+                options?.listeners?.stdout?.(
+                    Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"),
+                );
 
-            return Promise.resolve(0);
-        });
+                return Promise.resolve(0);
+            },
+        );
 
         expect.assertions(1);
 

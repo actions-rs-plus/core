@@ -15,7 +15,11 @@ export class Check {
     private readonly checkName: string;
     private readonly checkId: number;
 
-    private constructor(client: InstanceType<typeof GitHub>, checkName: string, checkId: number) {
+    private constructor(
+        client: InstanceType<typeof GitHub>,
+        checkName: string,
+        checkId: number,
+    ) {
         this.client = client;
         this.checkName = checkName;
         this.checkId = checkId;
@@ -47,7 +51,13 @@ export class Check {
     //     }
 
     public async finishCheck(
-        conclusion: "action_required" | "cancelled" | "failure" | "neutral" | "success" | "timed_out",
+        conclusion:
+            | "action_required"
+            | "cancelled"
+            | "failure"
+            | "neutral"
+            | "success"
+            | "timed_out",
         output: Output,
     ): Promise<void> {
         const { owner, repo } = github.context.repo;
