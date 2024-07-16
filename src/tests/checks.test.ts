@@ -48,11 +48,7 @@ describe("check", () => {
 
         const createSpy = jest.spyOn(client.rest.checks, "create");
 
-        const check: Check = await Check.startCheck(
-            client,
-            "check-name",
-            "in_progress",
-        );
+        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
         expect(check).toBeInstanceOf(Check);
         expect(createSpy.mock.calls).toMatchObject([
@@ -71,11 +67,7 @@ describe("check", () => {
     it("cancelCheck", async () => {
         const client = getOctokit("token");
 
-        const check: Check = await Check.startCheck(
-            client,
-            "check-name",
-            "in_progress",
-        );
+        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
         await expect(check.cancelCheck()).resolves.toBe(undefined);
     });
@@ -83,11 +75,7 @@ describe("check", () => {
     it("finishCheck", async () => {
         const client = getOctokit("token");
 
-        const check: Check = await Check.startCheck(
-            client,
-            "check-name",
-            "in_progress",
-        );
+        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
         await expect(
             check.finishCheck("success", {
