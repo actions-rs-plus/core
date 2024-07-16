@@ -12,7 +12,7 @@ export default defineConfig({
             reporter: ["json", "html", "text"],
         },
         outputFile: {
-            json: "./reports/test-report.json",
+            junit: "./reports/test-report.xml",
         },
     },
 });
