@@ -159,7 +159,7 @@ jobs:
         shell: bash
         id: tests
         run: |
-          npm run test -- --reporter=basic --reporter=xml --coverage.reporter=text --coverage.reporter=lcov --coverage.reporter=json
+          npm run test -- --reporter=basic --reporter=junit --coverage.reporter=text --coverage.reporter=lcov --coverage.reporter=json
         continue-on-error: true
 
       - name: Upload unit-test results
