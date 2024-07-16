@@ -18,10 +18,7 @@ export function getInput(name: string, options?: core.InputOptions): string {
     return core.getInput(name, options);
 }
 
-export function getInputBool(
-    name: string,
-    options?: core.InputOptions,
-): boolean {
+export function getInputBool(name: string, options?: core.InputOptions): boolean {
     const value = getInput(name, options);
     if (value && (value === "true" || value === "1")) {
         return true;
@@ -30,10 +27,7 @@ export function getInputBool(
     }
 }
 
-export function getInputList(
-    name: string,
-    options?: core.InputOptions,
-): string[] {
+export function getInputList(name: string, options?: core.InputOptions): string[] {
     const raw = getInput(name, options);
 
     return raw
@@ -46,10 +40,7 @@ export function getInputList(
         });
 }
 
-export function getInputAsArray(
-    name: string,
-    options?: core.InputOptions,
-): string[] {
+export function getInputAsArray(name: string, options?: core.InputOptions): string[] {
     return getInput(name, options)
         .split("\n")
         .map((s) => {

@@ -34,9 +34,7 @@ export class RustUp {
         try {
             return await RustUp.get();
         } catch (error: unknown) {
-            core.debug(
-                `Unable to find "rustup" executable, installing it now. Reason: ${String(error)}`,
-            );
+            core.debug(`Unable to find "rustup" executable, installing it now. Reason: ${String(error)}`);
             return RustUp.install();
         }
     }
@@ -75,17 +73,13 @@ export class RustUp {
             }
 
             case "win32": {
-                const rustupExe = await tc.downloadTool(
-                    "https://win.rustup.rs",
-                );
+                const rustupExe = await tc.downloadTool("https://win.rustup.rs");
                 await exec.exec(rustupExe, args);
                 break;
             }
 
             default:
-                throw new Error(
-                    `Unknown platform ${platform}, can't install rustup`,
-                );
+                throw new Error(`Unknown platform ${platform}, can't install rustup`);
         }
 
         // `$HOME` should always be declared, so it is more to get the linters happy
@@ -95,10 +89,7 @@ export class RustUp {
         return new RustUp("rustup");
     }
 
-    public async installToolchain(
-        name: string,
-        options?: ToolchainOptions,
-    ): Promise<number> {
+    public async installToolchain(name: string, options?: ToolchainOptions): Promise<number> {
         const args = ["toolchain", "install", name];
 
         if (options) {
@@ -227,10 +218,7 @@ expected at least ${PROFILES_MIN_VERSION}`);
     /**
      * Call the `rustup` and return an stdout
      */
-    public async callStdout(
-        args: string[],
-        options?: exec.ExecOptions,
-    ): Promise<string> {
+    public async callStdout(args: string[], options?: exec.ExecOptions): Promise<string> {
         let stdout = "";
         const resOptions = Object.assign({}, options, {
             listeners: {
