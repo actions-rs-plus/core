@@ -1,5 +1,5 @@
-import * as github from "@actions/github";
-import type { GitHub } from "@actions/github/lib/utils";
+import github from "@actions/github";
+import { type GitHub } from "@actions/github/lib/utils";
 
 interface Output {
     title: string;
