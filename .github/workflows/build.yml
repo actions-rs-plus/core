@@ -128,7 +128,6 @@ jobs:
       - name: Annotate Code Linting Results
         uses: ataylorme/eslint-annotate-action@d57a1193d4c59cbfbf3f86c271f42612f9dbd9e9 # 3.0.0
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
           report-json: reports/lint-report.json
 
   npm-test:
@@ -159,18 +158,15 @@ jobs:
       - name: Run tests
         shell: bash
         id: tests
-        env:
-          JEST_JUNIT_OUTPUT_DIR: reports/
-          JEST_JUNIT_OUTPUT_NAME: unit-tests-report.xml
         run: |
-          npm run test:ci -- --coverage --testLocationInResults --reporters=default --reporters=jest-junit
+          npm run test -- --reporter=basic --reporter=junit --coverage.reporter=text --coverage.reporter=lcov --coverage.reporter=json
         continue-on-error: true
 
       - name: Upload unit-test results
         uses: enricomi/publish-unit-test-result-action@567cc7f8dcea3eba5da355f6ebc95663310d8a07 # v2.17.0
         with:
           check_name: Unit-test results
-          files: reports/unit-tests-report.xml
+          files: reports/test-report.xml
 
       - name: Upload coverage results (to Codecov.io)
         uses: codecov/codecov-action@e28ff129e5465c2c0dcc6f003fc735cb6ae0c673 # v4.5.0

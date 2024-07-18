@@ -3,16 +3,16 @@ import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as http from "@actions/http-client";
 import * as io from "@actions/io";
+import { describe, expect, it, vi } from "vitest";
 
-import { Cargo } from "core";
+import { Cargo } from "@/core";
 
-jest.mock("@actions/io");
-jest.mock("@actions/exec");
-jest.mock("@actions/cache");
+vi.mock("@actions/exec");
+vi.mock("@actions/cache");
 
 describe("cargo", () => {
     it("Cargo", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
         await expect(Cargo.get()).resolves.toEqual({
             path: "/home/user/.cargo/bin/cargo",
@@ -22,8 +22,8 @@ describe("cargo", () => {
     });
 
     it("Cargo not found", async () => {
-        const spy = jest.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
-        const spy2 = jest.spyOn(core, "error").mockImplementation(() => {});
+        const spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
+        const spy2 = vi.spyOn(core, "error").mockImplementation(() => {});
 
         await expect(Cargo.get()).rejects.toThrow("Could not find path to cargo");
 
@@ -32,7 +32,7 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall", async () => {
-        const spy = jest
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockResolvedValueOnce("/home/kristof/.cargo/bin/cog");
@@ -45,13 +45,13 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall not found", async () => {
-        const spy = jest
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockRejectedValueOnce(new Error("Could not find path to cog"))
             .mockResolvedValueOnce("/home/user/.cargo/bin/cog");
 
-        const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -61,16 +61,16 @@ describe("cargo", () => {
             ["cargo", true],
             ["cog", true],
         ]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"], undefined]]);
     });
 
     it("Cargo findOrInstall not found with version", async () => {
-        const spy = jest
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockRejectedValueOnce(new Error("Could not find path to cog"));
 
-        const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -80,18 +80,20 @@ describe("cargo", () => {
             ["cargo", true],
             ["cog", true],
         ]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
     });
 
     it("Cargo findOrInstall not found with explicit version latest", async () => {
-        const spy = jest
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockRejectedValueOnce(new Error("Could not find path to cog"));
 
-        const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
-        const spy3 = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+        const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -109,29 +111,31 @@ describe("cargo", () => {
             ["cargo", true],
             ["cog", true],
         ]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"], undefined],
+        ]);
         expect(spy3).toHaveBeenCalledTimes(1);
     });
 
     it("Cargo findOrInstall not found", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
-        const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "cog"], undefined]]);
     });
 
     it("Cargo findOrInstall not found with explicit version latest", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
-        const spy2 = jest.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
-        const spy3 = jest.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+        const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -146,12 +150,14 @@ describe("cargo", () => {
         await expect(cargo.installCached("cog", "latest")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"]]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "6.0", "cog"], undefined],
+        ]);
         expect(spy3).toHaveBeenCalledTimes(1);
     });
 
     it("Cargo findOrInstall with primary key", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
         const cargo = await Cargo.get();
 
@@ -161,7 +167,7 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key & restore keys", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
         const cargo = await Cargo.get();
 
@@ -171,9 +177,9 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key, no cache key", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
-        const spy2 = jest.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
 
@@ -184,9 +190,9 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const spy2 = jest.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
-        const spy3 = jest.spyOn(core, "warning").mockImplementation(() => {});
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
+        const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
@@ -198,9 +204,9 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 2", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const UnMockedValidationError = jest.requireActual("@actions/cache").ValidationError;
-        const spy2 = jest
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const UnMockedValidationError = (await vi.importActual<typeof cache>("@actions/cache")).ValidationError;
+        const spy2 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new UnMockedValidationError("failed to save cache"));
 
@@ -213,11 +219,13 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 3", async () => {
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const spy2 = jest
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi
             .spyOn(cache, "saveCache")
-            .mockRejectedValue(new (jest.requireActual("@actions/cache").ReserveCacheError)("failed reserve space"));
-        const spy3 = jest.spyOn(core, "warning").mockImplementation(() => {});
+            .mockRejectedValue(
+                new (await vi.importActual<typeof cache>("@actions/cache")).ReserveCacheError("failed reserve space"),
+            );
+        const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
@@ -237,8 +245,8 @@ describe("cargo", () => {
         }
 
         const special = new Special("I don't implement Error");
-        const spy = jest.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const spy2 = jest.spyOn(cache, "saveCache").mockRejectedValue(special);
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(cache, "saveCache").mockRejectedValue(special);
 
         const cargo = await Cargo.get();
 

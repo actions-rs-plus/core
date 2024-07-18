@@ -1,52 +1,43 @@
-import { getOctokit } from "@actions/github";
-
 import * as github from "@actions/github";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { Check } from "checks";
-
-// I hate doing thing like this, but it's the only way I could figure out on how
-// to properly mock out the client.rest methods
-jest.mock("@octokit/plugin-rest-endpoint-methods", () => {
-    return {
-        restEndpointMethods: () => {
-            // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-            const fn = () => {
-                return {
-                    data: {
-                        id: 5,
-                    },
-                };
-            };
-
-            return {
-                rest: {
-                    checks: {
-                        create: fn,
-                        update: fn,
-                    },
-                },
-            };
-        },
-        legacyRestEndpointMethods: () => {},
-    };
-});
+import { Check } from "@/checks";
 
 describe("check", () => {
     beforeEach(() => {
+        const fakeResult = {
+            data: {
+                id: 5,
+            },
+        };
+
         github.context.sha = "sha";
 
-        jest.spyOn(github.context, "repo", "get").mockReturnValue({
+        vi.spyOn(github.context, "repo", "get").mockReturnValue({
             repo: "repo",
             owner: "owner",
+        });
+
+        const client = github.getOctokit("token");
+
+        vi.spyOn(github, "getOctokit").mockReturnValue({
+            ...client,
+            rest: {
+                ...client.rest,
+                checks: {
+                    create: vi.fn().mockResolvedValue(fakeResult),
+                    update: vi.fn().mockResolvedValue(fakeResult),
+                } as unknown as ReturnType<typeof github.getOctokit>["rest"]["checks"],
+            },
         });
     });
 
     it("startCheck", async () => {
         expect.assertions(2);
 
-        const client = getOctokit("token");
+        const client = github.getOctokit("token");
 
-        const createSpy = jest.spyOn(client.rest.checks, "create");
+        const createSpy = vi.spyOn(client.rest.checks, "create");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
@@ -65,7 +56,7 @@ describe("check", () => {
     });
 
     it("cancelCheck", async () => {
-        const client = getOctokit("token");
+        const client = github.getOctokit("token");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 
@@ -73,7 +64,7 @@ describe("check", () => {
     });
 
     it("finishCheck", async () => {
-        const client = getOctokit("token");
+        const client = github.getOctokit("token");
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
 

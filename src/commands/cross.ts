@@ -1,10 +1,10 @@
-import * as os from "os";
+import * as os from "node:os";
 
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 
-import { BaseProgram } from "./base-program";
-import { Cargo } from "./cargo";
+import { BaseProgram } from "@/commands/base-program";
+import { Cargo } from "@/commands/cargo";
 
 export class Cross extends BaseProgram {
     private constructor(path: string) {

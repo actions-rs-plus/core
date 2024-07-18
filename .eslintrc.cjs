@@ -1,4 +1,6 @@
-module.exports = {
+/** @type { import("eslint").Linter.Config } */
+
+const esLintConfig = {
     root: true,
     parser: "@typescript-eslint/parser",
     settings: {
@@ -6,7 +8,9 @@ module.exports = {
             node: {
                 extensions: [".d.ts", ".ts"],
             },
-            typescript: {},
+            typescript: {
+                alwaysTryTypes: true,
+            },
         },
     },
     env: {
@@ -14,18 +18,19 @@ module.exports = {
         browser: true,
         es2022: true,
     },
-    plugins: ["@typescript-eslint", "import"],
+    plugins: ["@typescript-eslint", "import", "promise"],
     extends: [
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "love",
+        "plugin:import/recommended",
         "plugin:import/typescript",
         "plugin:prettier/recommended",
     ],
     parserOptions: {
         sourceType: "module", // Allows for the use of imports
         ecmaVersion: "latest",
-        project: ["./tsconfig.dev.json"],
+        project: ["./tsconfig.json"],
         tsconfigRootDir: __dirname,
         ecmaFeatures: {
             jsx: true,
@@ -38,7 +43,12 @@ module.exports = {
         "@typescript-eslint/adjacent-overload-signatures": "error",
         "@typescript-eslint/consistent-type-assertions": "error",
         "@typescript-eslint/consistent-type-definitions": "error",
-        "@typescript-eslint/consistent-type-imports": "error",
+        "@typescript-eslint/consistent-type-imports": [
+            "error",
+            {
+                fixStyle: "inline-type-imports",
+            },
+        ],
         "@typescript-eslint/no-extraneous-class": "error",
         "@typescript-eslint/explicit-function-return-type": "error",
         "@typescript-eslint/explicit-member-accessibility": ["error"],
@@ -111,6 +121,7 @@ module.exports = {
         "import/no-duplicates": "error",
         "import/no-unresolved": "error",
         "import/no-relative-packages": "error",
+        "import/consistent-type-specifier-style": ["error", "prefer-inline"],
         eqeqeq: ["error", "always"],
         "no-fallthrough": "error",
         "no-return-await": "error",
@@ -136,6 +147,7 @@ module.exports = {
                 ignoreExport: false,
             },
         ],
+        "no-restricted-imports": ["error", { patterns: [".*"] }],
         "class-methods-use-this": "off",
         // indent: ["error", 4],
         "max-len": "off",
@@ -152,7 +164,13 @@ module.exports = {
         "import/prefer-default-export": "off",
         "import/no-cycle": "off",
         "import/no-extraneous-dependencies": "off",
-        "import/extensions": ["error", "never"],
+        "import/extensions": [
+            "error",
+            "never",
+            {
+                json: "always",
+            },
+        ],
         "import/order": [
             "error",
             {
@@ -162,3 +180,5 @@ module.exports = {
         ],
     },
 };
+
+module.exports = esLintConfig;

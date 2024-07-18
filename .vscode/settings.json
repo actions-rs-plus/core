@@ -1,6 +1,4 @@
 {
-    "jest.autoRevealOutput": "on-run",
-    "jest.jestCommandLine": "node_modules/.bin/jest",
-    "jest.showCoverageOnLoad": true,
-    "prettier.configPath": "./.prettierrc.js"
+    "jest.enable": false,
+    "prettier.configPath": "./.prettierrc.cjs"
 }

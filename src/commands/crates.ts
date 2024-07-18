@@ -1,6 +1,6 @@
 import * as http from "@actions/http-client";
 
-import type { CratesIO } from "../schema";
+import { type CratesIO } from "@/schema";
 
 export async function resolveVersion(crate: string): Promise<string> {
     const url = `https://crates.io/api/v1/crates/${crate}`;

@@ -1,6 +1,6 @@
-import { promises as fs } from "fs";
-import * as path from "path";
-import * as process from "process";
+import { promises as fs } from "node:fs";
+import * as os from "node:os";
+import * as path from "node:path";
 
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
@@ -52,7 +52,9 @@ export class RustUp {
             "-y", // No need for the prompts (hard error from within the Docker containers)
         ];
 
-        switch (process.platform) {
+        const platform = os.platform();
+
+        switch (platform) {
             case "darwin":
             case "linux": {
                 const rustupSh = await tc.downloadTool("https://sh.rustup.rs");
@@ -76,7 +78,7 @@ export class RustUp {
             }
 
             default:
-                throw new Error(`Unknown platform ${process.platform}, can't install rustup`);
+                throw new Error(`Unknown platform ${platform}, can't install rustup`);
         }
 
         // `$HOME` should always be declared, so it is more to get the linters happy

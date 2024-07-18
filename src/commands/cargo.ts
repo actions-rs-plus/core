@@ -1,11 +1,11 @@
-import * as path from "path";
+import * as path from "node:path";
 
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 
-import { BaseProgram } from "./base-program";
-import { resolveVersion } from "./crates";
+import { BaseProgram } from "@/commands/base-program";
+import { resolveVersion } from "@/commands/crates";
 
 export class Cargo extends BaseProgram {
     private constructor(pathToCargo: string) {
