@@ -121,6 +121,7 @@ jobs:
 
       - name: Run lint
         shell: bash
+        id: tests
         run: |
           npm run lint -- --format=json --output-file reports/lint-report.json
         continue-on-error: true
@@ -129,6 +130,14 @@ jobs:
         uses: ataylorme/eslint-annotate-action@d57a1193d4c59cbfbf3f86c271f42612f9dbd9e9 # 3.0.0
         with:
           report-json: reports/lint-report.json
+
+      - name: Fail if tests failed
+        shell: bash
+        if: |
+          steps.tests.outcome != 'success'
+        run: |
+          echo "Tests failed"
+          exit 1;
 
   npm-test:
     name: Test the code
