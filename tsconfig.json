@@ -120,7 +120,6 @@
     "*.cjs",
     ".dependency-cruiser.cjs",
     ".prettierrc.cjs",
-    ".eslintrc.cjs",
     ".releaserc.cjs",
   ],
 }
