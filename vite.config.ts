@@ -1,4 +1,4 @@
-import { type UserConfig } from "vite";
+import type { UserConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 

@@ -1,5 +1,5 @@
 import github from "@actions/github";
-import { type GitHub } from "@actions/github/lib/utils";
+import type { GitHub } from "@actions/github/lib/utils";
 
 interface Output {
     title: string;
@@ -15,7 +15,11 @@ export class Check {
     private readonly checkName: string;
     private readonly checkId: number;
 
-    private constructor(client: InstanceType<typeof GitHub>, checkName: string, checkId: number) {
+    private constructor(
+        client: InstanceType<typeof GitHub>,
+        checkName: string,
+        checkId: number,
+    ) {
         this.client = client;
         this.checkName = checkName;
         this.checkId = checkId;
@@ -35,6 +39,7 @@ export class Check {
             owner,
             repo,
             name: checkName,
+            // biome-ignore lint/style/useNamingConvention: the contract states that it should be head_sha, not headSha
             head_sha: github.context.sha,
             status,
         });
@@ -47,7 +52,13 @@ export class Check {
     //     }
 
     public async finishCheck(
-        conclusion: "action_required" | "cancelled" | "failure" | "neutral" | "success" | "timed_out",
+        conclusion:
+            | "action_required"
+            | "cancelled"
+            | "failure"
+            | "neutral"
+            | "success"
+            | "timed_out",
         output: Output,
     ): Promise<void> {
         const { owner, repo } = github.context.repo;
@@ -57,9 +68,11 @@ export class Check {
             owner,
             repo,
             name: this.checkName,
+            // biome-ignore lint/style/useNamingConvention: contract states camelcase
             check_run_id: this.checkId,
             status: "completed",
             conclusion,
+            // biome-ignore lint/style/useNamingConvention: contract states camelcase
             completed_at: new Date().toISOString(),
             output,
         });
@@ -73,9 +86,11 @@ export class Check {
             owner,
             repo,
             name: this.checkName,
+            // biome-ignore lint/style/useNamingConvention: contract states camelcase
             check_run_id: this.checkId,
             status: "completed",
             conclusion: "cancelled",
+            // biome-ignore lint/style/useNamingConvention: contract states camelcase
             completed_at: new Date().toISOString(),
             output: {
                 title: this.checkName,

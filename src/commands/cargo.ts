@@ -21,7 +21,9 @@ export class Cargo extends BaseProgram {
             core.error(
                 "cargo is not installed by default for some virtual environments, see https://help.github.com/en/articles/software-in-virtual-environments-for-github-actions",
             );
-            core.error("To install it, use this action: https://github.com/actions-rs/toolchain");
+            core.error(
+                "To install it, use this action: https://github.com/actions-rs/toolchain",
+            );
 
             throw error;
         }
@@ -67,10 +69,16 @@ export class Cargo extends BaseProgram {
                 return `${program}-${version}-${key}`;
             });
 
-            const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
+            const cacheKey = await cache.restoreCache(
+                paths,
+                programKey,
+                programRestoreKeys,
+            );
 
             if (cacheKey) {
-                core.info(`Using cached \`${program}\` with version ${version} from ${cacheKey}`);
+                core.info(
+                    `Using cached \`${program}\` with version ${version} from ${cacheKey}`,
+                );
                 return program;
             } else {
                 const res = await this.install(program, version);
@@ -82,7 +90,9 @@ export class Cargo extends BaseProgram {
                     if (error instanceof Error) {
                         if (error.name === cache.ValidationError.name) {
                             throw error;
-                        } else if (error.name === cache.ReserveCacheError.name) {
+                        } else if (
+                            error.name === cache.ReserveCacheError.name
+                        ) {
                             core.warning(error.message);
                         }
                     } else if (typeof error === "string") {
@@ -122,12 +132,16 @@ export class Cargo extends BaseProgram {
     /**
      * Find the cargo sub-command or install it
      */
-    public async findOrInstall(program: string, version?: string): Promise<string> {
+    public async findOrInstall(
+        program: string,
+        version?: string,
+    ): Promise<string> {
         try {
+            // biome-ignore lint/complexity/noVoid: we use void to signify that we're dropping the rurn value of the promise
             void (await io.which(program, true));
 
             return program;
-        } catch (error) {
+        } catch (_error) {
             core.info(`${program} is not installed, installing it now`);
         }
 
