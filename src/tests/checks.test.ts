@@ -27,7 +27,9 @@ describe("check", () => {
                 checks: {
                     create: vi.fn().mockResolvedValue(fakeResult),
                     update: vi.fn().mockResolvedValue(fakeResult),
-                } as unknown as ReturnType<typeof github.getOctokit>["rest"]["checks"],
+                } as unknown as ReturnType<
+                    typeof github.getOctokit
+                >["rest"]["checks"],
             },
         });
     });
@@ -39,12 +41,17 @@ describe("check", () => {
 
         const createSpy = vi.spyOn(client.rest.checks, "create");
 
-        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
+        const check: Check = await Check.startCheck(
+            client,
+            "check-name",
+            "in_progress",
+        );
 
         expect(check).toBeInstanceOf(Check);
         expect(createSpy.mock.calls).toMatchObject([
             [
                 {
+                    // biome-ignore lint/style/useNamingConvention: mock, not our code
                     head_sha: "sha",
                     name: "check-name",
                     owner: "owner",
@@ -58,7 +65,11 @@ describe("check", () => {
     it("cancelCheck", async () => {
         const client = github.getOctokit("token");
 
-        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
+        const check: Check = await Check.startCheck(
+            client,
+            "check-name",
+            "in_progress",
+        );
 
         await expect(check.cancelCheck()).resolves.toBe(undefined);
     });
@@ -66,7 +77,11 @@ describe("check", () => {
     it("finishCheck", async () => {
         const client = github.getOctokit("token");
 
-        const check: Check = await Check.startCheck(client, "check-name", "in_progress");
+        const check: Check = await Check.startCheck(
+            client,
+            "check-name",
+            "in_progress",
+        );
 
         await expect(
             check.finishCheck("success", {

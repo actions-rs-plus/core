@@ -169,12 +169,15 @@
             ".gitkeep",
             "up.sh",
             ".nvmrc",
+            "coverage/**",
+            "dist/**",
             "docker-compose.yml",
             "Dockerfile-web",
             "README.md",
             "package.json",
             "package-lock.json",
-            "tsconfig.json"
+            "tsconfig.json",
+            "tsconfig.build.json"
         ]
     }
 }
