@@ -45,7 +45,7 @@
         "@vitest/ui": "2.0.4",
         "biome": "0.3.3",
         "conventional-changelog-conventionalcommits": "8.0.0",
-        "dependency-cruiser": "16.3.9",
+        "dependency-cruiser": "16.3.10",
         "husky": "9.1.1",
         "lint-staged": "15.2.7",
         "prettier": "3.3.3",
