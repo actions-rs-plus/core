@@ -57,7 +57,7 @@
         "lint-staged": "15.2.9",
         "prettier": "3.3.3",
         "semantic-release": "24.0.0",
-        "typescript": "5.5.3",
+        "typescript": "5.5.4",
         "typescript-eslint": "7.16.1",
         "vite-tsconfig-paths": "5.0.1",
         "vitest": "2.0.4"
