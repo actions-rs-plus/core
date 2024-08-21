@@ -61,16 +61,18 @@ export class Cargo extends BaseProgram {
         if (primaryKey) {
             const paths = [path.join(path.dirname(this.path), program)];
 
-            const programKey = `${program}-${version}-${primaryKey}`;
+            const programKey = `${program}-${version ?? "installed-version"}-${primaryKey}`;
 
             const programRestoreKeys = restoreKeys.map((key) => {
-                return `${program}-${version}-${key}`;
+                return `${program}-${version ?? "installed-version"}-${key}`;
             });
 
             const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
 
             if (cacheKey) {
-                core.info(`Using cached \`${program}\` with version ${version} from ${cacheKey}`);
+                core.info(
+                    `Using cached \`${program}\` with version ${version ?? "installed-version"} from ${cacheKey}`,
+                );
                 return program;
             } else {
                 const res = await this.install(program, version);
@@ -127,7 +129,7 @@ export class Cargo extends BaseProgram {
             void (await io.which(program, true));
 
             return program;
-        } catch (error) {
+        } catch {
             core.info(`${program} is not installed, installing it now`);
         }
 

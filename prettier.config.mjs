@@ -1,5 +1,5 @@
-// eslint-disable-next-line no-undef
-module.exports = {
+/** @type {import("prettier").Config} */
+export default {
     arrowParens: "always",
     bracketSpacing: true,
     printWidth: 120,
@@ -11,18 +11,9 @@ module.exports = {
     trailingComma: "all",
     overrides: [
         {
-            files: ["*.ts", "*.tsx"],
+            files: ["**/*.ts", "**/*.tsx"],
             options: {
                 parser: "typescript",
-            },
-        },
-        {
-            files: ["*.cjs"],
-        },
-        {
-            files: ["**/*.json"],
-            options: {
-                trailingComma: "none",
             },
         },
         {

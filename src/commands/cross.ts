@@ -15,7 +15,7 @@ export class Cross extends BaseProgram {
         try {
             return await Cross.get();
         } catch (error: unknown) {
-            core.debug(`${String(error)}`);
+            core.debug(String(error));
             return Cross.install();
         }
     }

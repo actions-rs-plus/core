@@ -18,7 +18,7 @@ export async function resolveVersion(crate: string): Promise<string> {
         );
     }
 
-    if (!resp.result?.crate?.newest_version) {
+    if (!resp.result.crate?.newest_version) {
         throw new Error(`Unable to fetch latest crate version of "${crate}"`);
     }
 

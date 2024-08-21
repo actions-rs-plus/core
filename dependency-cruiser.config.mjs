@@ -1,5 +1,5 @@
-/** @type {import('dependency-cruiser').IConfiguration} */
-module.exports = {
+/** @type {import("dependency-cruiser").IConfiguration} */
+export default {
     forbidden: [
         {
             name: "no-circular",
