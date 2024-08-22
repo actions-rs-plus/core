@@ -28,7 +28,7 @@ describe("cross", () => {
     it("Cross install", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
         const spy2 = vi.spyOn(process, "cwd").mockReturnValueOnce("/somewhere/on/the/machine");
-        const spy3 = vi.spyOn(process, "chdir").mockReturnValue(undefined);
+        const spy3 = vi.spyOn(process, "chdir").mockReturnValue();
 
         await expect(Cross.install("10.0")).resolves.toBeInstanceOf(Cross);
 

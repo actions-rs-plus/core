@@ -19,14 +19,14 @@
     "scripts": {
         "build": "tsc --project tsconfig.build.json",
         "watch": "tsc --project . --watch",
-        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+        "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "npm run lint -- --fix",
         "prettier": "prettier --write .",
         "clean": "rm -rf ./dist/* && rm tsconfig.tsbuildinfo && npm run build",
         "test": "vitest --coverage.enabled=true",
-        "deps:ci": "depcruise --output-type err src",
-        "deps:graph": "depcruise --output-type dot src | dot -T svg > dependency-graph.svg",
-        "deps:report": "depcruise --output-type err-html --output-to dependency-report.html src",
+        "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err src",
+        "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot src | dot -T svg > dependency-graph.svg",
+        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html src",
         "postversion": "cp package.json package-lock.json ..",
         "release": "semantic-release"
     },
@@ -38,6 +38,10 @@
         "url": "https://github.com/actions-rs-plus/core/issues"
     },
     "devDependencies": {
+        "@eslint/compat": "1.1.1",
+        "@eslint/eslintrc": "3.1.0",
+        "@eslint/js": "9.9.0",
+        "@stylistic/eslint-plugin-ts": "2.6.4",
         "@types/eslint": "9.6.0",
         "@types/node": "20.16.1",
         "@types/semver": "7.5.8",
@@ -46,13 +50,14 @@
         "conventional-changelog-conventionalcommits": "8.0.0",
         "dependency-cruiser": "16.4.0",
         "eslint": "8.57.0",
-        "eslint-config-love": "47.0.0",
         "eslint-config-prettier": "9.1.0",
         "eslint-import-resolver-node": "0.3.9",
         "eslint-import-resolver-typescript": "3.6.1",
-        "eslint-plugin-import": "2.29.1",
+        "eslint-plugin-import-x": "3.1.0",
+        "eslint-plugin-n": "17.10.2",
         "eslint-plugin-prettier": "5.2.1",
-        "eslint-plugin-promise": "6.6.0",
+        "eslint-plugin-promise": "7.1.0",
+        "eslint-plugin-unicorn": "55.0.0",
         "husky": "9.1.5",
         "lint-staged": "15.2.9",
         "prettier": "3.3.3",
@@ -69,14 +74,14 @@
         ]
     },
     "dependencies": {
-        "@actions/cache": "^3.2.4",
-        "@actions/core": "^1.10.1",
-        "@actions/exec": "^1.1.1",
+        "@actions/cache": "3.2.4",
+        "@actions/core": "1.10.1",
+        "@actions/exec": "1.1.1",
         "@actions/github": "6.0.0",
-        "@actions/http-client": "^2.2.3",
-        "@actions/io": "^1.1.3",
-        "@actions/tool-cache": "^2.0.1",
-        "semver": "^7.6.3"
+        "@actions/http-client": "2.2.3",
+        "@actions/io": "1.1.3",
+        "@actions/tool-cache": "2.0.1",
+        "semver": "7.6.3"
     },
     "overrides": {}
 }

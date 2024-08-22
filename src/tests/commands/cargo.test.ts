@@ -205,14 +205,16 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall with primary key, cache save fails 2", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const UnMockedValidationError = (await vi.importActual<typeof cache>("@actions/cache")).ValidationError;
+        const actionsCacheActual = await vi.importActual<typeof cache>("@actions/cache");
         const spy2 = vi
             .spyOn(cache, "saveCache")
-            .mockRejectedValue(new UnMockedValidationError("failed to save cache"));
+            .mockRejectedValue(new actionsCacheActual.ValidationError("failed to save cache"));
 
         const cargo = await Cargo.get();
 
-        await expect(cargo.installCached("cog", "5.9", "cog")).rejects.toBeInstanceOf(UnMockedValidationError);
+        await expect(cargo.installCached("cog", "5.9", "cog")).rejects.toBeInstanceOf(
+            actionsCacheActual.ValidationError,
+        );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
         expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
@@ -220,11 +222,10 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall with primary key, cache save fails 3", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const actionsCacheActual = await vi.importActual<typeof cache>("@actions/cache");
         const spy2 = vi
             .spyOn(cache, "saveCache")
-            .mockRejectedValue(
-                new (await vi.importActual<typeof cache>("@actions/cache")).ReserveCacheError("failed reserve space"),
-            );
+            .mockRejectedValue(new actionsCacheActual.ReserveCacheError("failed reserve space"));
         const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();

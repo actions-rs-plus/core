@@ -118,9 +118,9 @@
     "*.ts",
     "*.js",
     "*.cjs",
-    ".dependency-cruiser.cjs",
-    ".prettierrc.cjs",
-    ".eslintrc.cjs",
+    "dependency-cruiser.config.mjs",
+    "eslint.config.mjs",
+    "prettier.config.mjs",
     ".releaserc.cjs",
   ],
 }

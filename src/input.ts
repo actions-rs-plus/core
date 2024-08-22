@@ -9,7 +9,7 @@ import * as core from "@actions/core";
  * and if it does not exist, trying the `INPUT_NO-DEFAULT-FEATURES`.
  **/
 export function getInput(name: string, options?: core.InputOptions): string {
-    const inputFullName = name.replace(/-/g, "_");
+    const inputFullName = name.replaceAll("-", "_");
     const value = core.getInput(inputFullName, options);
     if (value.length > 0) {
         return value;

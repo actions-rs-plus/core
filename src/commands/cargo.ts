@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
@@ -61,19 +61,21 @@ export class Cargo extends BaseProgram {
         if (primaryKey) {
             const paths = [path.join(path.dirname(this.path), program)];
 
-            const programKey = `${program}-${version}-${primaryKey}`;
+            const programKey = `${program}-${version ?? "installed-version"}-${primaryKey}`;
 
             const programRestoreKeys = restoreKeys.map((key) => {
-                return `${program}-${version}-${key}`;
+                return `${program}-${version ?? "installed-version"}-${key}`;
             });
 
             const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
 
             if (cacheKey) {
-                core.info(`Using cached \`${program}\` with version ${version} from ${cacheKey}`);
+                core.info(
+                    `Using cached \`${program}\` with version ${version ?? "installed-version"} from ${cacheKey}`,
+                );
                 return program;
             } else {
-                const res = await this.install(program, version);
+                const result = await this.install(program, version);
 
                 try {
                     core.info(`Caching \`${program}\` with key ${programKey}`);
@@ -92,7 +94,7 @@ export class Cargo extends BaseProgram {
                     }
                 }
 
-                return res;
+                return result;
             }
         } else {
             return this.install(program, version);
@@ -100,18 +102,17 @@ export class Cargo extends BaseProgram {
     }
 
     public async install(program: string, version?: string): Promise<string> {
-        const args = ["install"];
+        const arguments_ = ["install"];
 
         if (version && version !== "latest") {
-            args.push("--version");
-            args.push(version);
+            arguments_.push("--version", version);
         }
 
-        args.push(program);
+        arguments_.push(program);
 
         try {
             core.startGroup(`Installing "${program} = ${version ?? "latest"}"`);
-            await this.call(args);
+            await this.call(arguments_);
         } finally {
             core.endGroup();
         }
@@ -127,7 +128,7 @@ export class Cargo extends BaseProgram {
             void (await io.which(program, true));
 
             return program;
-        } catch (error) {
+        } catch {
             core.info(`${program} is not installed, installing it now`);
         }
 

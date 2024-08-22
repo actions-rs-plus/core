@@ -1,12 +1,12 @@
 import { promises as fs } from "node:fs";
 import * as os from "node:os";
-import * as path from "node:path";
+import path from "node:path";
 
-import * as core from "@actions/core";
-import * as exec from "@actions/exec";
-import * as io from "@actions/io";
-import * as tc from "@actions/tool-cache";
-import * as semver from "semver";
+import core from "@actions/core";
+import exec from "@actions/exec";
+import io from "@actions/io";
+import tc from "@actions/tool-cache";
+import semver from "semver";
 
 const PROFILES_MIN_VERSION = "1.20.1";
 const COMPONENTS_MIN_VERSION = "1.20.1";
@@ -46,7 +46,7 @@ export class RustUp {
     }
 
     public static async install(): Promise<RustUp> {
-        const args = [
+        const arguments_ = [
             "--default-toolchain",
             "none",
             "-y", // No need for the prompts (hard error from within the Docker containers)
@@ -67,18 +67,19 @@ export class RustUp {
                 core.debug(`Executing chmod 755 on the ${rustupSh}`);
                 await fs.chmod(rustupSh, 0o755);
 
-                await exec.exec(rustupSh, args);
+                await exec.exec(rustupSh, arguments_);
                 break;
             }
 
             case "win32": {
                 const rustupExe = await tc.downloadTool("https://win.rustup.rs");
-                await exec.exec(rustupExe, args);
+                await exec.exec(rustupExe, arguments_);
                 break;
             }
 
-            default:
+            default: {
                 throw new Error(`Unknown platform ${platform}, can't install rustup`);
+            }
         }
 
         // `$HOME` should always be declared, so it is more to get the linters happy
@@ -89,30 +90,29 @@ export class RustUp {
     }
 
     public async installToolchain(name: string, options?: ToolchainOptions): Promise<number> {
-        const args = ["toolchain", "install", name];
+        const arguments_ = ["toolchain", "install", name];
 
         if (options) {
             if (options.components && options.components.length > 0) {
                 for (const component of options.components) {
-                    args.push("--component");
-                    args.push(component);
+                    arguments_.push("--component", component);
                 }
             }
 
             if (options.noSelfUpdate) {
-                args.push("--no-self-update");
+                arguments_.push("--no-self-update");
             }
 
             if (options.allowDowngrade) {
-                args.push("--allow-downgrade");
+                arguments_.push("--allow-downgrade");
             }
 
             if (options.force) {
-                args.push("--force");
+                arguments_.push("--force");
             }
         }
 
-        await this.call(args);
+        await this.call(arguments_);
 
         if (options?.default) {
             await this.call(["default", name]);
@@ -127,21 +127,20 @@ export class RustUp {
     }
 
     public addTarget(name: string, forToolchain?: string): Promise<number> {
-        const args = ["target", "add"];
+        const arguments_ = ["target", "add"];
 
         if (forToolchain) {
-            args.push("--toolchain");
-            args.push(forToolchain);
+            arguments_.push("--toolchain", forToolchain);
         }
-        args.push(name);
+        arguments_.push(name);
 
-        return this.call(args);
+        return this.call(arguments_);
     }
 
     public async activeToolchain(): Promise<string> {
         const stdout = await this.callStdout(["show", "active-toolchain"]);
 
-        const split = stdout?.split(" ", 2)[0];
+        const split = stdout.split(" ", 2)[0];
 
         if (split) {
             return split;
@@ -186,7 +185,7 @@ expected at least ${PROFILES_MIN_VERSION}`);
     public async version(): Promise<string> {
         const stdout = await this.callStdout(["-V"]);
 
-        const split = stdout?.split(" ")[1];
+        const split = stdout.split(" ")[1];
 
         if (split) {
             return split;
@@ -210,16 +209,16 @@ expected at least ${PROFILES_MIN_VERSION}`);
         return this.call(["self", "update"]);
     }
 
-    public call(args: string[], options?: exec.ExecOptions): Promise<number> {
-        return exec.exec(this.path, args, options);
+    public call(arguments_: string[], options?: exec.ExecOptions): Promise<number> {
+        return exec.exec(this.path, arguments_, options);
     }
 
     /**
      * Call the `rustup` and return an stdout
      */
-    public async callStdout(args: string[], options?: exec.ExecOptions): Promise<string> {
+    public async callStdout(arguments_: string[], options?: exec.ExecOptions): Promise<string> {
         let stdout = "";
-        const resOptions = Object.assign({}, options, {
+        const stdoutOptions = Object.assign({}, options, {
             listeners: {
                 stdout: (buffer: Buffer): void => {
                     stdout += buffer.toString();
@@ -227,7 +226,7 @@ expected at least ${PROFILES_MIN_VERSION}`);
             },
         });
 
-        await this.call(args, resOptions);
+        await this.call(arguments_, stdoutOptions);
 
         return stdout;
     }

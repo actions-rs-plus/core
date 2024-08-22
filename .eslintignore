@@ -1,3 +1,4 @@
 dist
+coverage
 !.prettierrc.cjs
 !.dependency-cruiser.cjs

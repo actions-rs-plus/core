@@ -1,6 +1,6 @@
 import { type UserConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
-import { defineConfig } from "vitest/config";
+import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
@@ -13,6 +13,7 @@ export default defineConfig(() => {
             environmentOptions: {},
             setupFiles: ["./test.setup.ts"],
             coverage: {
+                exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
                 reportsDirectory: "coverage",
                 reporter: ["json", "html", "text"],
             },

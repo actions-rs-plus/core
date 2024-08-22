@@ -1,9 +1,5 @@
-import * as checks from "@/checks";
-import * as input from "@/input";
-
+export * as checks from "@/checks";
 export * from "@/commands/cargo";
 export * from "@/commands/cross";
 export * from "@/commands/rustup";
-
-// Re-exports
-export { checks, input };
+export * as input from "@/input";

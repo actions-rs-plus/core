@@ -1,4 +1,4 @@
-import { promises as fs } from "fs";
+import { promises as fs } from "node:fs";
 
 import * as exec from "@actions/exec";
 import * as io from "@actions/io";
@@ -75,14 +75,14 @@ describe("rustup", () => {
 
     it("install win32", async () => {
         osMocks.platform.mockReturnValueOnce("win32");
-        const downloadSpy = vi.spyOn(tc, "downloadTool").mockResolvedValueOnce("C:\\TEMP\\rustup.exe");
+        const downloadSpy = vi.spyOn(tc, "downloadTool").mockResolvedValueOnce(String.raw`C:\TEMP\rustup.exe`);
         const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         expect.assertions(3);
 
         await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
         expect(downloadSpy.mock.calls).toEqual([["https://win.rustup.rs"]]);
-        expect(execSpy.mock.calls).toEqual([["C:\\TEMP\\rustup.exe", ["--default-toolchain", "none", "-y"]]]);
+        expect(execSpy.mock.calls).toEqual([[String.raw`C:\TEMP\rustup.exe`, ["--default-toolchain", "none", "-y"]]]);
     });
 
     it("installToolchain", async () => {
@@ -282,7 +282,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(
                 Buffer.from("/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo"),
             );
@@ -302,7 +302,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stderr?.(
                 Buffer.from(
                     "error: not a file: '/home/kristof/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/clippy'",
@@ -350,7 +350,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("stable-x86_64-unknown-linux-gnu (default)"));
 
             return Promise.resolve(0);
@@ -366,7 +366,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, _options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, _options) => {
             return Promise.resolve(1);
         });
 
@@ -380,7 +380,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
             return Promise.resolve(0);
@@ -396,7 +396,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, _options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, _options) => {
             return Promise.resolve(1);
         });
 
@@ -410,7 +410,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
             return Promise.resolve(0);
@@ -426,7 +426,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
 
             return Promise.resolve(0);
@@ -442,7 +442,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
             return Promise.resolve(0);
@@ -458,7 +458,7 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _args, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
 
             return Promise.resolve(0);
