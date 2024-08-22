@@ -25,8 +25,8 @@
         "clean": "rm -rf ./dist/* && rm tsconfig.tsbuildinfo && npm run build",
         "test": "vitest --coverage.enabled=true",
         "deps:ci": "depcruise --output-type err src",
-        "deps:graph": "depcruise --output-type dot src | dot -T svg > dependency-graph.svg",
-        "deps:report": "depcruise --output-type err-html --output-to dependency-report.html src",
+        "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot src | dot -T svg > dependency-graph.svg",
+        "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html src",
         "postversion": "cp package.json package-lock.json ..",
         "release": "semantic-release"
     },
