@@ -275,6 +275,7 @@ const eslintConfigLoveRules = {
     curly: ["error", "multi-line"],
     "default-case-last": ["error"],
     eqeqeq: ["error", "always", { null: "ignore" }],
+    // eslint-disable-next-line unicorn/no-keyword-prefix
     "new-cap": ["error", { newIsCap: true, capIsNew: false, properties: true }],
     "no-async-promise-executor": ["error"],
     "no-caller": ["error"],
@@ -391,17 +392,10 @@ export default tseslint.config(
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
     },
-    ...tseslint.configs.strictTypeChecked,
     {
-        languageOptions: {
-            parser: tsParser,
-            parserOptions: {
-                sourceType: "module", // Allows for the use of imports
-                ecmaVersion: "latest",
-                projectService: true,
-                project: "./tsconfig.json",
-                tsconfigRootDir: import.meta.dirname,
-            },
+        plugins: {
+            "import-x": importPlugin,
+            unicorn: eslintPluginUnicorn,
         },
         settings: {
             "import-x/resolver": {
@@ -413,20 +407,37 @@ export default tseslint.config(
                 },
             },
         },
-        files: ["**/*.ts", "**/*.tsx"],
-        plugins: {
-            "import-x": importPlugin,
-            "@stylistic/ts": stylistic,
-            promise: promise,
-            ["unicorn"]: eslintPluginUnicorn,
-            n: nPlugin,
-        },
         rules: {
-            ...Object.fromEntries(namesOfEslintRulesForWhichWeAreUsingTsEquivalents.map((name) => [name, ["off"]])),
             ...importPlugin.configs.recommended.rules,
             ...importPlugin.configs.typescript.rules,
             "no-useless-computed-key": "error",
             "no-throw-literal": "off",
+            ...eslintPluginUnicorn.configs.all.rules,
+            "unicorn/no-null": "off",
+            "unicorn/prefer-ternary": "off",
+        },
+    },
+    ...tseslint.configs.strictTypeChecked,
+    {
+        files: ["**/*.ts", "**/*.tsx"],
+        languageOptions: {
+            parser: tsParser,
+            parserOptions: {
+                sourceType: "module", // Allows for the use of imports
+                ecmaVersion: "latest",
+                projectService: true,
+                project: "./tsconfig.json",
+                tsconfigRootDir: import.meta.dirname,
+            },
+        },
+        plugins: {
+            "import-x": importPlugin,
+            "@stylistic/ts": stylistic,
+            promise: promise,
+            n: nPlugin,
+        },
+        rules: {
+            ...Object.fromEntries(namesOfEslintRulesForWhichWeAreUsingTsEquivalents.map((name) => [name, ["off"]])),
             "@stylistic/ts/no-extra-semi": "error",
             "@typescript-eslint/array-type": ["error", { default: "array" }],
             "@typescript-eslint/await-thenable": "error",

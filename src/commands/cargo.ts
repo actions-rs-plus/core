@@ -1,4 +1,4 @@
-import * as path from "node:path";
+import path from "node:path";
 
 import * as cache from "@actions/cache";
 import * as core from "@actions/core";
@@ -75,7 +75,7 @@ export class Cargo extends BaseProgram {
                 );
                 return program;
             } else {
-                const res = await this.install(program, version);
+                const result = await this.install(program, version);
 
                 try {
                     core.info(`Caching \`${program}\` with key ${programKey}`);
@@ -94,7 +94,7 @@ export class Cargo extends BaseProgram {
                     }
                 }
 
-                return res;
+                return result;
             }
         } else {
             return this.install(program, version);
@@ -102,18 +102,17 @@ export class Cargo extends BaseProgram {
     }
 
     public async install(program: string, version?: string): Promise<string> {
-        const args = ["install"];
+        const arguments_ = ["install"];
 
         if (version && version !== "latest") {
-            args.push("--version");
-            args.push(version);
+            arguments_.push("--version", version);
         }
 
-        args.push(program);
+        arguments_.push(program);
 
         try {
             core.startGroup(`Installing "${program} = ${version ?? "latest"}"`);
-            await this.call(args);
+            await this.call(arguments_);
         } finally {
             core.endGroup();
         }

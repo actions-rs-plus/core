@@ -7,7 +7,7 @@ export abstract class BaseProgram {
         this.path = path;
     }
 
-    public call(args: string[], options?: exec.ExecOptions): Promise<number> {
-        return exec.exec(this.path, args, options);
+    public call(arguments_: string[], options?: exec.ExecOptions): Promise<number> {
+        return exec.exec(this.path, arguments_, options);
     }
 }
