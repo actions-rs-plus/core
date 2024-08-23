@@ -20,7 +20,7 @@ export function getInput(name: string, options?: core.InputOptions): string {
 
 export function getInputBool(name: string, options?: core.InputOptions): boolean {
     const value = getInput(name, options);
-    if (value && (value === "true" || value === "1")) {
+    if (value === "true" || value === "1") {
         return true;
     } else {
         return false;

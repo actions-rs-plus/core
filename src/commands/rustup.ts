@@ -34,7 +34,7 @@ export class RustUp {
             return await RustUp.get();
         } catch (error: unknown) {
             core.debug(`Unable to find "rustup" executable, installing it now. Reason: ${String(error)}`);
-            return RustUp.install();
+            return await RustUp.install();
         }
     }
 
@@ -92,33 +92,33 @@ export class RustUp {
     public async installToolchain(name: string, options?: ToolchainOptions): Promise<number> {
         const arguments_ = ["toolchain", "install", name];
 
-        if (options) {
-            if (options.components && options.components.length > 0) {
+        if (options !== undefined) {
+            if (options.components !== undefined && options.components.length > 0) {
                 for (const component of options.components) {
                     arguments_.push("--component", component);
                 }
             }
 
-            if (options.noSelfUpdate) {
+            if (options.noSelfUpdate === true) {
                 arguments_.push("--no-self-update");
             }
 
-            if (options.allowDowngrade) {
+            if (options.allowDowngrade === true) {
                 arguments_.push("--allow-downgrade");
             }
 
-            if (options.force) {
+            if (options.force === true) {
                 arguments_.push("--force");
             }
         }
 
         await this.call(arguments_);
 
-        if (options?.default) {
+        if (options?.default === true) {
             await this.call(["default", name]);
         }
 
-        if (options?.override) {
+        if (options?.override === true) {
             await this.call(["override", "set", name]);
         }
 
@@ -129,7 +129,7 @@ export class RustUp {
     public addTarget(name: string, forToolchain?: string): Promise<number> {
         const arguments_ = ["target", "add"];
 
-        if (forToolchain) {
+        if (forToolchain !== undefined) {
             arguments_.push("--toolchain", forToolchain);
         }
         arguments_.push(name);
@@ -142,10 +142,10 @@ export class RustUp {
 
         const split = stdout.split(" ", 2)[0];
 
-        if (split) {
-            return split;
-        } else {
+        if (split === undefined || split === "") {
             throw new Error("Unable to determine active toolchain");
+        } else {
+            return split;
         }
     }
 
@@ -187,10 +187,10 @@ expected at least ${PROFILES_MIN_VERSION}`);
 
         const split = stdout.split(" ")[1];
 
-        if (split) {
-            return split;
-        } else {
+        if (split === undefined) {
             throw new Error("Unable to determine version");
+        } else {
+            return split;
         }
     }
 
@@ -198,10 +198,10 @@ expected at least ${PROFILES_MIN_VERSION}`);
     public async which(program: string): Promise<string> {
         const stdout = await this.callStdout(["which", program]);
 
-        if (stdout) {
-            return stdout;
-        } else {
+        if (stdout === "") {
             throw new Error(`Unable to find "${program}"`);
+        } else {
+            return stdout;
         }
     }
 

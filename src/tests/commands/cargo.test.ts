@@ -23,6 +23,7 @@ describe("cargo", () => {
 
     it("Cargo not found", async () => {
         const spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const spy2 = vi.spyOn(core, "error").mockImplementation(() => {});
 
         await expect(Cargo.get()).rejects.toThrow("Could not find path to cargo");
@@ -94,13 +95,13 @@ describe("cargo", () => {
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
-            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: "6.0",
                 },
             },
+            statusCode: 200,
         });
 
         const cargo = await Cargo.get();
@@ -136,13 +137,13 @@ describe("cargo", () => {
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
-            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: "6.0",
                 },
             },
+            statusCode: 200,
         });
 
         const cargo = await Cargo.get();
@@ -192,6 +193,7 @@ describe("cargo", () => {
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
         const spy2 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
@@ -226,6 +228,7 @@ describe("cargo", () => {
         const spy2 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new actionsCacheActual.ReserveCacheError("failed reserve space"));
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
