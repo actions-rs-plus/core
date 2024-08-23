@@ -170,11 +170,29 @@ describe("cargo", () => {
     it("Cargo findOrInstall with no specific version and primary key", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", undefined, "cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-cog", []]]);
+    });
+
+    it("Cargo findOrInstall with no specific version, primary key & restore keys", async () => {
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+
+        const cargo = await Cargo.get();
+
+        await expect(cargo.installCached("cog", undefined, "cog", ["cog1", "cog2", "cog3"])).resolves.toBe("cog");
+
+        expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-cog", ["cog-cog1", "cog-cog2", "cog-cog3"]],
+        ]);
     });
 
     it("Cargo findOrInstall with primary key & restore keys", async () => {

@@ -64,10 +64,12 @@ export class Cargo extends BaseProgram {
         } else {
             const paths = [path.join(path.dirname(this.path), program)];
 
-            const programKey = `${program}-${version ?? "!!NO-VERSION!!"}-${primaryKey}`;
+            const versionForKey = version === undefined ? "" : `-${version}`;
+
+            const programKey = `${program}${versionForKey}-${primaryKey}`;
 
             const programRestoreKeys = restoreKeys.map((key) => {
-                return `${program}-${version ?? "!!NO-VERSION!!"}-${key}`;
+                return `${program}${versionForKey}-${key}`;
             });
 
             const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
