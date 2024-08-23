@@ -167,6 +167,16 @@ describe("cargo", () => {
         expect(spy.mock.calls).toEqual([["cargo", true]]);
     });
 
+    it("Cargo findOrInstall with no specific version and primary key", async () => {
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+
+        const cargo = await Cargo.get();
+
+        await expect(cargo.installCached("cog", undefined, "cog")).resolves.toBe("cog");
+
+        expect(spy.mock.calls).toEqual([["cargo", true]]);
+    });
+
     it("Cargo findOrInstall with primary key & restore keys", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
