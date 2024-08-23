@@ -1,4 +1,4 @@
-import { type UserConfig } from "vite";
+import type { UserConfig } from "vite";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
@@ -9,17 +9,17 @@ export default defineConfig(() => {
         plugins: [viteTsConfigPaths()],
 
         test: {
-            environment: "node",
-            environmentOptions: {},
-            setupFiles: ["./test.setup.ts"],
             coverage: {
                 exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
-                reportsDirectory: "coverage",
                 reporter: ["json", "html", "text"],
+                reportsDirectory: "coverage",
             },
+            environment: "node",
+            environmentOptions: {},
             outputFile: {
                 junit: "./reports/test-report.xml",
             },
+            setupFiles: ["./test.setup.ts"],
         },
     };
 

@@ -6,9 +6,10 @@ export default {
     quoteProps: "as-needed",
     semi: true,
     singleQuote: false,
-    useTabs: false,
     tabWidth: 4,
     trailingComma: "all",
+    useTabs: false,
+    // eslint-disable-next-line sort-keys
     overrides: [
         {
             files: ["**/*.ts", "**/*.tsx"],

@@ -23,6 +23,7 @@ export class Cargo extends BaseProgram {
             );
             core.error("To install it, use this action: https://github.com/actions-rs/toolchain");
 
+            // eslint-disable-next-line @typescript-eslint/only-throw-error
             throw error;
         }
     }
@@ -58,23 +59,22 @@ export class Cargo extends BaseProgram {
             version = await resolveVersion(program);
         }
 
-        if (primaryKey) {
+        if (primaryKey === undefined) {
+            return await this.install(program, version);
+        } else {
             const paths = [path.join(path.dirname(this.path), program)];
 
-            const programKey = `${program}-${version ?? "installed-version"}-${primaryKey}`;
+            const versionForKey = version === undefined ? "" : `-${version}`;
+
+            const programKey = `${program}${versionForKey}-${primaryKey}`;
 
             const programRestoreKeys = restoreKeys.map((key) => {
-                return `${program}-${version ?? "installed-version"}-${key}`;
+                return `${program}${versionForKey}-${key}`;
             });
 
             const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
 
-            if (cacheKey) {
-                core.info(
-                    `Using cached \`${program}\` with version ${version ?? "installed-version"} from ${cacheKey}`,
-                );
-                return program;
-            } else {
+            if (cacheKey === undefined) {
                 const result = await this.install(program, version);
 
                 try {
@@ -90,21 +90,25 @@ export class Cargo extends BaseProgram {
                     } else if (typeof error === "string") {
                         core.warning(error);
                     } else {
+                        // eslint-disable-next-line @typescript-eslint/only-throw-error
                         throw error;
                     }
                 }
 
                 return result;
+            } else {
+                core.info(
+                    `Using cached \`${program}\` with version ${version ?? "installed-version"} from ${cacheKey}`,
+                );
+                return program;
             }
-        } else {
-            return this.install(program, version);
         }
     }
 
     public async install(program: string, version?: string): Promise<string> {
         const arguments_ = ["install"];
 
-        if (version && version !== "latest") {
+        if (version !== undefined && version !== "latest") {
             arguments_.push("--version", version);
         }
 
@@ -132,6 +136,6 @@ export class Cargo extends BaseProgram {
             core.info(`${program} is not installed, installing it now`);
         }
 
-        return this.installCached(program, version);
+        return await this.installCached(program, version);
     }
 }

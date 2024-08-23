@@ -23,6 +23,7 @@ describe("cargo", () => {
 
     it("Cargo not found", async () => {
         const spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const spy2 = vi.spyOn(core, "error").mockImplementation(() => {});
 
         await expect(Cargo.get()).rejects.toThrow("Could not find path to cargo");
@@ -94,13 +95,13 @@ describe("cargo", () => {
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
-            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: "6.0",
                 },
             },
+            statusCode: 200,
         });
 
         const cargo = await Cargo.get();
@@ -136,13 +137,13 @@ describe("cargo", () => {
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
-            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: "6.0",
                 },
             },
+            statusCode: 200,
         });
 
         const cargo = await Cargo.get();
@@ -164,6 +165,34 @@ describe("cargo", () => {
         await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
+    });
+
+    it("Cargo findOrInstall with no specific version and primary key", async () => {
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+
+        const cargo = await Cargo.get();
+
+        await expect(cargo.installCached("cog", undefined, "cog")).resolves.toBe("cog");
+
+        expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-cog", []]]);
+    });
+
+    it("Cargo findOrInstall with no specific version, primary key & restore keys", async () => {
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+
+        const cargo = await Cargo.get();
+
+        await expect(cargo.installCached("cog", undefined, "cog", ["cog1", "cog2", "cog3"])).resolves.toBe("cog");
+
+        expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([
+            [["/home/user/.cargo/bin/cog"], "cog-cog", ["cog-cog1", "cog-cog2", "cog-cog3"]],
+        ]);
     });
 
     it("Cargo findOrInstall with primary key & restore keys", async () => {
@@ -192,6 +221,7 @@ describe("cargo", () => {
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
         const spy2 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
@@ -226,6 +256,7 @@ describe("cargo", () => {
         const spy2 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new actionsCacheActual.ReserveCacheError("failed reserve space"));
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
         const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
