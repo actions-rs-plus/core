@@ -32,10 +32,10 @@ export class Check {
         const { owner, repo } = github.context.repo;
 
         const response = await client.rest.checks.create({
-            head_sha: github.context.sha,
-            name: checkName,
             owner,
             repo,
+            name: checkName,
+            head_sha: github.context.sha,
             status,
         });
         // TODO: Check for errors
@@ -54,14 +54,14 @@ export class Check {
 
         // TODO: Check for errors
         await this.client.rest.checks.update({
-            check_run_id: this.checkId,
-            completed_at: new Date().toISOString(),
-            conclusion,
-            name: this.checkName,
-            output,
             owner,
             repo,
+            name: this.checkName,
+            check_run_id: this.checkId,
             status: "completed",
+            conclusion,
+            completed_at: new Date().toISOString(),
+            output,
         });
     }
 
@@ -70,18 +70,18 @@ export class Check {
 
         // TODO: Check for errors
         await this.client.rest.checks.update({
-            check_run_id: this.checkId,
-            completed_at: new Date().toISOString(),
-            conclusion: "cancelled",
-            name: this.checkName,
-            output: {
-                summary: "Unhandled error",
-                text: "Check was cancelled due to unhandled error. Check the Action logs for details.",
-                title: this.checkName,
-            },
             owner,
             repo,
+            name: this.checkName,
+            check_run_id: this.checkId,
             status: "completed",
+            conclusion: "cancelled",
+            completed_at: new Date().toISOString(),
+            output: {
+                title: this.checkName,
+                summary: "Unhandled error",
+                text: "Check was cancelled due to unhandled error. Check the Action logs for details.",
+            },
         });
     }
 }
