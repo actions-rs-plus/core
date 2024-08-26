@@ -1,5 +1,5 @@
 import github from "@actions/github";
-import type { GitHub } from "@actions/github/lib/utils";
+import type { GitHub } from "@actions/github/lib/utils.js";
 
 interface Output {
     title: string;

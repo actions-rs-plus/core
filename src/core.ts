@@ -1,6 +1,6 @@
-export * as checks from "@/checks";
-export * from "@/commands/base-program";
-export * from "@/commands/cargo";
-export * from "@/commands/cross";
-export * from "@/commands/rustup";
-export * as input from "@/input";
+export * as checks from "./checks.js";
+export * from "./commands/base-program.js";
+export * from "./commands/cargo.js";
+export * from "./commands/cross.js";
+export * from "./commands/rustup.js";
+export * as input from "./input.js";

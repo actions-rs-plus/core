@@ -5,7 +5,7 @@ import * as http from "@actions/http-client";
 import * as io from "@actions/io";
 import { describe, expect, it, vi } from "vitest";
 
-import { Cargo } from "@/core";
+import { Cargo } from "../../core.js";
 
 vi.mock("@actions/exec");
 vi.mock("@actions/cache");

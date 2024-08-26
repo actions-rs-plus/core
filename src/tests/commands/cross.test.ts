@@ -2,7 +2,7 @@ import * as core from "@actions/core";
 import * as io from "@actions/io";
 import { describe, expect, it, vi } from "vitest";
 
-import { Cross } from "@/core";
+import { Cross } from "../../core.js";
 
 vi.mock("@actions/exec");
 

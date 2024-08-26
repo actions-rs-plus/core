@@ -5,7 +5,7 @@ import * as io from "@actions/io";
 import * as tc from "@actions/tool-cache";
 import { describe, expect, it, test, vi } from "vitest";
 
-import { RustUp } from "@/core";
+import { RustUp } from "../../core.js";
 
 const osMocks = vi.hoisted(() => {
     return {
