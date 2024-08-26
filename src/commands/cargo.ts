@@ -4,8 +4,8 @@ import * as cache from "@actions/cache";
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 
-import { BaseProgram } from "@/commands/base-program";
-import { resolveVersion } from "@/commands/crates";
+import { BaseProgram } from "./base-program.js";
+import { resolveVersion } from "./crates.js";
 
 export class Cargo extends BaseProgram {
     private constructor(pathToCargo: string) {
