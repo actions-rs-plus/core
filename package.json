@@ -6,7 +6,7 @@
     "license": "MIT",
     "description": "Core functionality for the @actions-rs-plus repos",
     "main": "dist/core.js",
-    "typings": "dist/core.d.ts",
+    "typings": "dist/core",
     "type": "module",
     "files": [
         "dist/**/*.js",
@@ -17,8 +17,8 @@
         "registry": "https://npm.pkg.github.com"
     },
     "scripts": {
-        "build": "tsc --project tsconfig.build.json",
-        "watch": "tsc --project . --watch",
+        "build": "tsc --project tsconfig.build.json && tsc-alias --project tsconfig.build.json",
+        "watch": "tsc && (concurrently \"tsc --watch\" \"tsc-alias --watch\")",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "npm run lint -- --fix",
         "format": "prettier --write .",
@@ -47,6 +47,7 @@
         "@types/semver": "7.5.8",
         "@vitest/coverage-v8": "2.0.5",
         "@vitest/ui": "2.0.5",
+        "concurrently": "8.2.2",
         "conventional-changelog-conventionalcommits": "8.0.0",
         "dependency-cruiser": "16.4.0",
         "eslint": "8.57.0",
@@ -63,6 +64,7 @@
         "lint-staged": "15.2.9",
         "prettier": "3.3.3",
         "semantic-release": "24.1.0",
+        "tsc-alias": "1.8.10",
         "typescript": "5.5.4",
         "typescript-eslint": "8.3.0",
         "vite-tsconfig-paths": "5.0.1",

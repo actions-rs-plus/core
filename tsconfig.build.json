@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "exclude": [
+    "dist/**",
     "src/**/*.test.ts",
     "test.setup.ts",
     "vite.config.ts"
