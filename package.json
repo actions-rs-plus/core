@@ -21,7 +21,7 @@
         "watch": "tsc --project . --watch",
         "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
         "lint:fix": "npm run lint -- --fix",
-        "prettier": "prettier --write .",
+        "format": "prettier --write .",
         "clean": "rm -rf ./dist/* && rm tsconfig.tsbuildinfo && npm run build",
         "test": "vitest --coverage.enabled=true",
         "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err src",
