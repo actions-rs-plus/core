@@ -10,13 +10,13 @@ describe("resolveVersion", () => {
         const version = "1.0.107";
 
         const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: version,
                 },
             },
-            statusCode: 200,
         });
 
         await expect(resolveVersion("serde_json")).resolves.toBe(version);
@@ -26,6 +26,7 @@ describe("resolveVersion", () => {
 
     it("not found", async () => {
         const response: TypedResponse<CratesIO> = {
+            statusCode: 404,
             headers: {},
             result: {
                 errors: [
@@ -34,7 +35,6 @@ describe("resolveVersion", () => {
                     },
                 ],
             },
-            statusCode: 404,
         };
 
         const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
@@ -48,9 +48,9 @@ describe("resolveVersion", () => {
 
     it("fail 500", async () => {
         const response: TypedResponse<CratesIO> = {
+            statusCode: 500,
             headers: {},
             result: null,
-            statusCode: 500,
         };
 
         const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
@@ -62,11 +62,11 @@ describe("resolveVersion", () => {
 
     it("ok but still no crate version", async () => {
         const response: TypedResponse<CratesIO> = {
+            statusCode: 200,
             headers: {},
             result: {
                 crate: {},
             },
-            statusCode: 200,
         };
 
         const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);

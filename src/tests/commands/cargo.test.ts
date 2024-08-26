@@ -95,13 +95,13 @@ describe("cargo", () => {
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: "6.0",
                 },
             },
-            statusCode: 200,
         });
 
         const cargo = await Cargo.get();
@@ -137,13 +137,13 @@ describe("cargo", () => {
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+            statusCode: 200,
             headers: {},
             result: {
                 crate: {
                     newest_version: "6.0",
                 },
             },
-            statusCode: 200,
         });
 
         const cargo = await Cargo.get();

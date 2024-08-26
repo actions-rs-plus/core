@@ -1,5 +1,3 @@
-/* eslint-disable sort-keys */
-
 /** @type {import("dependency-cruiser").IConfiguration} */
 export default {
     forbidden: [
