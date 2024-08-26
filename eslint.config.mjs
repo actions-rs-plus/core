@@ -168,7 +168,7 @@ export default tseslint.config(
         settings: {
             "import-x/resolver": {
                 node: {
-                    extensions: [".d.ts", ".ts"],
+                    extensions: [".ts"],
                 },
                 typescript: {
                     alwaysTryTypes: true,
@@ -177,7 +177,6 @@ export default tseslint.config(
         },
         rules: {
             ...importPlugin.configs.typescript.rules,
-
             ...fixUpLoveRules(),
 
             "@stylistic/ts/no-extra-semi": ["error"],
