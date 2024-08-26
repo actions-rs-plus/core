@@ -9,7 +9,6 @@ export default {
     tabWidth: 4,
     trailingComma: "all",
     useTabs: false,
-    // eslint-disable-next-line sort-keys
     overrides: [
         {
             files: ["**/*.ts", "**/*.tsx"],

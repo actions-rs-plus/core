@@ -14,8 +14,8 @@ describe("check", () => {
         github.context.sha = "sha";
 
         vi.spyOn(github.context, "repo", "get").mockReturnValue({
-            owner: "owner",
             repo: "repo",
+            owner: "owner",
         });
 
         const client = github.getOctokit("token");

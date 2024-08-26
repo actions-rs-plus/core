@@ -1,4 +1,3 @@
-/* eslint-disable sort-keys */
 import path from "node:path";
 
 import { fileURLToPath } from "node:url";
@@ -119,7 +118,7 @@ export default tseslint.config(
                 },
             ],
 
-            "sort-keys": ["error"],
+            "sort-keys": ["off"],
             "unicorn/no-null": ["off"],
             "unicorn/prefer-ternary": ["off"],
 
