@@ -25,14 +25,12 @@ const compat = new FlatCompat({
 });
 
 function fixUpLoveRules() {
-    let rules = {};
+    const rules = {};
 
-    for (let [key, value] of Object.entries(love.rules)) {
-        if (key.startsWith("import/")) {
-            key = key.replace("import/", "import-x/");
-        }
+    const regex = new RegExp(/^import\//);
 
-        rules[key] = value;
+    for (const [key, value] of Object.entries(love.rules)) {
+        rules[key.replace(regex, "import-x/")] = value;
     }
 
     return rules;
@@ -94,7 +92,7 @@ export default tseslint.config(
             "no-unused-expressions": ["error"],
             "no-useless-constructor": ["off"],
             "object-shorthand": ["error", "always"],
-
+            "prefer-const": ["error"],
             "prefer-template": ["error"],
             quotes: [
                 "error",
