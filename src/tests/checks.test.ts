@@ -1,7 +1,7 @@
 import * as github from "@actions/github";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { Check } from "../checks.js";
+import { Check } from "@/checks";
 
 describe("check", () => {
     beforeEach(() => {
