@@ -19,16 +19,18 @@ export default defineConfig(() => {
             },
             rollupOptions: {
                 output: {
-                    esModule: true,
                     preserveModules: true,
                 },
             },
         },
+        resolve: { alias: { "@/": path.resolve("src/") } },
+
         plugins: [
             viteTsConfigPaths(),
             dts({
+                insertTypesEntry: true,
                 entryRoot: "./src",
-                exclude: ["test.setup.ts", "vite.config.ts"],
+                exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
             }),
         ],
 
