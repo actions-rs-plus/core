@@ -5,14 +5,10 @@
     "author": "actions-rs-plus",
     "license": "MIT",
     "description": "Core functionality for the @actions-rs-plus repos",
-    "main": "dist/core.js",
-    "typings": "dist/core",
     "type": "module",
-    "files": [
-        "dist/**/*.js",
-        "dist/**/*.js.map",
-        "dist/**/*.d.ts"
-    ],
+    "main": "dist/core.js",
+    "types": "dist/core.d.ts",
+    "files": ["dist"],
     "publishConfig": {
         "registry": "https://npm.pkg.github.com"
     },
