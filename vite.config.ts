@@ -1,5 +1,7 @@
 import path from "node:path";
 
+import { codecovVitePlugin } from "@codecov/vite-plugin";
+
 import type { UserConfig } from "vite";
 import dts from "vite-plugin-dts";
 import viteTsConfigPaths from "vite-tsconfig-paths";
@@ -31,6 +33,11 @@ export default defineConfig(() => {
                 insertTypesEntry: true,
                 entryRoot: "./src",
                 exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
+            }),
+            codecovVitePlugin({
+                enableBundleAnalysis: process.env["CODECOV_TOKEN"] !== undefined,
+                bundleName: "library",
+                uploadToken: process.env["CODECOV_TOKEN"] ?? "",
             }),
         ],
 
