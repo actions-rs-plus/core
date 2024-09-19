@@ -50,7 +50,7 @@ jobs:
           submodules: true
 
       - name: Set up node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -79,7 +79,7 @@ jobs:
           submodules: true
 
       - name: Set up node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -110,7 +110,7 @@ jobs:
           submodules: true
 
       - name: Set up node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -158,7 +158,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -212,7 +212,7 @@ jobs:
           show-progress: false
 
       - name: Set up node
-        uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+        uses: actions/setup-node@0a44ba7841725637a19e28fa30b79a866c81b0a6 # v4.0.4
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
