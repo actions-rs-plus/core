@@ -83,7 +83,7 @@ export class RustUp {
         }
 
         // `$HOME` should always be declared, so it is more to get the linters happy
-        core.addPath(path.join(process.env["HOME"]!, ".cargo", "bin")); // eslint-disable-line @typescript-eslint/no-non-null-assertion
+        core.addPath(path.join(process.env["HOME"]!, ".cargo", "bin")); // eslint-disable-line @typescript-eslint/no-non-null-assertion -- see above
 
         // Assuming it is in the $PATH already
         return new RustUp("rustup");
