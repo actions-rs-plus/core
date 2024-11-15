@@ -177,7 +177,7 @@ jobs:
         continue-on-error: true
 
       - name: Upload coverage results (to Codecov.io)
-        uses: codecov/codecov-action@5c47607acb93fed5485fdbf7232e8a31425f672a # v5
+        uses: codecov/codecov-action@5c47607acb93fed5485fdbf7232e8a31425f672a # v5.0.2
         with:
           disable_search: true
           fail_ci_if_error: true
