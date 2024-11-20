@@ -24,6 +24,7 @@ describe("check", () => {
             ...client,
             rest: {
                 ...client.rest,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-type-assertion -- bare minimum which satisfies the mock
                 checks: {
                     create: vi.fn().mockResolvedValue(fakeResult),
                     update: vi.fn().mockResolvedValue(fakeResult),
