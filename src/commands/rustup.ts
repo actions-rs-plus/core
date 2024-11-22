@@ -34,7 +34,7 @@ export class RustUp {
             return await RustUp.get();
         } catch (error: unknown) {
             core.debug(`Unable to find "rustup" executable, installing it now. Reason: ${String(error)}`);
-            return await RustUp.install();
+            return RustUp.install();
         }
     }
 
