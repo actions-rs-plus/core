@@ -60,7 +60,7 @@ export class Cargo extends BaseProgram {
         }
 
         if (primaryKey === undefined) {
-            return await this.install(program, version);
+            return this.install(program, version);
         } else {
             const paths = [path.join(path.dirname(this.path), program)];
 
@@ -136,6 +136,6 @@ export class Cargo extends BaseProgram {
             core.info(`${program} is not installed, installing it now`);
         }
 
-        return await this.installCached(program, version);
+        return this.installCached(program, version);
     }
 }
