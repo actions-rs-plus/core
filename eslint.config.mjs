@@ -15,6 +15,8 @@ import tseslint from "typescript-eslint";
 const sharedRules = {
     "arrow-body-style": ["error", "always"],
 
+    complexity: ["off"],
+
     curly: ["error", "all"],
     "eol-last": ["error", "always"],
     eqeqeq: ["error", "always"],
@@ -44,7 +46,6 @@ const sharedRules = {
             avoidEscape: true,
         },
     ],
-    "require-await": ["error"],
     "sort-imports": [
         "error",
         {
@@ -201,8 +202,6 @@ export default tseslint.config(
             "@typescript-eslint/promise-function-async": ["off"],
 
             "@typescript-eslint/return-await": ["error", "in-try-catch"],
-
-            "@typescript-eslint/require-await": ["error"],
 
             "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
 

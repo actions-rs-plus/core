@@ -93,10 +93,8 @@ export class RustUp {
         const arguments_ = ["toolchain", "install", name];
 
         if (options !== undefined) {
-            if (options.components !== undefined && options.components.length > 0) {
-                for (const component of options.components) {
-                    arguments_.push("--component", component);
-                }
+            for (const component of options.components ?? []) {
+                arguments_.push("--component", component);
             }
 
             if (options.noSelfUpdate === true) {
