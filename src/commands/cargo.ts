@@ -61,48 +61,46 @@ export class Cargo extends BaseProgram {
 
         if (primaryKey === undefined) {
             return this.install(program, version);
-        } else {
-            const paths = [path.join(path.dirname(this.path), program)];
+        }
 
-            const versionForKey = version === undefined ? "" : `-${version}`;
+        const paths = [path.join(path.dirname(this.path), program)];
 
-            const programKey = `${program}${versionForKey}-${primaryKey}`;
+        const versionForKey = version === undefined ? "" : `-${version}`;
 
-            const programRestoreKeys = restoreKeys.map((key) => {
-                return `${program}${versionForKey}-${key}`;
-            });
+        const programKey = `${program}${versionForKey}-${primaryKey}`;
 
-            const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
+        const programRestoreKeys = restoreKeys.map((key) => {
+            return `${program}${versionForKey}-${key}`;
+        });
 
-            if (cacheKey === undefined) {
-                const result = await this.install(program, version);
+        const cacheKey = await cache.restoreCache(paths, programKey, programRestoreKeys);
 
-                try {
-                    core.info(`Caching \`${program}\` with key ${programKey}`);
-                    await cache.saveCache(paths, programKey);
-                } catch (error: unknown) {
-                    if (error instanceof Error) {
-                        if (error.name === cache.ValidationError.name) {
-                            throw error;
-                        } else if (error.name === cache.ReserveCacheError.name) {
-                            core.warning(error.message);
-                        }
-                    } else if (typeof error === "string") {
-                        core.warning(error);
-                    } else {
-                        // eslint-disable-next-line @typescript-eslint/only-throw-error -- rethrow
-                        throw error;
-                    }
+        if (cacheKey !== undefined) {
+            core.info(`Using cached \`${program}\` with version ${version ?? "installed-version"} from ${cacheKey}`);
+            return program;
+        }
+
+        const result = await this.install(program, version);
+
+        try {
+            core.info(`Caching \`${program}\` with key ${programKey}`);
+            await cache.saveCache(paths, programKey);
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                if (error.name === cache.ValidationError.name) {
+                    throw error;
+                } else if (error.name === cache.ReserveCacheError.name) {
+                    core.warning(error.message);
                 }
-
-                return result;
+            } else if (typeof error === "string") {
+                core.warning(error);
             } else {
-                core.info(
-                    `Using cached \`${program}\` with version ${version ?? "installed-version"} from ${cacheKey}`,
-                );
-                return program;
+                // eslint-disable-next-line @typescript-eslint/only-throw-error -- rethrow
+                throw error;
             }
         }
+
+        return result;
     }
 
     public async install(program: string, version?: string): Promise<string> {
