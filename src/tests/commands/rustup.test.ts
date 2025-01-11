@@ -1,5 +1,6 @@
 import { promises as fs } from "node:fs";
 
+import core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as io from "@actions/io";
 import * as tc from "@actions/tool-cache";
@@ -39,6 +40,8 @@ describe("rustup", () => {
         // actual test
         const spy1 = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to rustup"));
         const spy2 = vi.spyOn(RustUp, "install").mockResolvedValueOnce(rustup);
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        const spy3 = vi.spyOn(core, "debug").mockImplementation(() => {});
 
         await expect(RustUp.getOrInstall()).resolves.toEqual({
             path: "/home/user/.cargo/bin/rustup",
@@ -46,6 +49,7 @@ describe("rustup", () => {
 
         expect(spy1).toHaveBeenCalledTimes(1);
         expect(spy2).toHaveBeenCalledTimes(1);
+        expect(spy3).toHaveBeenCalledTimes(1);
     });
 
     it("install unknown platform", async () => {
@@ -60,6 +64,9 @@ describe("rustup", () => {
         "install %s",
         async (platform: typeof process.platform) => {
             vi.spyOn(fs, "chmod").mockResolvedValueOnce();
+            vi.spyOn(core, "debug").mockResolvedValueOnce();
+            vi.spyOn(core, "addPath").mockResolvedValueOnce();
+
             osMocks.platform.mockReturnValueOnce(platform);
 
             const downloadSpy = vi.spyOn(tc, "downloadTool").mockResolvedValueOnce("/tmp/rustup.sh");
@@ -77,12 +84,14 @@ describe("rustup", () => {
         osMocks.platform.mockReturnValueOnce("win32");
         const downloadSpy = vi.spyOn(tc, "downloadTool").mockResolvedValueOnce(String.raw`C:\TEMP\rustup.exe`);
         const execSpy = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const addpathSpy = vi.spyOn(core, "addPath").mockResolvedValue();
 
-        expect.assertions(3);
+        expect.assertions(4);
 
         await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
         expect(downloadSpy.mock.calls).toEqual([["https://win.rustup.rs"]]);
         expect(execSpy.mock.calls).toEqual([[String.raw`C:\TEMP\rustup.exe`, ["--default-toolchain", "none", "-y"]]]);
+        expect(addpathSpy).toBeCalledTimes(1);
     });
 
     it("installToolchain", async () => {
@@ -407,6 +416,7 @@ describe("rustup", () => {
 
     it("supportProfiles", async () => {
         vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(core, "info").mockResolvedValueOnce();
 
         const rustup = await RustUp.get();
 
@@ -423,6 +433,7 @@ describe("rustup", () => {
 
     it("supportProfiles fail", async () => {
         vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(core, "info").mockResolvedValueOnce();
 
         const rustup = await RustUp.get();
 
@@ -439,6 +450,7 @@ describe("rustup", () => {
 
     it("supportComponents", async () => {
         vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(core, "info").mockResolvedValueOnce();
 
         const rustup = await RustUp.get();
 
@@ -455,6 +467,7 @@ describe("rustup", () => {
 
     it("supportComponents fail", async () => {
         vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        vi.spyOn(core, "info").mockResolvedValueOnce();
 
         const rustup = await RustUp.get();
 

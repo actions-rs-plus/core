@@ -3,7 +3,8 @@ import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as http from "@actions/http-client";
 import * as io from "@actions/io";
-import { describe, expect, it, vi } from "vitest";
+import type { MockInstance } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Cargo } from "@/core";
 
@@ -11,6 +12,23 @@ vi.mock("@actions/exec");
 vi.mock("@actions/cache");
 
 describe("cargo", () => {
+    let startGroupSpy: MockInstance<(_: string) => void> | null = null;
+    let endGroupSpy: MockInstance<() => void> | null = null;
+
+    beforeEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        startGroupSpy = vi.spyOn(core, "startGroup").mockImplementation(() => {});
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        endGroupSpy = vi.spyOn(core, "endGroup").mockImplementation(() => {});
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        vi.spyOn(core, "info").mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- set by beforeeach, if that fails, we expect to see it here too
+        expect(startGroupSpy!.mock.calls.length).toBe(endGroupSpy!.mock.calls.length);
+    });
+
     it("Cargo", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
@@ -133,9 +151,7 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall not found with explicit version latest", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-
         const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-
         const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
