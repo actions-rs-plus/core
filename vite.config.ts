@@ -3,6 +3,7 @@ import path from "node:path";
 import { codecovVitePlugin } from "@codecov/vite-plugin";
 
 import type { UserConfig } from "vite";
+import { checker } from "vite-plugin-checker";
 import dts from "vite-plugin-dts";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
@@ -28,6 +29,7 @@ export default defineConfig(() => {
         resolve: { alias: { "@/": path.resolve("src/") } },
 
         plugins: [
+            checker({ typescript: true }),
             viteTsConfigPaths(),
             dts({
                 insertTypesEntry: true,
@@ -42,6 +44,7 @@ export default defineConfig(() => {
         ],
 
         test: {
+            restoreMocks: true,
             coverage: {
                 exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
                 reporter: ["json", "html", "text"],

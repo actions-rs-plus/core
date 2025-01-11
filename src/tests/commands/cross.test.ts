@@ -1,13 +1,33 @@
 import * as core from "@actions/core";
 import * as io from "@actions/io";
-import { describe, expect, it, vi } from "vitest";
+import type { MockInstance } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Cross } from "@/core";
 
 vi.mock("@actions/exec");
 
 describe("cross", () => {
+    let startGroupSpy: MockInstance<(_: string) => void> | null = null;
+    let endGroupSpy: MockInstance<() => void> | null = null;
+
+    beforeEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        startGroupSpy = vi.spyOn(core, "startGroup").mockImplementation(() => {});
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        endGroupSpy = vi.spyOn(core, "endGroup").mockImplementation(() => {});
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        vi.spyOn(core, "info").mockImplementation(() => {});
+    });
+
+    afterEach(() => {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- set by beforeeach, if that fails, we expect to see it here too
+        expect(startGroupSpy!.mock.calls.length).toBe(endGroupSpy!.mock.calls.length);
+    });
+
     it("Cross", async () => {
+        vi.spyOn(core, "debug").mockResolvedValueOnce();
+
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cross");
 
         await expect(Cross.get()).resolves.toEqual({
@@ -48,7 +68,8 @@ describe("cross", () => {
     it("Cross getOrInstall fail", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
         const spy2 = vi.spyOn(Cross, "get").mockRejectedValue(new Error("Not found"));
-        const spy3 = vi.spyOn(core, "debug");
+        // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
+        const spy3 = vi.spyOn(core, "debug").mockImplementationOnce((_s: string) => {});
 
         await expect(Cross.getOrInstall()).resolves.toBeInstanceOf(Cross);
 
