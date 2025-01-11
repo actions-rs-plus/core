@@ -49,7 +49,6 @@ export class Cross extends BaseProgram {
         } finally {
             // It is important to chdir back!
             process.chdir(cwd);
-            core.endGroup();
         }
     }
 }
