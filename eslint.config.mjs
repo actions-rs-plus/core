@@ -22,6 +22,7 @@ const sharedRules = {
     eqeqeq: ["error", "always"],
 
     "max-len": ["off"],
+    "max-nested-callbacks": ["off"],
     "no-extra-semi": ["off"],
     "no-param-reassign": ["off"],
     "no-restricted-imports": [
