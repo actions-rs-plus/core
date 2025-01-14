@@ -44,7 +44,6 @@ export default defineConfig(() => {
         ],
 
         test: {
-            restoreMocks: true,
             coverage: {
                 exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
                 reporter: ["json", "html", "text"],
@@ -55,6 +54,7 @@ export default defineConfig(() => {
             outputFile: {
                 junit: "./reports/test-report.xml",
             },
+            restoreMocks: true,
             setupFiles: ["./test.setup.ts"],
         },
     };
