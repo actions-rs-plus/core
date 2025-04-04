@@ -46,7 +46,7 @@
         "@vitest/ui": "3.1.1",
         "conventional-changelog-conventionalcommits": "8.0.0",
         "dependency-cruiser": "16.10.1",
-        "eslint": "9.23.0",
+        "eslint": "9.24.0",
         "eslint-config-love": "119.0.0",
         "eslint-config-prettier": "10.1.1",
         "eslint-import-resolver-node": "0.3.9",
