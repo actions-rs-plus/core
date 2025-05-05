@@ -23,7 +23,6 @@ export class Cargo extends BaseProgram {
             );
             core.error("To install it, use this action: https://github.com/actions-rs/toolchain");
 
-            // eslint-disable-next-line @typescript-eslint/only-throw-error -- retrow
             throw error;
         }
     }
@@ -95,7 +94,6 @@ export class Cargo extends BaseProgram {
             } else if (typeof error === "string") {
                 core.warning(error);
             } else {
-                // eslint-disable-next-line @typescript-eslint/only-throw-error -- rethrow
                 throw error;
             }
         }
