@@ -22,6 +22,9 @@ describe("cargo", () => {
         endGroupSpy = vi.spyOn(core, "endGroup").mockImplementation(() => {});
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
         vi.spyOn(core, "info").mockImplementation(() => {});
+
+        // eslint-disable-next-line unicorn/no-useless-undefined -- explicit
+        vi.spyOn(cache, "restoreCache").mockResolvedValue(undefined);
     });
 
     afterEach(() => {
@@ -175,17 +178,20 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall with primary key", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
     });
 
     it("Cargo findOrInstall with no specific version and primary key", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-
         const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
@@ -198,7 +204,6 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall with no specific version, primary key & restore keys", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-
         const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
@@ -213,17 +218,20 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall with primary key & restore keys", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", "5.9", "cog", ["cog1", "cog2", "cog3"])).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
     });
 
     it("Cargo findOrInstall with primary key, no cache key", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-
         const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
@@ -236,23 +244,29 @@ describe("cargo", () => {
 
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const spy2 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
+        const spy4 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
-        expect(spy3.mock.calls).toEqual([["failed to save cache"]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
+        expect(spy3.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy4.mock.calls).toEqual([["failed to save cache"]]);
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 2", async () => {
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
         const actionsCacheActual = await vi.importActual<typeof cache>("@actions/cache");
-        const spy2 = vi
+
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new actionsCacheActual.ValidationError("failed to save cache"));
 
@@ -263,25 +277,33 @@ describe("cargo", () => {
         );
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
+        expect(spy3.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 3", async () => {
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
         const actionsCacheActual = await vi.importActual<typeof cache>("@actions/cache");
-        const spy2 = vi
+
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new actionsCacheActual.ReserveCacheError("failed reserve space"));
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        const spy3 = vi.spyOn(core, "warning").mockImplementation(() => {});
+        const spy4 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", "5.9", "cog")).resolves.toBe("cog");
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
-        expect(spy3.mock.calls).toEqual([["failed reserve space"]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
+        expect(spy3.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy4.mock.calls).toEqual([["failed reserve space"]]);
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 4", async () => {
@@ -294,13 +316,17 @@ describe("cargo", () => {
 
         const special = new Special("I don't implement Error");
         const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        const spy2 = vi.spyOn(cache, "saveCache").mockRejectedValue(special);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi.spyOn(cache, "saveCache").mockRejectedValue(special);
 
         const cargo = await Cargo.get();
 
         await expect(cargo.installCached("cog", "5.9", "cog")).rejects.toEqual(special);
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
-        expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
+        expect(spy2.mock.calls).toEqual([
+            ["/home/user/.cargo/bin/cargo", ["install", "--version", "5.9", "cog"], undefined],
+        ]);
+        expect(spy3.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-5.9-cog"]]);
     });
 });
