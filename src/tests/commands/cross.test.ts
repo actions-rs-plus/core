@@ -1,3 +1,5 @@
+import * as os from "node:os";
+
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 import type { MockInstance } from "vitest";
@@ -54,7 +56,7 @@ describe("cross", () => {
 
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy2).toHaveBeenCalledTimes(1);
-        expect(spy3.mock.calls).toMatchObject([["/tmp"], ["/somewhere/on/the/machine"]]);
+        expect(spy3.mock.calls).toMatchObject([[os.tmpdir()], ["/somewhere/on/the/machine"]]);
     });
 
     it("Cross getOrInstall", async () => {
