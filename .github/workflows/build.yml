@@ -10,11 +10,12 @@ on:
       - main
 
 permissions:
-  contents: read
   checks: write
-  pull-requests: write
+  contents: read
+  id-token: write
   issues: write
   packages: write
+  pull-requests: write
 
 concurrency:
   group: "${{ github.workflow }} @ ${{ github.ref_name }}"
@@ -192,18 +193,21 @@ jobs:
         uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
         with:
           disable_search: true
+          disable_telem: true
           fail_ci_if_error: true
           files: coverage/lcov.info
           plugins: ""
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
 
       - name: Upload test results to Codecov
         uses: codecov/test-results-action@47f89e9acb64b76debcd5ea40642d25a4adced9f # v1.1.1
         with:
           disable_search: true
+          # doesn't exist here... yet
+          # disable_telem: true
           fail_ci_if_error: true
           files: reports/test-report.xml
-          token: ${{ secrets.CODECOV_TOKEN }}
+          use_oidc: true
 
       - name: Fail if tests failed
         shell: bash
