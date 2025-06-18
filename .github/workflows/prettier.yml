@@ -29,6 +29,11 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
+      - name: Ensure latest version of npm, older versions like v8 have broken caching
+        shell: bash
+        run: |
+          npm install --location=global npm@latest
+
       - name: Install dependencies
         shell: bash
         run: |
