@@ -20,6 +20,9 @@ concurrency:
   group: "${{ github.workflow }} @ ${{ github.ref_name }}"
   cancel-in-progress: true
 
+env:
+  NPM_CONFIG_FUND: "false"
+
 jobs:
   changes:
     name: Detect changes
@@ -85,6 +88,11 @@ jobs:
           cache: "npm"
           cache-dependency-path: package-lock.json
 
+      - name: Ensure latest version of npm, older versions like v8 have broken caching
+        shell: bash
+        run: |
+          npm install --location=global npm@latest
+
       - name: Download dependencies from cache
         shell: bash
         run: |
@@ -115,6 +123,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
           cache-dependency-path: package-lock.json
+
+      - name: Ensure latest version of npm, older versions like v8 have broken caching
+        shell: bash
+        run: |
+          npm install --location=global npm@latest
 
       - name: Download dependencies from cache
         shell: bash
@@ -157,6 +170,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
           cache-dependency-path: package-lock.json
+
+      - name: Ensure latest version of npm, older versions like v8 have broken caching
+        shell: bash
+        run: |
+          npm install --location=global npm@latest
 
       - name: Download dependencies from cache
         shell: bash
@@ -211,6 +229,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "npm"
           cache-dependency-path: package-lock.json
+
+      - name: Ensure latest version of npm, older versions like v8 have broken caching
+        shell: bash
+        run: |
+          npm install --location=global npm@latest
 
       - name: Download dependencies from cache
         shell: bash
