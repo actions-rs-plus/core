@@ -9,7 +9,7 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig(({ mode }) => {
-    const environment = loadEnv(mode, process.cwd());
+    const environment = loadEnv(mode, process.cwd(), "");
 
     const config: UserConfig = {
         appType: "custom",
@@ -42,9 +42,12 @@ export default defineConfig(({ mode }) => {
                 exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
             }),
             codecovVitePlugin({
-                enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
+                enableBundleAnalysis: environment["GITHUB_ACTIONS"] === "true",
                 bundleName: "core",
-                uploadToken: environment["CODECOV_TOKEN"] ?? "",
+                oidc: {
+                    useGitHubOIDC: true,
+                },
+                telemetry: false,
             }),
         ],
         optimizeDeps: {
