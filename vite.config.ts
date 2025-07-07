@@ -1,33 +1,38 @@
-import path from "node:path";
+import nodePath from "node:path";
 
 import { codecovVitePlugin } from "@codecov/vite-plugin";
-
 import type { UserConfig } from "vite";
+import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
 import dts from "vite-plugin-dts";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
-// https://vitejs.dev/config/
-export default defineConfig(() => {
+export default defineConfig(({ mode }) => {
+    const environment = loadEnv(mode, process.cwd());
+
     const config: UserConfig = {
         appType: "custom",
-
         build: {
-            sourcemap: true,
             ssr: true,
             lib: {
-                entry: path.resolve(import.meta.dirname, "src/core.ts"),
+                entry: nodePath.resolve(import.meta.dirname, "src/core.ts"),
                 formats: ["es"],
             },
+            minify: false,
+            emptyOutDir: true,
+            sourcemap: true,
             rollupOptions: {
                 output: {
                     preserveModules: true,
                 },
             },
         },
-        resolve: { alias: { "@/": path.resolve("src/") } },
-
+        resolve: {
+            alias: {
+                "@/": nodePath.resolve(import.meta.dirname, "src/"),
+            },
+        },
         plugins: [
             checker({ typescript: true }),
             viteTsConfigPaths(),
@@ -37,20 +42,26 @@ export default defineConfig(() => {
                 exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
             }),
             codecovVitePlugin({
-                enableBundleAnalysis: process.env["CODECOV_TOKEN"] !== undefined,
-                bundleName: "library",
-                uploadToken: process.env["CODECOV_TOKEN"] ?? "",
+                enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
+                bundleName: "core",
+                uploadToken: environment["CODECOV_TOKEN"] ?? "",
             }),
         ],
-
+        optimizeDeps: {
+            // noDiscovery: true,
+        },
         test: {
             coverage: {
                 exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
                 reporter: ["json", "html", "text"],
+                provider: "v8",
                 reportsDirectory: "coverage",
             },
             environment: "node",
-            environmentOptions: {},
+            environmentOptions: {
+                // node: {},
+            },
+            globals: false,
             outputFile: {
                 junit: "./reports/test-report.xml",
             },
