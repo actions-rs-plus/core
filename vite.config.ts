@@ -9,7 +9,9 @@ import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
 export default defineConfig(({ mode }) => {
-    const environment = loadEnv(mode, process.cwd());
+    const environment = loadEnv(mode, process.cwd(), "");
+
+    console.log(`GITHUB_ACTIONS: ${environment["GITHUB_ACTIONS"]}`);
 
     const config: UserConfig = {
         appType: "custom",
@@ -17,6 +19,7 @@ export default defineConfig(({ mode }) => {
             ssr: true,
             lib: {
                 entry: nodePath.resolve(import.meta.dirname, "src/core.ts"),
+                name: "@actions-rs-plus/core",
                 formats: ["es"],
             },
             minify: false,
@@ -42,9 +45,13 @@ export default defineConfig(({ mode }) => {
                 exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
             }),
             codecovVitePlugin({
-                enableBundleAnalysis: environment["CODECOV_TOKEN"] !== undefined,
-                bundleName: "core",
-                uploadToken: environment["CODECOV_TOKEN"] ?? "",
+                enableBundleAnalysis: environment["GITHUB_ACTIONS"] === "true",
+                bundleName: "@actions-rs-plus/core",
+                debug: true,
+                oidc: {
+                    useGitHubOIDC: true,
+                },
+                telemetry: false,
             }),
         ],
         optimizeDeps: {
