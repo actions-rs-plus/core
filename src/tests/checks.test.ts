@@ -1,7 +1,7 @@
 import * as github from "@actions/github";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { Check } from "@/checks";
+import { Check } from "@/checks.ts";
 
 function getMockedClient(): ReturnType<typeof github.getOctokit> {
     type T0 = Awaited<ReturnType<ReturnType<typeof github.getOctokit>["rest"]["checks"]["create"]>>;

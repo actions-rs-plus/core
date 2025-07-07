@@ -13,13 +13,12 @@ import tseslint from "typescript-eslint";
 
 const sharedRules = {
     "arrow-body-style": ["error", "always"],
-
     complexity: ["off"],
-
     curly: ["error", "all"],
     "eol-last": ["error", "always"],
     eqeqeq: ["error", "always"],
-
+    "no-alert": ["off"],
+    "no-console": ["off"],
     "max-len": ["off"],
     "max-nested-callbacks": ["off"],
     "no-extra-semi": ["off"],
@@ -31,7 +30,6 @@ const sharedRules = {
         },
     ],
     "no-restricted-syntax": ["error", "DebuggerStatement", "LabeledStatement", "WithStatement"],
-    "no-return-await": ["error"],
     "no-shadow": ["error"],
     "no-underscore-dangle": ["off"],
     "no-unused-expressions": ["error"],
@@ -46,6 +44,7 @@ const sharedRules = {
             avoidEscape: true,
         },
     ],
+    "require-await": ["error"],
     "sort-imports": [
         "error",
         {
@@ -59,9 +58,11 @@ const sharedRules = {
 
     "import/extensions": [
         "error",
-        "never",
+        "ignorePackages",
         {
             json: "always",
+            ts: "always",
+            tsx: "always",
         },
     ],
     "import/newline-after-import": ["error"],
@@ -84,7 +85,7 @@ export default tseslint.config(
     {
         ignores: ["dist/**", "reports/**", "coverage/**"],
     },
-    eslintPluginUnicorn.configs["flat/all"],
+    eslintPluginUnicorn.configs["all"],
     {
         languageOptions: {
             parser: tsParser,
@@ -100,15 +101,13 @@ export default tseslint.config(
         },
         settings: {
             "import/resolver": {
-                node: {
-                    extensions: [".d.ts", ".ts"],
-                },
+                node: {},
                 typescript: {
                     alwaysTryTypes: true,
                 },
             },
         },
-        extends: [eslintPluginUnicorn.configs["flat/recommended"]],
+        extends: [eslintPluginUnicorn.configs["recommended"]],
         rules: {
             ...importPlugin.configs.recommended.rules,
 
@@ -144,9 +143,7 @@ export default tseslint.config(
         ],
         settings: {
             "import/resolver": {
-                node: {
-                    extensions: [".ts"],
-                },
+                node: {},
                 typescript: {
                     alwaysTryTypes: true,
                 },
@@ -158,7 +155,7 @@ export default tseslint.config(
 
             ...sharedRules,
 
-            "no-return-await": ["off"],
+            "no-restricted-imports": ["off"],
 
             "@stylistic/ts/no-extra-semi": ["error"],
 
@@ -202,6 +199,8 @@ export default tseslint.config(
             "@typescript-eslint/promise-function-async": ["off"],
 
             "@typescript-eslint/return-await": ["error", "in-try-catch"],
+
+            "@typescript-eslint/require-await": ["error"],
 
             "import/consistent-type-specifier-style": ["error", "prefer-top-level"],
 

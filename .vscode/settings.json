@@ -1,3 +1,6 @@
 {
-    "prettier.configPath": "./prettier.config.mjs"
+    "prettier.configPath": "./prettier.config.mjs",
+    "typescript.tsdk": "node_modules/typescript/lib",
+    "typescript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.importModuleSpecifierEnding": "js"
 }
