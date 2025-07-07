@@ -42,9 +42,6 @@ export class Check {
 
         return new Check(client, checkName, response.data.id);
     }
-    // TODO:
-    //     public async sendAnnotations(annotations: Array<octokit.ChecksCreateParamsOutputAnnotations>): Promise<void> {
-    //     }
 
     public async finishCheck(
         conclusion: "action_required" | "cancelled" | "failure" | "neutral" | "success" | "timed_out",
