@@ -51,7 +51,7 @@ export default defineConfig(({ mode }) => {
             }),
         ],
         optimizeDeps: {
-            // noDiscovery: true,
+            noDiscovery: true,
         },
         test: {
             coverage: {
