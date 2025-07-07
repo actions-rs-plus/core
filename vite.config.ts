@@ -11,8 +11,6 @@ import { coverageConfigDefaults, defineConfig } from "vitest/config";
 export default defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
 
-    console.log(`GITHUB_ACTIONS: ${environment["GITHUB_ACTIONS"]}`);
-
     const config: UserConfig = {
         appType: "custom",
         build: {
