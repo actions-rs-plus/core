@@ -1,3 +1,4 @@
+import { builtinModules } from "node:module";
 import nodePath from "node:path";
 
 import { codecovVitePlugin } from "@codecov/vite-plugin";
@@ -8,23 +9,34 @@ import dts from "vite-plugin-dts";
 import viteTsConfigPaths from "vite-tsconfig-paths";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
+import package_ from "./package.json";
+
 export default defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
+
+    const externals = new Set(builtinModules);
+    const dependencies = new Set(Object.keys(package_.dependencies));
 
     const config: UserConfig = {
         appType: "custom",
         build: {
-            ssr: true,
             lib: {
                 entry: nodePath.resolve(import.meta.dirname, "src/core.ts"),
+                fileName: (_format, entryName) => {
+                    return `${entryName}.js`;
+                },
                 formats: ["es"],
             },
+            target: "node20",
             minify: false,
             emptyOutDir: true,
             sourcemap: true,
             rollupOptions: {
                 output: {
                     preserveModules: true,
+                },
+                external: (source: string): boolean => {
+                    return externals.has(source) || source.startsWith("node:") || dependencies.has(source);
                 },
             },
         },
@@ -50,9 +62,6 @@ export default defineConfig(({ mode }) => {
                 telemetry: false,
             }),
         ],
-        optimizeDeps: {
-            noDiscovery: true,
-        },
         test: {
             coverage: {
                 exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
