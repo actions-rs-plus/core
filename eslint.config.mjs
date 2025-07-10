@@ -2,7 +2,6 @@ import js from "@eslint/js";
 import stylistic from "@stylistic/eslint-plugin";
 import tsParser from "@typescript-eslint/parser";
 import love from "eslint-config-love";
-import commentsPlugin from "eslint-plugin-eslint-comments";
 import importPlugin from "eslint-plugin-import";
 import nPlugin from "eslint-plugin-n";
 import perfectionist from "eslint-plugin-perfectionist";
@@ -131,7 +130,6 @@ export default tseslint.config(
             "@stylistic/ts": stylistic,
             import: importPlugin,
             n: nPlugin,
-            "eslint-comments": commentsPlugin,
             promise,
             perfectionist,
         },
