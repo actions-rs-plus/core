@@ -37,7 +37,7 @@
     "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err src",
     "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot src | dot -T svg > dependency-graph.svg",
     "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html src",
-    "postversion": "cp package.json package-lock.json ..",
+    "postversion": "cp package.json pnpm-lock.yaml ..",
     "release": "semantic-release",
     "prepare": "husky"
   },
