@@ -18,7 +18,7 @@ export default defineConfig(({ mode }) => {
                 entry: nodePath.resolve(import.meta.dirname, "src/core.ts"),
                 formats: ["es"],
             },
-            target: "node20",
+            target: "node24",
             minify: false,
             emptyOutDir: true,
             sourcemap: true,
