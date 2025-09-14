@@ -14,10 +14,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
-  "packageManager": "pnpm@10.16.0",
+  "packageManager": "pnpm@10.16.1",
   "engines": {
     "node": "24.8.0",
-    "pnpm": "10.16.0"
+    "pnpm": "10.16.1"
   },
   "repository": {
     "type": "git",
