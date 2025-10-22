@@ -30,7 +30,7 @@ describe("cross", () => {
     it("Cross", async () => {
         vi.spyOn(core, "debug").mockResolvedValueOnce();
 
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cross");
+        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cross");
 
         await expect(Cross.get()).resolves.toEqual({
             path: "/home/user/.cargo/bin/cross",
@@ -40,7 +40,7 @@ describe("cross", () => {
     });
 
     it("Cross not found", async () => {
-        const spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cross"));
+        using spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cross"));
 
         await expect(Cross.get()).rejects.toThrow("Could not find path to cross");
 
@@ -48,9 +48,9 @@ describe("cross", () => {
     });
 
     it("Cross install", async () => {
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
-        const spy2 = vi.spyOn(process, "cwd").mockReturnValueOnce("/somewhere/on/the/machine");
-        const spy3 = vi.spyOn(process, "chdir").mockReturnValue();
+        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
+        using spy2 = vi.spyOn(process, "cwd").mockReturnValueOnce("/somewhere/on/the/machine");
+        using spy3 = vi.spyOn(process, "chdir").mockReturnValue();
 
         await expect(Cross.install("10.0")).resolves.toBeInstanceOf(Cross);
 
@@ -60,7 +60,7 @@ describe("cross", () => {
     });
 
     it("Cross getOrInstall", async () => {
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
+        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
 
         await expect(Cross.getOrInstall()).resolves.toBeInstanceOf(Cross);
 
@@ -68,10 +68,10 @@ describe("cross", () => {
     });
 
     it("Cross getOrInstall fail", async () => {
-        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
-        const spy2 = vi.spyOn(Cross, "get").mockRejectedValue(new Error("Not found"));
+        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cross/bin/cross");
+        using spy2 = vi.spyOn(Cross, "get").mockRejectedValue(new Error("Not found"));
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        const spy3 = vi.spyOn(core, "debug").mockImplementationOnce((_s: string) => {});
+        using spy3 = vi.spyOn(core, "debug").mockImplementationOnce((_s: string) => {});
 
         await expect(Cross.getOrInstall()).resolves.toBeInstanceOf(Cross);
 
