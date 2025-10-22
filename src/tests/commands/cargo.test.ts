@@ -8,8 +8,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Cargo } from "@/core.ts";
 
-vi.mock("@actions/io");
 vi.mock("@actions/exec");
+vi.mock("@actions/io");
 
 describe("cargo", () => {
     let startGroupSpy: MockInstance<(_: string) => void> | null = null;
