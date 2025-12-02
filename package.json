@@ -69,8 +69,8 @@
     "@types/node": "24.10.1",
     "@types/semver": "7.7.1",
     "@typescript-eslint/parser": "8.48.1",
-    "@vitest/coverage-v8": "4.0.14",
-    "@vitest/ui": "4.0.14",
+    "@vitest/coverage-v8": "4.0.15",
+    "@vitest/ui": "4.0.15",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "dependency-cruiser": "17.3.2",
     "eslint": "9.39.1",
@@ -94,7 +94,7 @@
     "vite-plugin-checker": "0.11.0",
     "vite-plugin-dts": "4.5.4",
     "vite-tsconfig-paths": "5.1.4",
-    "vitest": "4.0.14"
+    "vitest": "4.0.15"
   },
   "overrides": {}
 }
