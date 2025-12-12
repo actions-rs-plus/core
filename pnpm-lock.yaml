@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@actions/cache':
-        specifier: ^5.0.0
-        version: 5.0.0
+        specifier: ^5.0.1
+        version: 5.0.1
       '@actions/core':
         specifier: ^2.0.1
         version: 2.0.1
@@ -138,8 +138,8 @@ importers:
 
 packages:
 
-  '@actions/cache@5.0.0':
-    resolution: {integrity: sha512-BZNTNrj2+x+INgAuA/Qi6mjS0AWwPqsbGU3MALrqIK9pH9aNdVPuKZNJHrKi/VDA/DE2voH1N4ZbLPT2fWQJxg==}
+  '@actions/cache@5.0.1':
+    resolution: {integrity: sha512-c+oH047Z2zmXLhjMZfEKjxZfv6Ou7T0sn5fhz6yupICXm5OOR47oZn5zxNO8MP7ttkxv5TOg3WsMrffri5Xhfw==}
 
   '@actions/core@1.11.1':
     resolution: {integrity: sha512-hXJCSrkwfA46Vd9Z3q4cpEpHB1rL5NG04+/rbqW9d3+CSvtB1tYe8UTpAlixa1vj0m/ULglfEK2UKxMGxCxv5A==}
@@ -3689,7 +3689,7 @@ packages:
 
 snapshots:
 
-  '@actions/cache@5.0.0':
+  '@actions/cache@5.0.1':
     dependencies:
       '@actions/core': 2.0.1
       '@actions/exec': 2.0.0
