@@ -32,11 +32,6 @@ export default defineConfig(({ mode }) => {
         ssr: {
             target: "node",
         },
-        resolve: {
-            alias: {
-                "@/": nodePath.resolve(import.meta.dirname, "src/"),
-            },
-        },
         plugins: [
             checker({ typescript: true }),
             viteTsConfigPaths(),
