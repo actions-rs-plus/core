@@ -52,9 +52,9 @@ export default defineConfig(({ mode }) => {
         test: {
             coverage: {
                 exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
-                reporter: ["json", "html", "text"],
+                reporter: ["json", "html", "text", "lcov"],
                 provider: "v8",
-                reportsDirectory: "coverage",
+                reportsDirectory: "reports",
             },
             environment: "node",
             environmentOptions: {
@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => {
             },
             globals: false,
             outputFile: {
-                junit: "./reports/test-report.xml",
+                junit: "./reports/results.xml",
             },
             restoreMocks: true,
             setupFiles: ["./test.setup.ts"],
