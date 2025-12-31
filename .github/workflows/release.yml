@@ -59,9 +59,9 @@ jobs:
           pnpm run build
 
       - name: Release
+        shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: bash
         run: |
           pnpm run release
