@@ -73,8 +73,8 @@ importers:
         specifier: 9.39.2
         version: 9.39.2
       eslint-config-love:
-        specifier: 145.0.0
-        version: 145.0.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2)(typescript@5.9.3)
+        specifier: 146.0.0
+        version: 146.0.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2)(typescript@5.9.3)
       eslint-config-prettier:
         specifier: 10.1.8
         version: 10.1.8(eslint@9.39.2)
@@ -1687,8 +1687,8 @@ packages:
     peerDependencies:
       eslint: '>=6.0.0'
 
-  eslint-config-love@145.0.0:
-    resolution: {integrity: sha512-SHCGipFKRXq3182HZIQ6ZXvtwqBXKIYjVQF9lUBMOJ9Z2NpQ2+sDnzKOhn7UBwFXObqYcaBtXAY+MQEOsvU1pA==}
+  eslint-config-love@146.0.0:
+    resolution: {integrity: sha512-iubmmQ2ctGgyHO1zU+HpRrkPSGiJ4GaqV7Krh80Bs/4hWfutfrRrnCcKQlaDVoAMR+qnaJY4MNSzVBOfndr2Og==}
     peerDependencies:
       eslint: ^9.35.0
       typescript: '*'
@@ -4613,7 +4613,7 @@ snapshots:
   '@typescript-eslint/project-service@8.53.0(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/tsconfig-utils': 8.53.0(typescript@5.9.3)
-      '@typescript-eslint/types': 8.53.0
+      '@typescript-eslint/types': 8.53.1
       debug: 4.4.3
       typescript: 5.9.3
     transitivePeerDependencies:
@@ -5498,10 +5498,10 @@ snapshots:
       eslint: 9.39.2
       semver: 7.7.3
 
-  eslint-config-love@145.0.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2)(typescript@5.9.3):
+  eslint-config-love@146.0.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2)(typescript@5.9.3):
     dependencies:
       '@eslint-community/eslint-plugin-eslint-comments': 3.2.1(eslint@9.39.2)
-      '@typescript-eslint/utils': 8.53.0(eslint@9.39.2)(typescript@5.9.3)
+      '@typescript-eslint/utils': 8.53.1(eslint@9.39.2)(typescript@5.9.3)
       eslint: 9.39.2
       eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.53.1(eslint@9.39.2)(typescript@5.9.3))(eslint-import-resolver-typescript@4.4.4)(eslint@9.39.2)
       eslint-plugin-n: 17.23.2(eslint@9.39.2)(typescript@5.9.3)
