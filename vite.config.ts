@@ -66,6 +66,11 @@ export default defineConfig(({ mode }) => {
             },
             restoreMocks: true,
             setupFiles: ["./test.setup.ts"],
+            server: {
+                deps: {
+                    inline: ["@actions/io", "@actions/exec"],
+                },
+            },
         },
     };
 

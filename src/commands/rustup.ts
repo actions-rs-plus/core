@@ -2,9 +2,9 @@ import { promises as fs } from "node:fs";
 import * as os from "node:os";
 import path from "node:path";
 
-import core from "@actions/core";
-import exec from "@actions/exec";
-import io from "@actions/io";
+import * as core from "@actions/core";
+import * as exec from "@actions/exec";
+import * as io from "@actions/io";
 import tc from "@actions/tool-cache";
 import semver from "semver";
 
