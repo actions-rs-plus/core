@@ -5,8 +5,8 @@ import path from "node:path";
 import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as io from "@actions/io";
-import tc from "@actions/tool-cache";
-import semver from "semver";
+import * as tc from "@actions/tool-cache";
+import * as semver from "semver";
 
 const PROFILES_MIN_VERSION = "1.20.1";
 const COMPONENTS_MIN_VERSION = "1.20.1";
