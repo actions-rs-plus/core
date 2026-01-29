@@ -68,7 +68,7 @@ export default defineConfig(({ mode }) => {
             setupFiles: ["./test.setup.ts"],
             server: {
                 deps: {
-                    inline: ["@actions/core", "@actions/exec", "@actions/io", "@actions/tool-cache"],
+                    inline: ["@actions/cache", "@actions/core", "@actions/exec", "@actions/io", "@actions/tool-cache"],
                 },
             },
         },
