@@ -27,8 +27,8 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
       '@actions/tool-cache':
-        specifier: ^3.0.1
-        version: 3.0.1
+        specifier: ^4.0.0
+        version: 4.0.0
       semver:
         specifier: ^7.7.3
         version: 7.7.3
@@ -186,8 +186,8 @@ packages:
   '@actions/io@3.0.2':
     resolution: {integrity: sha512-nRBchcMM+QK1pdjO7/idu86rbJI5YHUKCvKs0KxnSYbVe3F51UfGxuZX4Qy/fWlp6l7gWFwIkrOzN+oUK03kfw==}
 
-  '@actions/tool-cache@3.0.1':
-    resolution: {integrity: sha512-euK7sID37jMg1yWGkdXkLPI5Te7x/+2QMUPeHXogcpzUZ81mqlDZ+CgYhQo3LtB8LpVnnQyjs+hTTU0Ir4Y0RQ==}
+  '@actions/tool-cache@4.0.0':
+    resolution: {integrity: sha512-L8P9HbXvpvqjZDveb/fdsa55IVC0trfPgQ4ZwGo6r5af6YDVdM9vMGPZ7rgY2fAT9gGj4PSYd6bYlg3p3jD78A==}
 
   '@azure/abort-controller@1.1.0':
     resolution: {integrity: sha512-TrRLIoSQVzfAJX9H1JeFjzAoDGcoK1IYX1UImfceTZpsyYfWr09Ss1aHW1y5TrrR3iq6RZLBwJ3E24uwPhwahw==}
@@ -3811,13 +3811,13 @@ snapshots:
 
   '@actions/io@3.0.2': {}
 
-  '@actions/tool-cache@3.0.1':
+  '@actions/tool-cache@4.0.0':
     dependencies:
-      '@actions/core': 2.0.3
-      '@actions/exec': 2.0.0
-      '@actions/http-client': 3.0.2
-      '@actions/io': 2.0.0
-      semver: 6.3.1
+      '@actions/core': 3.0.0
+      '@actions/exec': 3.0.0
+      '@actions/http-client': 4.0.0
+      '@actions/io': 3.0.2
+      semver: 7.7.3
 
   '@azure/abort-controller@1.1.0':
     dependencies:
