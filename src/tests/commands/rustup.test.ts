@@ -1,6 +1,6 @@
 import { promises as fs } from "node:fs";
 
-import core from "@actions/core";
+import * as core from "@actions/core";
 import * as exec from "@actions/exec";
 import * as io from "@actions/io";
 import * as tc from "@actions/tool-cache";
@@ -14,10 +14,9 @@ const osMocks = vi.hoisted(() => {
     };
 });
 
-vi.mock("node:os", () => {
-    return {
-        platform: osMocks.platform,
-    };
+vi.mock(import("node:os"), async (importOriginal) => {
+    const actual = await importOriginal();
+    return { ...actual, platform: osMocks.platform };
 });
 
 describe("rustup", () => {
