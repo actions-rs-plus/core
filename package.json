@@ -96,5 +96,9 @@
     "vite-tsconfig-paths": "6.1.1",
     "vitest": "4.0.18"
   },
-  "overrides": {}
+  "pnpm": {
+    "overrides": {
+      "@microsoft/api-extractor": "7.56.3"
+    }
+  }
 }
