@@ -97,8 +97,6 @@
     "vitest": "4.0.18"
   },
   "pnpm": {
-    "overrides": {
-      "@microsoft/api-extractor": "7.56.3"
-    }
+    "overrides": {}
   }
 }
