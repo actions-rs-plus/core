@@ -98,7 +98,7 @@
   },
   "pnpm": {
     "overrides": {
-      "@microsoft/api-extractor": "7.56.3"
+      "@microsoft/api-extractor": "7.57.1"
     }
   }
 }
