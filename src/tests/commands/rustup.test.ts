@@ -90,7 +90,7 @@ describe("rustup", () => {
         await expect(RustUp.install()).resolves.toEqual({ path: "rustup" });
         expect(downloadSpy.mock.calls).toEqual([["https://win.rustup.rs"]]);
         expect(execSpy.mock.calls).toEqual([[String.raw`C:\TEMP\rustup.exe`, ["--default-toolchain", "none", "-y"]]]);
-        expect(addpathSpy).toBeCalledTimes(1);
+        expect(addpathSpy).toHaveBeenCalledTimes(1);
     });
 
     it("installToolchain", async () => {
@@ -322,7 +322,7 @@ describe("rustup", () => {
 
         expect.assertions(1);
 
-        await expect(rustup.which("clippy")).rejects.toThrowError('Unable to find "clippy"');
+        await expect(rustup.which("clippy")).rejects.toThrow('Unable to find "clippy"');
     });
 
     it("setProfile", async () => {
@@ -380,7 +380,7 @@ describe("rustup", () => {
 
         expect.assertions(1);
 
-        await expect(rustup.activeToolchain()).rejects.toThrowError("Unable to determine active toolchain");
+        await expect(rustup.activeToolchain()).rejects.toThrow("Unable to determine active toolchain");
     });
 
     it("version", async () => {
@@ -410,7 +410,7 @@ describe("rustup", () => {
 
         expect.assertions(1);
 
-        await expect(rustup.version()).rejects.toThrowError("Unable to determine version");
+        await expect(rustup.version()).rejects.toThrow("Unable to determine version");
     });
 
     it("supportProfiles", async () => {
