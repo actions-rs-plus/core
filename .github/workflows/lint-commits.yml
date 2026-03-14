@@ -16,8 +16,8 @@ permissions:
   contents: read
 
 jobs:
-  lint:
-    name: Lint
+  lint-commits:
+    name: Lint commits
     runs-on: ubuntu-latest
     if: ${{ !startsWith(github.head_ref, 'release/') }}
     steps:
