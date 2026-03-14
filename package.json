@@ -95,6 +95,8 @@
     "vitest": "4.1.0"
   },
   "pnpm": {
-    "overrides": {}
+    "overrides": {
+      "@codecov/vite-plugin>vite": "^8.0.0"
+    }
   }
 }
