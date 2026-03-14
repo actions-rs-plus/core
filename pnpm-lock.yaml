@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@codecov/vite-plugin>vite': ^8.0.0
+
 importers:
 
   .:
@@ -265,7 +268,7 @@ packages:
     resolution: {integrity: sha512-S6Yne7comVulJ1jD3T7rCfYFHPR0zUjAYoLjUDPXNJCUrdzWJdf/ak/UepE7TicqQG+yBa6eb5WusqcPgg+1AQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      vite: 4.x || 5.x || 6.x
+      vite: ^8.0.0
 
   '@emnapi/core@1.9.0':
     resolution: {integrity: sha512-0DQ98G9ZQZOxfUcQn1waV2yS8aWdZ6kJMbYCJB3oUBecjWYO1fqJ+a1DRfPF3O5JEkwqwP1A9QEN/9mYm2Yd0w==}
@@ -2527,8 +2530,8 @@ packages:
     resolution: {integrity: sha512-raqeBD6NQK4SkWhQzeYKd1KmIG6dllBOTt55Rmkt4HtI9mwdWtJljnrXjAFUBLTSN67HWrOIZ3EPF4kjUw80Bg==}
     engines: {node: '>=14.0'}
 
-  undici@6.24.0:
-    resolution: {integrity: sha512-lVLNosgqo5EkGqh5XUDhGfsMSoO8K0BAN0TyJLvwNRSl4xWGZlCVYsAIpa/OpA3TvmnM01GWcoKmc3ZWo5wKKA==}
+  undici@6.24.1:
+    resolution: {integrity: sha512-sC+b0tB1whOCzbtlx20fx3WgCXwkW627p4EA9uM+/tNNPkSS+eSEld6pAs9nDv7WbY1UUljBMYPtu9BCOrCWKA==}
     engines: {node: '>=18.17'}
 
   unicorn-magic@0.3.0:
@@ -2805,7 +2808,7 @@ snapshots:
       '@octokit/plugin-rest-endpoint-methods': 17.0.0(@octokit/core@7.0.6)
       '@octokit/request': 10.0.8
       '@octokit/request-error': 7.1.0
-      undici: 6.24.0
+      undici: 6.24.1
 
   '@actions/glob@0.6.1':
     dependencies:
@@ -2820,12 +2823,12 @@ snapshots:
   '@actions/http-client@3.0.2':
     dependencies:
       tunnel: 0.0.6
-      undici: 6.24.0
+      undici: 6.24.1
 
   '@actions/http-client@4.0.0':
     dependencies:
       tunnel: 0.0.6
-      undici: 6.24.0
+      undici: 6.24.1
 
   '@actions/io@1.1.3': {}
 
@@ -5392,7 +5395,7 @@ snapshots:
     dependencies:
       '@fastify/busboy': 2.1.1
 
-  undici@6.24.0: {}
+  undici@6.24.1: {}
 
   unicorn-magic@0.3.0: {}
 
