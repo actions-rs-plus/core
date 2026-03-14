@@ -37,9 +37,7 @@
     "deps:ci": "depcruise --config dependency-cruiser.config.mjs --output-type err src",
     "deps:graph": "depcruise --config dependency-cruiser.config.mjs --output-type dot src | dot -T svg > dependency-graph.svg",
     "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html src",
-    "postversion": "cp package.json pnpm-lock.yaml ..",
-    "release": "semantic-release",
-    "prepare": "husky"
+    "postversion": "cp package.json pnpm-lock.yaml .."
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -72,7 +70,6 @@
     "@typescript-eslint/parser": "8.57.0",
     "@vitest/coverage-v8": "4.1.0",
     "@vitest/ui": "4.1.0",
-    "conventional-changelog-conventionalcommits": "9.3.0",
     "dependency-cruiser": "17.3.9",
     "eslint": "10.0.3",
     "eslint-config-love": "151.0.0",
@@ -85,10 +82,7 @@
     "eslint-plugin-prettier": "5.5.5",
     "eslint-plugin-promise": "7.2.1",
     "eslint-plugin-unicorn": "63.0.0",
-    "husky": "9.1.7",
-    "lint-staged": "16.3.3",
     "prettier": "3.8.1",
-    "semantic-release": "25.0.3",
     "typescript": "5.9.3",
     "typescript-eslint": "8.57.0",
     "vite": "8.0.0",
