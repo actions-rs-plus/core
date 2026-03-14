@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [0.6.2](https://github.com/actions-rs-plus/core/compare/v0.6.1..v0.6.2) - 2026-03-14
+
+### 🐛 Bug Fixes
+
+- Restore husky by @kristof-mattei ([`b1ff255`](https://github.com/actions-rs-plus/core/commit/b1ff2558cbf38aaa9c6fe97ca6603650b8983251))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.6.2
 ## [0.6.1](https://github.com/actions-rs-plus/core/compare/v0.6.0..v0.6.1) - 2026-03-14
 
 ### 🐛 Bug Fixes
@@ -8,7 +17,7 @@
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* Release v0.6.1 by @github-actions[bot] ([`ee7c782`](https://github.com/actions-rs-plus/core/commit/ee7c782546f2363ea91c26464e3e7bde8600c89c))
-- *(release)* Release v0.6.1
+- *(release)* Release v0.6.1 by @github-actions[bot] ([`84e7295`](https://github.com/actions-rs-plus/core/commit/84e72951fd64e7f0eee7b9ac2707e44eacf4322d))
 - New release setup by @kristof-mattei ([`1f3fc68`](https://github.com/actions-rs-plus/core/commit/1f3fc68ab8b6a6a09ff65836f64093501a4fda6b))
 - New release setup II by @kristof-mattei ([`1841f36`](https://github.com/actions-rs-plus/core/commit/1841f361c03768b98fb95d0ad4951ba258226372))
 - Disable formatting on push to main by @kristof-mattei ([`86fb66d`](https://github.com/actions-rs-plus/core/commit/86fb66d205229dfe2573c30f5bde0a9728ac3f84))
