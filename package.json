@@ -57,7 +57,7 @@
     "@actions/http-client": "^4.0.0",
     "@actions/io": "^3.0.2",
     "@actions/tool-cache": "^4.0.0",
-    "lint-staged": "16.3.3",
+    "lint-staged": "16.4.0",
     "semver": "^7.7.4"
   },
   "devDependencies": {
