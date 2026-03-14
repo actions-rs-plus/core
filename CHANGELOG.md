@@ -1,11 +1,18 @@
 <!-- header goes here -->
 ## [0.6.1](https://github.com/actions-rs-plus/core/compare/v0.6.0..v0.6.1) - 2026-03-14
 
+### 🐛 Bug Fixes
+
+- Set up registry so token gets imported by @kristof-mattei ([`c32f821`](https://github.com/actions-rs-plus/core/commit/c32f821e99d3da22b13fe2f355fe5eedf4c4595c))
+
 ### ⚙️ Miscellaneous Tasks
 
+- *(release)* Release v0.6.1 by @github-actions[bot] ([`ee7c782`](https://github.com/actions-rs-plus/core/commit/ee7c782546f2363ea91c26464e3e7bde8600c89c))
 - *(release)* Release v0.6.1
 - New release setup by @kristof-mattei ([`1f3fc68`](https://github.com/actions-rs-plus/core/commit/1f3fc68ab8b6a6a09ff65836f64093501a4fda6b))
 - New release setup II by @kristof-mattei ([`1841f36`](https://github.com/actions-rs-plus/core/commit/1841f361c03768b98fb95d0ad4951ba258226372))
+- Disable formatting on push to main by @kristof-mattei ([`86fb66d`](https://github.com/actions-rs-plus/core/commit/86fb66d205229dfe2573c30f5bde0a9728ac3f84))
+- Old package cleanup by @kristof-mattei ([`9527a3f`](https://github.com/actions-rs-plus/core/commit/9527a3fe24b17dd135344b6083ed428a169a60af))
 ## [0.6.0](https://github.com/actions-rs-plus/core/compare/v0.5.13..v0.6.0) - 2026-03-12
 
 ### 🚀 Features
