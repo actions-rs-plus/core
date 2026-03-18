@@ -1,4 +1,18 @@
 <!-- header goes here -->
+## [0.6.3](https://github.com/actions-rs-plus/core/compare/v0.6.2..v0.6.3) - 2026-03-18
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update lint-staged (npm) to v16.4.0 by @renovate[bot] ([`d769e2a`](https://github.com/actions-rs-plus/core/commit/d769e2ac0b220212477feaffe7c4671f884ebd3c))
+- Use non-vulnerable version of undici by @kristof-mattei ([`a3ede36`](https://github.com/actions-rs-plus/core/commit/a3ede36136bd64d032507f03a93e1f6e14f65289))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.6.3
+- Force codecov's vite plugin to use our version of vite by @kristof-mattei ([`169e537`](https://github.com/actions-rs-plus/core/commit/169e53700749016367c1e10ae690093426ae634c))
+- Can't set `automatic_copilot_code_review_enabled` with probot by @kristof-mattei ([`5d5f7b4`](https://github.com/actions-rs-plus/core/commit/5d5f7b41bccc7d2acca341ace01a7402dc6f761b))
+- Require format and lint as well by @kristof-mattei ([`65f652d`](https://github.com/actions-rs-plus/core/commit/65f652dab03c6b920ad99255e9b97ed2e2efddfb))
+- Pin package manager by @kristof-mattei ([`f4e3efa`](https://github.com/actions-rs-plus/core/commit/f4e3efae4e243c835ad6690ffab3afc94c02c569))
 ## [0.6.2](https://github.com/actions-rs-plus/core/compare/v0.6.1..v0.6.2) - 2026-03-14
 
 ### 🐛 Bug Fixes
@@ -7,7 +21,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.6.2
+- *(release)* Release v0.6.2 by @github-actions[bot] ([`0e5eca4`](https://github.com/actions-rs-plus/core/commit/0e5eca4a2097dd667c8f3bf666bda24f7a8a4b4c))
 ## [0.6.1](https://github.com/actions-rs-plus/core/compare/v0.6.0..v0.6.1) - 2026-03-14
 
 ### 🐛 Bug Fixes
