@@ -3,7 +3,8 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.6.3
+- *(release)* Release v0.6.3 by @github-actions[bot] ([`cc6fcb9`](https://github.com/actions-rs-plus/core/commit/cc6fcb9ffe0dfdf76f4ac3c50620d1fcef037dd6))
+- *(release)* Release v0.6.4
 ## [0.6.3](https://github.com/actions-rs-plus/core/compare/v0.6.2..v0.6.3) - 2026-03-18
 
 ### 🐛 Bug Fixes
