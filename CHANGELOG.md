@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.6.4](https://github.com/actions-rs-plus/core/compare/v0.6.3..v0.6.4) - 2026-03-20
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.6.3
 ## [0.6.3](https://github.com/actions-rs-plus/core/compare/v0.6.2..v0.6.3) - 2026-03-18
 
 ### 🐛 Bug Fixes
@@ -8,7 +13,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.6.3
+- *(release)* Release v0.6.3 by @github-actions[bot] ([`e714f35`](https://github.com/actions-rs-plus/core/commit/e714f3593a8d828f7245bf33d926125357e47afc))
 - Force codecov's vite plugin to use our version of vite by @kristof-mattei ([`169e537`](https://github.com/actions-rs-plus/core/commit/169e53700749016367c1e10ae690093426ae634c))
 - Can't set `automatic_copilot_code_review_enabled` with probot by @kristof-mattei ([`5d5f7b4`](https://github.com/actions-rs-plus/core/commit/5d5f7b41bccc7d2acca341ace01a7402dc6f761b))
 - Require format and lint as well by @kristof-mattei ([`65f652d`](https://github.com/actions-rs-plus/core/commit/65f652dab03c6b920ad99255e9b97ed2e2efddfb))
