@@ -2,8 +2,8 @@ import * as http from "@actions/http-client";
 import type { TypedResponse } from "@actions/http-client/lib/interfaces";
 import { describe, expect, it, vi } from "vitest";
 
-import { resolveVersion } from "@/commands/crates.ts";
-import type { CratesIO } from "@/schema.ts";
+import { resolveVersion } from "../../commands/crates";
+import type { CratesIO } from "../../schema";
 
 describe("resolveVersion", () => {
     it("resolves", async () => {

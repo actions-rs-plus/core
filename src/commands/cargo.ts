@@ -4,8 +4,8 @@ import * as cache from "@actions/cache";
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 
-import { BaseProgram } from "@/commands/base-program.ts";
-import { resolveVersion } from "@/commands/crates.ts";
+import { BaseProgram } from "./base-program";
+import { resolveVersion } from "./crates";
 
 export class Cargo extends BaseProgram {
     private constructor(pathToCargo: string) {
