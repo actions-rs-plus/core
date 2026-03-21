@@ -1,10 +1,18 @@
 <!-- header goes here -->
+## [0.6.5](https://github.com/actions-rs-plus/core/compare/v0.6.4..v0.6.5) - 2026-03-21
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.6.5
+- Remove comments by @kristof-mattei ([`45b9daa`](https://github.com/actions-rs-plus/core/commit/45b9daa07da60a7c381c2c5ef679b3d8c2d8787f))
+- Remove caret by @kristof-mattei ([`aeafd9c`](https://github.com/actions-rs-plus/core/commit/aeafd9cc31b0d7051ed49a9747fa88d363b8e530))
+- Super strict by @kristof-mattei ([`b9c250c`](https://github.com/actions-rs-plus/core/commit/b9c250ce9f4ee645ea03c6355775338ae46a6544))
 ## [0.6.4](https://github.com/actions-rs-plus/core/compare/v0.6.3..v0.6.4) - 2026-03-20
 
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* Release v0.6.3 by @github-actions[bot] ([`cc6fcb9`](https://github.com/actions-rs-plus/core/commit/cc6fcb9ffe0dfdf76f4ac3c50620d1fcef037dd6))
-- *(release)* Release v0.6.4
+- *(release)* Release v0.6.4 by @github-actions[bot] ([`d9aab2b`](https://github.com/actions-rs-plus/core/commit/d9aab2be6d972e9233fe7504439752407f6e0077))
 ## [0.6.3](https://github.com/actions-rs-plus/core/compare/v0.6.2..v0.6.3) - 2026-03-18
 
 ### 🐛 Bug Fixes
