@@ -3,8 +3,8 @@ import * as os from "node:os";
 import * as core from "@actions/core";
 import * as io from "@actions/io";
 
-import { BaseProgram } from "@/commands/base-program.ts";
-import { Cargo } from "@/commands/cargo.ts";
+import { BaseProgram } from "./base-program";
+import { Cargo } from "./cargo";
 
 export class Cross extends BaseProgram {
     private constructor(path: string) {

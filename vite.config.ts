@@ -5,9 +5,10 @@ import type { UserConfig } from "vite";
 import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
 import dts from "vite-plugin-dts";
+import type { ViteUserConfigFn } from "vitest/config";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
-export default defineConfig(({ mode }) => {
+const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
     const environment = loadEnv(mode, process.cwd(), "");
 
     const config: UserConfig = {
@@ -17,12 +18,12 @@ export default defineConfig(({ mode }) => {
                 entry: nodePath.resolve(import.meta.dirname, "src/core.ts"),
                 formats: ["es"],
             },
-            target: "node24",
             minify: false,
+            target: "node24",
             emptyOutDir: true,
             sourcemap: true,
             ssr: true,
-            rollupOptions: {
+            rolldownOptions: {
                 output: {
                     preserveModules: true,
                 },
@@ -39,6 +40,8 @@ export default defineConfig(({ mode }) => {
             dts({
                 insertTypesEntry: true,
                 entryRoot: "./src",
+                tsconfigPath: "./tsconfig.build.json",
+                rollupTypes: true,
                 exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
             }),
             codecovVitePlugin({
@@ -77,3 +80,5 @@ export default defineConfig(({ mode }) => {
 
     return config;
 });
+
+export default configFunction;

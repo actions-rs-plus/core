@@ -6,7 +6,7 @@ import * as io from "@actions/io";
 import type { MockInstance } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { Cargo } from "@/core.ts";
+import { Cargo } from "../../core";
 
 vi.mock("@actions/exec");
 vi.mock("@actions/io");
