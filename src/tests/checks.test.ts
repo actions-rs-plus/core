@@ -97,4 +97,8 @@ describe("check", () => {
             }),
         ).resolves.toBe(undefined);
     });
+
+    it("fails", () => {
+        expect(true).toBe(false);
+    });
 });
