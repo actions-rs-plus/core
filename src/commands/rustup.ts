@@ -216,13 +216,14 @@ expected at least ${PROFILES_MIN_VERSION}`);
      */
     public async callStdout(arguments_: string[], options?: exec.ExecOptions): Promise<string> {
         let stdout = "";
-        const stdoutOptions = Object.assign({}, options, {
+        const stdoutOptions = {
+            ...options,
             listeners: {
                 stdout: (buffer: Buffer): void => {
                     stdout += buffer.toString();
                 },
             },
-        });
+        };
 
         await this.call(arguments_, stdoutOptions);
 

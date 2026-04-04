@@ -7,7 +7,7 @@ export interface CratesIOFound {
 }
 
 export interface CratesIOError {
-    errors: {
+    errors: Array<{
         detail: string;
-    }[];
+    }>;
 }
