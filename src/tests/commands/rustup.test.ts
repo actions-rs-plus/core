@@ -56,7 +56,7 @@ describe("rustup", () => {
 
         expect.assertions(1);
 
-        await expect(RustUp.install()).rejects.toThrow(/Unknown platform/);
+        await expect(RustUp.install()).rejects.toThrow(/Unknown platform/v);
     });
 
     test.each([["linux" as typeof process.platform], ["darwin" as typeof process.platform]])(
