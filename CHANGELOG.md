@@ -1,9 +1,25 @@
 <!-- header goes here -->
+## [0.6.6](https://github.com/actions-rs-plus/core/compare/v0.6.5..v0.6.6) - 2026-04-08
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update @actions/github (npm) to ^9.1.0 by @renovate[bot] ([`6840581`](https://github.com/actions-rs-plus/core/commit/6840581857b008a3ba627506a3a3a57c9e41d917))
+- Coverage comes from codecov by @kristof-mattei ([`fb65ea8`](https://github.com/actions-rs-plus/core/commit/fb65ea866dfa67ffae207e5d326573d60edbdb8a))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.6.6
+- More badges by @kristof-mattei ([`d1f8bc0`](https://github.com/actions-rs-plus/core/commit/d1f8bc04e73ad5c0471ee97a6369c1fe3d9eb78a))
+- Fix lint by @kristof-mattei ([`b92865f`](https://github.com/actions-rs-plus/core/commit/b92865fa7483b6ba5fff77f3f85f3a13873e5797))
+- More eslint by @kristof-mattei ([`92335ad`](https://github.com/actions-rs-plus/core/commit/92335ad38cbedd9decd928a23795ffee56b6c932))
+- Remove unused package by @kristof-mattei ([`b63057d`](https://github.com/actions-rs-plus/core/commit/b63057dbbe5c3f43f0a770a886d66402b5c76458))
+- Point to ts prettier config by @kristof-mattei ([`875bf86`](https://github.com/actions-rs-plus/core/commit/875bf8647d774ff9d35efc844d1f14b017c60442))
+- Use $vite to make sure the same version is used by @kristof-mattei ([`1f8494c`](https://github.com/actions-rs-plus/core/commit/1f8494c7a5dde4551af0192bfe5de4bc29a7348b))
 ## [0.6.5](https://github.com/actions-rs-plus/core/compare/v0.6.4..v0.6.5) - 2026-03-21
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.6.5
+- *(release)* Release v0.6.5 by @github-actions[bot] ([`55a4c50`](https://github.com/actions-rs-plus/core/commit/55a4c50d2f2d6cbfd6f43451bff8f7603771cab9))
 - Remove comments by @kristof-mattei ([`45b9daa`](https://github.com/actions-rs-plus/core/commit/45b9daa07da60a7c381c2c5ef679b3d8c2d8787f))
 - Remove caret by @kristof-mattei ([`aeafd9c`](https://github.com/actions-rs-plus/core/commit/aeafd9cc31b0d7051ed49a9747fa88d363b8e530))
 - Super strict by @kristof-mattei ([`b9c250c`](https://github.com/actions-rs-plus/core/commit/b9c250ce9f4ee645ea03c6355775338ae46a6544))
