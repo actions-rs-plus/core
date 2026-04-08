@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.6.7](https://github.com/actions-rs-plus/core/compare/v0.6.6..v0.6.7) - 2026-04-08
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Release v0.6.6
 ## [0.6.6](https://github.com/actions-rs-plus/core/compare/v0.6.5..v0.6.6) - 2026-04-08
 
 ### 🐛 Bug Fixes
@@ -8,7 +13,7 @@
 
 ### ⚙️ Miscellaneous Tasks
 
-- *(release)* Release v0.6.6
+- *(release)* Release v0.6.6 by @github-actions[bot] ([`4525559`](https://github.com/actions-rs-plus/core/commit/4525559c62a4a79cdf7f0671be16e3eaae7c9ffe))
 - More badges by @kristof-mattei ([`d1f8bc0`](https://github.com/actions-rs-plus/core/commit/d1f8bc04e73ad5c0471ee97a6369c1fe3d9eb78a))
 - Fix lint by @kristof-mattei ([`b92865f`](https://github.com/actions-rs-plus/core/commit/b92865fa7483b6ba5fff77f3f85f3a13873e5797))
 - More eslint by @kristof-mattei ([`92335ad`](https://github.com/actions-rs-plus/core/commit/92335ad38cbedd9decd928a23795ffee56b6c932))
