@@ -59,6 +59,7 @@ describe("rustup", () => {
         await expect(RustUp.install()).rejects.toThrow(/Unknown platform/v);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- it does not here
     test.each([["linux" as typeof process.platform], ["darwin" as typeof process.platform]])(
         "install %s",
         async (platform: typeof process.platform) => {
