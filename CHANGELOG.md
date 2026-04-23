@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.7.3](https://github.com/actions-rs-plus/core/compare/v0.7.2..v0.7.3) - 2026-04-23
+
+### 🐛 Bug Fixes
+
+- No husky when publishing by [@kristof-mattei](https://github.com/kristof-mattei) ([`8797fff`](https://github.com/actions-rs-plus/core/commit/8797fffde4241e43c866e5b5cdf1e65dfd0f01e0))
 ## [0.7.2](https://github.com/actions-rs-plus/core/compare/v0.7.1..v0.7.2) - 2026-04-23
 
 ### 🐛 Bug Fixes
