@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.7.4](https://github.com/actions-rs-plus/core/compare/v0.7.3..v0.7.4) - 2026-04-23
+
+### 🐛 Bug Fixes
+
+- `pnpm` not support `pnpm pkg` by [@kristof-mattei](https://github.com/kristof-mattei) ([`1e8e3aa`](https://github.com/actions-rs-plus/core/commit/1e8e3aaefed9353f10cb85e5ba82dbaec04173e3))
 ## [0.7.3](https://github.com/actions-rs-plus/core/compare/v0.7.2..v0.7.3) - 2026-04-23
 
 ### 🐛 Bug Fixes
