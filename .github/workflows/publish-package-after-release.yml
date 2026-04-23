@@ -14,7 +14,6 @@ permissions:
 
 env:
   NPM_CONFIG_FUND: "false"
-  HUSKY: "0"
 
 jobs:
   build:
@@ -54,6 +53,11 @@ jobs:
         shell: bash
         run: |
           pnpm run build
+
+      - name: Remove husky prepare script
+        shell: bash
+        run: |
+          pnpm pkg delete scripts.prepare
 
       - name: Upload package artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
