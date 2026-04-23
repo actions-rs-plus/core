@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.7.1](https://github.com/actions-rs-plus/core/compare/v0.7.0..v0.7.1) - 2026-04-23
+
+### 🐛 Bug Fixes
+
+- Provenance to both github and npmjs registry by [@kristof-mattei](https://github.com/kristof-mattei) ([`1ac33e0`](https://github.com/actions-rs-plus/core/commit/1ac33e0fbe7ca372fa4c97898ef67ba1b99c3cfc))
 ## [0.7.0](https://github.com/actions-rs-plus/core/compare/v0.6.6..v0.7.0) - 2026-04-23
 
 ### 🚀 Features
