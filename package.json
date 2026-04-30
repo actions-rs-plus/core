@@ -74,6 +74,7 @@
         "@eslint/config-helpers": "0.5.5",
         "@eslint/core": "1.2.1",
         "@eslint/js": "10.0.1",
+        "@microsoft/api-extractor": "7.58.7",
         "@stylistic/eslint-plugin": "5.10.0",
         "@types/eslint": "9.6.1",
         "@types/node": "24.12.2",
@@ -100,9 +101,9 @@
         "prettier-plugin-toml": "2.0.6",
         "typescript": "6.0.3",
         "typescript-eslint": "8.59.1",
+        "unplugin-dts": "1.0.0",
         "vite": "8.0.10",
         "vite-plugin-checker": "0.13.0",
-        "vite-plugin-dts": "4.5.4",
         "vitest": "4.1.5"
     },
     "pnpm": {
