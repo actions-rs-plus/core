@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [0.7.5](https://github.com/actions-rs-plus/core/compare/v0.7.4..v0.7.5) - 2026-04-30
+
+### 🐛 Bug Fixes
+
+- Migrate to `unplug-dts` by [@kristof-mattei](https://github.com/kristof-mattei) ([`f2fac7d`](https://github.com/actions-rs-plus/core/commit/f2fac7d46796f614301a3956c35e51c7c16513eb))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Allow auto-release when creating release PR by [@kristof-mattei](https://github.com/kristof-mattei) ([`ba72a26`](https://github.com/actions-rs-plus/core/commit/ba72a2630ee57a3a4040bc52517046c821857b46))
 ## [0.7.4](https://github.com/actions-rs-plus/core/compare/v0.7.3..v0.7.4) - 2026-04-23
 
 ### 🐛 Bug Fixes
