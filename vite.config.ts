@@ -1,10 +1,10 @@
 import nodePath from "node:path";
 
 import { codecovVitePlugin } from "@codecov/vite-plugin";
+import dts from "unplugin-dts/vite";
 import type { UserConfig } from "vite";
 import { loadEnv } from "vite";
 import { checker } from "vite-plugin-checker";
-import dts from "vite-plugin-dts";
 import type { ViteUserConfigFn } from "vitest/config";
 import { coverageConfigDefaults, defineConfig } from "vitest/config";
 
@@ -41,8 +41,8 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
                 insertTypesEntry: true,
                 entryRoot: "./src",
                 tsconfigPath: "./tsconfig.build.json",
-                rollupTypes: true,
-                exclude: ["test.setup.ts", "vite.config.ts", "src/tests/**"],
+                bundleTypes: true,
+                exclude: ["eslint.config.ts", "prettier.config.ts", "src/tests/**", "test.setup.ts", "vite.config.ts"],
             }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["GITHUB_ACTIONS"] === "true",
