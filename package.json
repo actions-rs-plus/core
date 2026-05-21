@@ -26,18 +26,6 @@
         "node": "26.2.0",
         "pnpm": "11.2.1"
     },
-    "devEngines": {
-        "runtime": {
-            "name": "node",
-            "version": "26.1.0",
-            "onFail": "error"
-        },
-        "packageManager": {
-            "name": "pnpm",
-            "version": "11.2.1",
-            "onFail": "error"
-        }
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/actions-rs-plus/core.git"
