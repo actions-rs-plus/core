@@ -79,8 +79,8 @@
         "@types/node": "25.9.1",
         "@types/semver": "7.7.1",
         "@typescript-eslint/parser": "8.59.4",
-        "@vitest/coverage-v8": "4.1.6",
-        "@vitest/ui": "4.1.6",
+        "@vitest/coverage-v8": "4.1.7",
+        "@vitest/ui": "4.1.7",
         "dependency-cruiser": "17.4.0",
         "eslint": "10.4.0",
         "eslint-config-love": "154.0.0",
@@ -104,6 +104,6 @@
         "unplugin-dts": "1.0.1",
         "vite": "8.0.13",
         "vite-plugin-checker": "0.13.0",
-        "vitest": "4.1.6"
+        "vitest": "4.1.7"
     }
 }
