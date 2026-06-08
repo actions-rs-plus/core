@@ -183,7 +183,7 @@ expected at least ${PROFILES_MIN_VERSION}`);
     public async version(): Promise<string> {
         const stdout = await this.callStdout(["-V"]);
 
-        const split = stdout.split(" ")[1];
+        const split = stdout.split(" ", 2)[1];
 
         if (split === undefined) {
             throw new Error("Unable to determine version");
