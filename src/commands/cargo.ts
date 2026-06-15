@@ -88,7 +88,9 @@ export class Cargo extends BaseProgram {
             if (error instanceof Error) {
                 if (error.name === cache.ValidationError.name) {
                     throw error;
-                } else if (error.name === cache.ReserveCacheError.name) {
+                }
+
+                if (error.name === cache.ReserveCacheError.name) {
                     core.warning(error.message);
                 }
             } else if (typeof error === "string") {

@@ -20,11 +20,12 @@ export function getInput(name: string, options?: core.InputOptions): string {
 
 export function getInputBool(name: string, options?: core.InputOptions): boolean {
     const value = getInput(name, options);
+
     if (value === "true" || value === "1") {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 export function getInputList(name: string, options?: core.InputOptions): string[] {

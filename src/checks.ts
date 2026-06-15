@@ -54,6 +54,8 @@ export class Check {
     ): Promise<void> {
         const { owner, repo } = github.context.repo;
 
+        const now = new Date();
+
         // TODO: Check for errors
         await this.client.rest.checks.update({
             owner,
@@ -62,13 +64,15 @@ export class Check {
             check_run_id: this.checkId,
             status: "completed",
             conclusion,
-            completed_at: new Date().toISOString(),
+            completed_at: now.toISOString(),
             output,
         });
     }
 
     public async cancelCheck(): Promise<void> {
         const { owner, repo } = github.context.repo;
+
+        const now = new Date();
 
         // TODO: Check for errors
         await this.client.rest.checks.update({
@@ -78,7 +82,7 @@ export class Check {
             check_run_id: this.checkId,
             status: "completed",
             conclusion: "cancelled",
-            completed_at: new Date().toISOString(),
+            completed_at: now.toISOString(),
             output: {
                 title: this.checkName,
                 summary: "Unhandled error",

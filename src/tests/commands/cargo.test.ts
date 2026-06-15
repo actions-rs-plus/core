@@ -23,7 +23,6 @@ describe("cargo", () => {
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
         vi.spyOn(core, "info").mockImplementation(() => {});
 
-        // eslint-disable-next-line unicorn/no-useless-undefined -- explicit
         vi.spyOn(cache, "restoreCache").mockResolvedValue(undefined);
     });
 
