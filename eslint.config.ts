@@ -225,8 +225,14 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
 
             "import-x/consistent-type-specifier-style": ["error", "prefer-top-level"],
 
+            // note that this CAN change the outcome of type resolution
             "perfectionist/sort-intersection-types": ["error"],
             "perfectionist/sort-union-types": ["error"],
+
+            // type order relies on perfectionist/sort-intersection-types
+            "unicorn/prefer-type-literal-last": ["off"],
+
+            "unicorn/class-reference-in-static-methods": ["error", { preferThis: false, preferSuper: false }],
         },
     },
 

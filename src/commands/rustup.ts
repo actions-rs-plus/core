@@ -142,9 +142,9 @@ export class RustUp {
 
         if (split === undefined || split === "") {
             throw new Error("Unable to determine active toolchain");
-        } else {
-            return split;
         }
+
+        return split;
     }
 
     public async supportProfiles(): Promise<boolean> {
@@ -187,9 +187,9 @@ expected at least ${PROFILES_MIN_VERSION}`);
 
         if (split === undefined) {
             throw new Error("Unable to determine version");
-        } else {
-            return split;
         }
+
+        return split;
     }
 
     // rustup which `program`
@@ -198,9 +198,9 @@ expected at least ${PROFILES_MIN_VERSION}`);
 
         if (stdout === "") {
             throw new Error(`Unable to find "${program}"`);
-        } else {
-            return stdout;
         }
+
+        return stdout;
     }
 
     public selfUpdate(): Promise<number> {
