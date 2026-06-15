@@ -233,6 +233,12 @@ const config: ReturnType<typeof defineConfig> = defineConfig(
             "unicorn/prefer-type-literal-last": ["off"],
 
             "unicorn/class-reference-in-static-methods": ["error", { preferThis: false, preferSuper: false }],
+
+            // const go in top
+            "unicorn/no-declarations-before-early-exit": ["off"],
+
+            // this one doesn't consider types (e.g. `ip.is4() ? ip.to4().address : ip.address`, the `address` is not of the same type, yet it hits this rule)
+            "unicorn/prefer-minimal-ternary": ["off"],
         },
     },
 
