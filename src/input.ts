@@ -18,6 +18,7 @@ export function getInput(name: string, options?: core.InputOptions): string {
     return core.getInput(name, options);
 }
 
+// eslint-disable-next-line unicorn/consistent-boolean-name -- nonsensical here
 export function getInputBool(name: string, options?: core.InputOptions): boolean {
     const value = getInput(name, options);
 

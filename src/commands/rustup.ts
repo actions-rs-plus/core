@@ -93,7 +93,9 @@ export class RustUp {
         const arguments_ = ["toolchain", "install", name];
 
         if (options !== undefined) {
-            for (const component of options.components ?? []) {
+            const components = options.components ?? [];
+
+            for (const component of components) {
                 arguments_.push("--component", component);
             }
 
@@ -149,25 +151,32 @@ export class RustUp {
 
     public async supportProfiles(): Promise<boolean> {
         const version = await this.version();
+        // eslint-disable-next-line unicorn/consistent-boolean-name -- nonsensical here
         const supports = semver.gte(version, PROFILES_MIN_VERSION);
+
         if (supports) {
             core.info(`Installed rustup ${version} support profiles`);
         } else {
-            core.info(`Installed rustup ${version} does not support profiles, \
-expected at least ${PROFILES_MIN_VERSION}`);
+            core.info(
+                `Installed rustup ${version} does not support profiles, expected at least ${PROFILES_MIN_VERSION}`,
+            );
         }
+
         return supports;
     }
 
     public async supportComponents(): Promise<boolean> {
         const version = await this.version();
+        // eslint-disable-next-line unicorn/consistent-boolean-name -- nonsensical here
         const supports = semver.gte(version, COMPONENTS_MIN_VERSION);
+
         if (supports) {
             core.info(`Installed rustup ${version} support components`);
         } else {
             core.info(`Installed rustup ${version} does not support components, \
 expected at least ${PROFILES_MIN_VERSION}`);
         }
+
         return supports;
     }
 
