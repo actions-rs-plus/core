@@ -101,7 +101,7 @@
         "prettier-plugin-toml": "2.0.6",
         "typescript": "6.0.3",
         "typescript-eslint": "8.62.0",
-        "unplugin-dts": "1.0.2",
+        "unplugin-dts": "1.0.3",
         "vite": "catalog:default",
         "vite-plugin-checker": "0.14.4",
         "vitest": "4.1.9"
