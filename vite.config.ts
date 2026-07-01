@@ -25,6 +25,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
             ssr: true,
             rolldownOptions: {
                 output: {
+                    keepNames: true,
                     preserveModules: true,
                 },
             },
