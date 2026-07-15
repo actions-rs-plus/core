@@ -23,8 +23,8 @@ importers:
   .:
     dependencies:
       '@actions/cache':
-        specifier: ^6.1.0
-        version: 6.1.0
+        specifier: ^6.2.0
+        version: 6.2.0
       '@actions/core':
         specifier: ^3.0.1
         version: 3.0.1
@@ -164,8 +164,8 @@ importers:
 
 packages:
 
-  '@actions/cache@6.1.0':
-    resolution: {integrity: sha512-LVqybSbzhBp2uAETOQ3HnVjXA4AcjavgMH+LCr+cjgO+PZfciv/1QAgoW+esXBaAhvDid+vXeV70GGJpAh4V5Q==}
+  '@actions/cache@6.2.0':
+    resolution: {integrity: sha512-Nv0xWRmbxfDbAn/70flO/F6tj2Nv4XTYMAsQHiDFSojCDfso/Zni+fRKa14ToI9hnmOW/rQcY1WYb6wsM7Pgwg==}
 
   '@actions/core@3.0.1':
     resolution: {integrity: sha512-a6d/Nwahm9fliVGRhdhofo40HjHQasUPusmc7vBfyky+7Z+P2A1J68zyFVaNcEclc/Se+eO595oAr5nwEIoIUA==}
@@ -2836,7 +2836,7 @@ packages:
 
 snapshots:
 
-  '@actions/cache@6.1.0':
+  '@actions/cache@6.2.0':
     dependencies:
       '@actions/core': 3.0.1
       '@actions/exec': 3.0.0
