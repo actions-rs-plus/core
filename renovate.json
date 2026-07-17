@@ -1,5 +1,16 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": ["github>kristof-mattei/renovate-config"],
-    "forkProcessing": "enabled"
+    "forkProcessing": "enabled",
+    "packageRules": [
+        {
+            "matchManagers": ["npm"],
+            "matchDepTypes": ["dependencies"],
+            "rangeStrategy": "update-lockfile"
+        },
+        {
+            "matchPackageNames": ["tslib"],
+            "rangeStrategy": "pin"
+        }
+    ]
 }
