@@ -23,28 +23,28 @@ importers:
   .:
     dependencies:
       '@actions/cache':
-        specifier: ^6.2.0
+        specifier: 6.2.0
         version: 6.2.0
       '@actions/core':
-        specifier: ^3.0.1
+        specifier: 3.0.1
         version: 3.0.1
       '@actions/exec':
-        specifier: ^3.0.0
+        specifier: 3.0.0
         version: 3.0.0
       '@actions/github':
-        specifier: ^9.1.1
+        specifier: 9.1.1
         version: 9.1.1
       '@actions/http-client':
-        specifier: ^4.0.1
+        specifier: 4.0.1
         version: 4.0.1
       '@actions/io':
-        specifier: ^3.0.2
+        specifier: 3.0.2
         version: 3.0.2
       '@actions/tool-cache':
-        specifier: ^4.0.0
+        specifier: 4.0.0
         version: 4.0.0
       semver:
-        specifier: ^7.8.5
+        specifier: 7.8.5
         version: 7.8.5
       tslib:
         specifier: 2.8.1
