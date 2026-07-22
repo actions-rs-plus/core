@@ -73,7 +73,7 @@
         "@eslint/config-helpers": "0.6.0",
         "@eslint/core": "1.2.1",
         "@eslint/js": "10.0.1",
-        "@microsoft/api-extractor": "7.58.11",
+        "@microsoft/api-extractor": "7.58.12",
         "@stylistic/eslint-plugin": "5.10.0",
         "@types/eslint": "9.6.1",
         "@types/node": "24.13.3",
