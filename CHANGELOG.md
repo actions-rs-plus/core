@@ -1,4 +1,45 @@
 <!-- header goes here -->
+## [0.7.6](https://github.com/actions-rs-plus/core/compare/v0.7.5..v0.7.6) - 2026-07-28
+
+### 🐛 Bug Fixes
+
+- *(deps)* Update semver (npm) to ^7.8.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`68a0401`](https://github.com/actions-rs-plus/core/commit/68a04015e193f56419ee1279f95914ccaafe44b5))
+- *(deps)* Update @actions/cache (npm) to ^6.0.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`2ab4aa7`](https://github.com/actions-rs-plus/core/commit/2ab4aa7c1d3921e52e1b57a19ab9ede830ae2ce4))
+- *(deps)* Update @actions/cache (npm) to ^6.0.1 (#2320) by [@renovate[bot]](https://github.com/renovate[bot]) in #2320 ([`f710e8d`](https://github.com/actions-rs-plus/core/commit/f710e8d659e69f0071f2aa6f681b6533a0704b5d))
+- *(deps)* Update semver (npm) to ^7.8.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`338ee62`](https://github.com/actions-rs-plus/core/commit/338ee628fa9c4d7cbdba41be953931770122d4c0))
+- *(deps)* Update semver (npm) to ^7.8.1 (#2326) by [@renovate[bot]](https://github.com/renovate[bot]) in #2326 ([`0ec72b7`](https://github.com/actions-rs-plus/core/commit/0ec72b72250b3829f8b86159158eb2f2cf0d14aa))
+- *(deps)* Update semver (npm) to ^7.8.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`10f43ee`](https://github.com/actions-rs-plus/core/commit/10f43eeb1f3161bf992a4b4e43183b0d8d75dffd))
+- *(deps)* Update semver (npm) to ^7.8.2 (#2375) by [@renovate[bot]](https://github.com/renovate[bot]) in #2375 ([`b13b3f9`](https://github.com/actions-rs-plus/core/commit/b13b3f918db9014dc27dbc37f80d29e61a644423))
+- *(deps)* Update semver (npm) to ^7.8.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`8fe6d88`](https://github.com/actions-rs-plus/core/commit/8fe6d886125c61d4cb624ba2607dd68b5fe3ae6a))
+- *(deps)* Update semver (npm) to ^7.8.3 (#2385) by [@renovate[bot]](https://github.com/renovate[bot]) in #2385 ([`3504390`](https://github.com/actions-rs-plus/core/commit/35043902a0505054d416d664f8770531a1eb5d01))
+- *(deps)* Update semver (npm) to ^7.8.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`dc6f5d6`](https://github.com/actions-rs-plus/core/commit/dc6f5d6aeeb85ad58278d029047fac70130fca0e))
+- *(deps)* Update semver (npm) to ^7.8.4 (#2391) by [@renovate[bot]](https://github.com/renovate[bot]) in #2391 ([`626162a`](https://github.com/actions-rs-plus/core/commit/626162acd1a163d0bb309a899adf0023ea86cbec))
+- *(deps)* Update @actions/cache (npm) to ^6.1.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f2b004d`](https://github.com/actions-rs-plus/core/commit/f2b004db45353917623a50886cef4040ebaa0991))
+- *(deps)* Update @actions/cache (npm) to ^6.1.0 (#2418) by [@renovate[bot]](https://github.com/renovate[bot]) in #2418 ([`9bf1207`](https://github.com/actions-rs-plus/core/commit/9bf1207aebdb956d1954e19d8b9e4f7c07a0efdd))
+- *(deps)* Update semver (npm) to ^7.8.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`64a227b`](https://github.com/actions-rs-plus/core/commit/64a227bccfb4150bbe5534793de1ca3385b60ae6))
+- *(deps)* Update semver (npm) to ^7.8.5 (#2421) by [@renovate[bot]](https://github.com/renovate[bot]) in #2421 ([`0ec3093`](https://github.com/actions-rs-plus/core/commit/0ec3093d32bca2be87a3fb4a37cfc107ee42917c))
+- *(deps)* Update @actions/cache (npm) to ^6.2.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`dddaf56`](https://github.com/actions-rs-plus/core/commit/dddaf56a9c1f8d4ebb58efc8db360656ab405b83))
+- *(deps)* Update @actions/cache (npm) to ^6.2.0 (#2491) by [@renovate[bot]](https://github.com/renovate[bot]) in #2491 ([`456e791`](https://github.com/actions-rs-plus/core/commit/456e7916fc71403e388eaf45d8cdc53c1989a44e))
+- ConfigError: Config (unnamed): Key "plugins": Cannot redefine plugin "n". by [@kristof-mattei](https://github.com/kristof-mattei) ([`2a53604`](https://github.com/actions-rs-plus/core/commit/2a536041845d58b5f143f61dbf4d27c156e43db0))
+- Broken update by [@kristof-mattei](https://github.com/kristof-mattei) ([`efd73ff`](https://github.com/actions-rs-plus/core/commit/efd73ff5099a0f337cad0b4887ceded20cf5b05b))
+- Eslint rules correction by [@kristof-mattei](https://github.com/kristof-mattei) ([`c6538ac`](https://github.com/actions-rs-plus/core/commit/c6538aca2850065780bee37dc9f8cc4c10eb2e3d))
+- KeepNames for easier debugging by [@kristof-mattei](https://github.com/kristof-mattei) ([`58b0b50`](https://github.com/actions-rs-plus/core/commit/58b0b500aa7b4742c8d1b8f4b58425505c67b7b9))
+
+### ⚙️ Miscellaneous Tasks
+
+- Move `lint-staged` to dev dependencies by [@kristof-mattei](https://github.com/kristof-mattei) ([`d565d76`](https://github.com/actions-rs-plus/core/commit/d565d7672e78c29c73fbab074d9a301fb6917442))
+- Node v26 by [@kristof-mattei](https://github.com/kristof-mattei) ([`610072a`](https://github.com/actions-rs-plus/core/commit/610072a63b8a7b2e6bed663f7850bbdf4c5604e7))
+- Remove devEngines for now by [@kristof-mattei](https://github.com/kristof-mattei) ([`7102e1b`](https://github.com/actions-rs-plus/core/commit/7102e1b3e884bbe3d88a71b6732c61f10dfe1cd9))
+- Back to v24 by [@kristof-mattei](https://github.com/kristof-mattei) ([`d888893`](https://github.com/actions-rs-plus/core/commit/d8888934ad73aaa39ac8a2744da6baf6b676d7d6))
+- No need to split more items by [@kristof-mattei](https://github.com/kristof-mattei) ([`442b79c`](https://github.com/actions-rs-plus/core/commit/442b79c23ba9f5141390282ac8bbb7b4abb3fadb))
+- Use catalogs by [@kristof-mattei](https://github.com/kristof-mattei) ([`4c0cb88`](https://github.com/actions-rs-plus/core/commit/4c0cb88ef0213b7c197efdd74ebc8640317cf79a))
+- New lints part 1 by [@kristof-mattei](https://github.com/kristof-mattei) ([`0087694`](https://github.com/actions-rs-plus/core/commit/00876941cf7045d51e97b24ea3651e756d4aa552))
+- New lints part 2 by [@kristof-mattei](https://github.com/kristof-mattei) ([`11cc469`](https://github.com/actions-rs-plus/core/commit/11cc4694fcb1435167b2d5d822a8e580ea3f543e))
+- Disable more lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`4f1a2d7`](https://github.com/actions-rs-plus/core/commit/4f1a2d75c017d838d7d301d0e903cb10a89bfb68))
+- New lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`94300ca`](https://github.com/actions-rs-plus/core/commit/94300ca85399090372b421351950837ad5753626))
+- Address new lints by [@kristof-mattei](https://github.com/kristof-mattei) ([`c916eca`](https://github.com/actions-rs-plus/core/commit/c916eca7c5facf90cfaba32504c180ec1276ed2e))
+- Address lint by [@kristof-mattei](https://github.com/kristof-mattei) ([`4d8a93f`](https://github.com/actions-rs-plus/core/commit/4d8a93f40b82abd0f258d039b778162411d42d4c))
+- Don't pin dependencies, we want semver for this library by [@kristof-mattei](https://github.com/kristof-mattei) ([`51b52ff`](https://github.com/actions-rs-plus/core/commit/51b52ff7e956c2c8439b5a8f78585c19868a9ed6))
 ## [0.7.5](https://github.com/actions-rs-plus/core/compare/v0.7.4..v0.7.5) - 2026-04-30
 
 ### 🐛 Bug Fixes
