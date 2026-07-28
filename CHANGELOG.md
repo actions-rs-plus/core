@@ -1,4 +1,10 @@
 <!-- header goes here -->
+## [0.7.7](https://github.com/actions-rs-plus/core/compare/v0.7.6..v0.7.7) - 2026-07-28
+
+### 🐛 Bug Fixes
+
+- *(ci)* Merge the PR based on the branch name, not the url by [@kristof-mattei](https://github.com/kristof-mattei) ([`567a784`](https://github.com/actions-rs-plus/core/commit/567a784a3176dce6e943d976c948de5d853ea417))
+- Remove tslib by [@kristof-mattei](https://github.com/kristof-mattei) ([`fb5dc6e`](https://github.com/actions-rs-plus/core/commit/fb5dc6e41a5d59162fa81aa8b94e53654d5cd8a6))
 ## [0.7.6](https://github.com/actions-rs-plus/core/compare/v0.7.5..v0.7.6) - 2026-07-28
 
 ### 🐛 Bug Fixes
