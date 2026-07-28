@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.7.8](https://github.com/actions-rs-plus/core/compare/v0.7.7..v0.7.8) - 2026-07-28
+
+### 🐛 Bug Fixes
+
+- For markdown, decrease tabWidth by [@kristof-mattei](https://github.com/kristof-mattei) ([`cff6de4`](https://github.com/actions-rs-plus/core/commit/cff6de4e71853fe447bafcb69e27ab561c85406d))
 ## [0.7.7](https://github.com/actions-rs-plus/core/compare/v0.7.6..v0.7.7) - 2026-07-28
 
 ### 🐛 Bug Fixes
