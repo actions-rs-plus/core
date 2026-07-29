@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [0.9.0](https://github.com/actions-rs-plus/core/compare/v0.8.0..v0.9.0) - 2026-07-29
+
+### 🚀 Features
+
+- Publish link to deployed package as part of github environments by [@kristof-mattei](https://github.com/kristof-mattei) ([`b5ab120`](https://github.com/actions-rs-plus/core/commit/b5ab120c4b22874cba0845cabe289b15bc01181e))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Deploy packages to their respective environments by [@kristof-mattei](https://github.com/kristof-mattei) ([`dd27f84`](https://github.com/actions-rs-plus/core/commit/dd27f844f30a6e8eb9916df8f076fd26ae2b8830))
 ## [0.8.0](https://github.com/actions-rs-plus/core/compare/v0.7.7..v0.8.0) - 2026-07-29
 
 ### 🚀 Features
