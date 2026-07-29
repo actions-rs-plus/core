@@ -69,8 +69,7 @@ describe("cargo", () => {
         using spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
-            .mockRejectedValueOnce(new Error("Could not find path to cog"))
-            .mockResolvedValueOnce("/home/user/.cargo/bin/cog");
+            .mockRejectedValueOnce(new Error("Could not find path to cog"));
 
         using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
