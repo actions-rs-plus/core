@@ -1,4 +1,15 @@
 <!-- header goes here -->
+## [0.9.1](https://github.com/actions-rs-plus/core/compare/v0.9.0..v0.9.1) - 2026-07-29
+
+### 🐛 Bug Fixes
+
+- Make getInputBool mirror getBooleanInput by [@kristof-mattei](https://github.com/kristof-mattei) ([`2ab57af`](https://github.com/actions-rs-plus/core/commit/2ab57afcc740e00468e4c9f46948b4764f2b0ee5))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(tests)* Remove unconsumed io.which mock value by [@kristof-mattei](https://github.com/kristof-mattei) ([`c78bf68`](https://github.com/actions-rs-plus/core/commit/c78bf686e7541e62140d74562856974de169eadd))
+- Code coverage via GitHub by [@kristof-mattei](https://github.com/kristof-mattei) ([`ca79d71`](https://github.com/actions-rs-plus/core/commit/ca79d7118d8aef1603357ac7dbaee4178cc420db))
+- Revert code coverage via github by [@kristof-mattei](https://github.com/kristof-mattei) ([`4779520`](https://github.com/actions-rs-plus/core/commit/477952007c359f070945d5a99c9ab15b485ebd6d))
 ## [0.9.0](https://github.com/actions-rs-plus/core/compare/v0.8.0..v0.9.0) - 2026-07-29
 
 ### 🚀 Features
