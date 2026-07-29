@@ -112,8 +112,9 @@ export class Cargo extends BaseProgram {
 
         arguments_.push(program);
 
+        core.startGroup(`Installing "${program} = ${version ?? "latest"}"`);
+
         try {
-            core.startGroup(`Installing "${program} = ${version ?? "latest"}"`);
             await this.call(arguments_);
         } finally {
             core.endGroup();
