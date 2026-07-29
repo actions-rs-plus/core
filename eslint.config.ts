@@ -66,6 +66,8 @@ const sharedRules: RulesConfig = {
 
     "unicorn/no-array-sort": ["off"],
     "unicorn/no-null": ["off"],
+    // Temporal is not available in Node 24
+    "unicorn/prefer-temporal": ["off"],
     "unicorn/prefer-ternary": ["off"],
 
     "import-x/extensions": [
