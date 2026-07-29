@@ -85,7 +85,7 @@ export class Cargo extends BaseProgram {
             core.info(`Caching \`${program}\` with key ${programKey}`);
             await cache.saveCache(paths, programKey);
         } catch (error: unknown) {
-            if (error instanceof Error) {
+            if (Error.isError(error)) {
                 if (error.name === cache.ValidationError.name) {
                     throw error;
                 }
