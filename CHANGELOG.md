@@ -1,4 +1,21 @@
 <!-- header goes here -->
+## [0.8.0](https://github.com/actions-rs-plus/core/compare/v0.7.7..v0.8.0) - 2026-07-29
+
+### 🚀 Features
+
+- Lint yaml and ts code blocks embedded in markdown by [@kristof-mattei](https://github.com/kristof-mattei) ([`830c73b`](https://github.com/actions-rs-plus/core/commit/830c73b34d6dfeec6da76a6f0f38e9402067769d))
+
+### 🐛 Bug Fixes
+
+- For markdown, decrease tabWidth by [@kristof-mattei](https://github.com/kristof-mattei) ([`cff6de4`](https://github.com/actions-rs-plus/core/commit/cff6de4e71853fe447bafcb69e27ab561c85406d))
+- Address unicorn/no-asterisk-prefix-in-documentation-comments by [@kristof-mattei](https://github.com/kristof-mattei) ([`8cc80b9`](https://github.com/actions-rs-plus/core/commit/8cc80b9a5c5b311318acda9782e524cd9e6f1ce0))
+- Address unicorn/prefer-error-is-error by [@kristof-mattei](https://github.com/kristof-mattei) ([`87dbf4a`](https://github.com/actions-rs-plus/core/commit/87dbf4aae3b146b48c350f87fb6f6397be2f9d57))
+
+### ⚙️ Miscellaneous Tasks
+
+- Mvoe startGroup outside of the try, doesn't belong in there by [@kristof-mattei](https://github.com/kristof-mattei) ([`45c9f71`](https://github.com/actions-rs-plus/core/commit/45c9f7123fd0a99ec445c29371a839b8a95e6986))
+- Removed newlines by [@kristof-mattei](https://github.com/kristof-mattei) ([`64f49a0`](https://github.com/actions-rs-plus/core/commit/64f49a08f8c1140fa170162dfbb61a141b2d6f1a))
+- Disable temporal, we target node 24, which doesn't support it by [@kristof-mattei](https://github.com/kristof-mattei) ([`3966144`](https://github.com/actions-rs-plus/core/commit/3966144d99710a3d29034a9269a079d11b2a49e8))
 ## [0.7.7](https://github.com/actions-rs-plus/core/compare/v0.7.6..v0.7.7) - 2026-07-28
 
 ### 🐛 Bug Fixes
