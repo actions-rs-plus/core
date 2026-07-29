@@ -21,8 +21,9 @@ export function getInput(name: string, options?: core.InputOptions): string {
 // eslint-disable-next-line unicorn/consistent-boolean-name -- nonsensical here
 export function getInputBool(name: string, options?: core.InputOptions): boolean {
     const value = getInput(name, options);
+    const normalized = value.trim().toLowerCase();
 
-    return value === "true" || value === "1";
+    return normalized === "true" || normalized === "1";
 }
 
 export function getInputList(name: string, options?: core.InputOptions): string[] {

@@ -31,6 +31,16 @@ describe("input", () => {
             expect(getInputBool("value")).toBe(true);
         });
 
+        it('"True" == true', () => {
+            process.env["INPUT_VALUE"] = "True";
+            expect(getInputBool("value")).toBe(true);
+        });
+
+        it('"TRUE" == true', () => {
+            process.env["INPUT_VALUE"] = "TRUE";
+            expect(getInputBool("value")).toBe(true);
+        });
+
         it('"" == false', () => {
             process.env["INPUT_VALUE"] = "";
             expect(getInputBool("value")).toBe(false);
