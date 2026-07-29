@@ -181,10 +181,10 @@ expected at least ${PROFILES_MIN_VERSION}`);
     }
 
     /**
-     * Executes `rustup set profile ${name}`
-     *
-     * Note that it includes the check if currently installed rustup support profiles at all
-     */
+    Executes `rustup set profile ${name}`
+    
+    Note that it includes the check if currently installed rustup support profiles at all
+    */
     public setProfile(name: Profile): Promise<number> {
         return this.call(["set", "profile", name]);
     }
@@ -221,8 +221,8 @@ expected at least ${PROFILES_MIN_VERSION}`);
     }
 
     /**
-     * Call the `rustup` and return an stdout
-     */
+    Call the `rustup` and return an stdout
+    */
     public async callStdout(arguments_: string[], options?: exec.ExecOptions): Promise<string> {
         let stdout = "";
         const stdoutOptions = {

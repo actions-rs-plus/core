@@ -10,8 +10,8 @@ interface Output {
 }
 
 /**
- * Thin wrapper around the GitHub Checks API
- */
+Thin wrapper around the GitHub Checks API
+*/
 export class Check {
     private readonly client: GitHub;
     private readonly checkName: string;
@@ -24,8 +24,8 @@ export class Check {
     }
 
     /**
-     * Starts a new Check and returns check ID.
-     */
+    Starts a new Check and returns check ID.
+    */
     public static async startCheck(
         client: GitHub,
         checkName: string,

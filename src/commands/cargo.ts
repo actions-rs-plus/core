@@ -28,26 +28,26 @@ export class Cargo extends BaseProgram {
     }
 
     /**
-     * Executes `cargo install ${program}`.
-     *
-     * TODO: Caching ability implementation is blocked,
-     * see https://github.com/actions-rs/core/issues/31
-     * As for now it acts just like an stub and simply installs the program
-     * on each call.
-     *
-     * `version` argument could be either actual program version or `"latest"` string,
-     * which can be provided by user input.
-     *
-     * If `version` is `undefined` or `"latest"`, this method could call the Crates.io API,
-     * fetch the latest version and search for it in cache.
-     * TODO: Actually implement this.
-     *
-     * ## Returns
-     *
-     * Path to the installed program.
-     * As the $PATH should be already tuned properly at this point,
-     * returned value at the moment is simply equal to the `program` argument.
-     */
+    Executes `cargo install ${program}`.
+
+    TODO: Caching ability implementation is blocked,
+    see https://github.com/actions-rs/core/issues/31
+    As for now it acts just like an stub and simply installs the program
+    on each call.
+
+    `version` argument could be either actual program version or `"latest"` string,
+    which can be provided by user input.
+
+    If `version` is `undefined` or `"latest"`, this method could call the Crates.io API,
+    fetch the latest version and search for it in cache.
+    TODO: Actually implement this.
+
+    ## Returns
+
+    Path to the installed program.
+    As the $PATH should be already tuned properly at this point,
+    returned value at the moment is simply equal to the `program` argument.
+    */
     public async installCached(
         program: string,
         version?: string,
@@ -123,8 +123,8 @@ export class Cargo extends BaseProgram {
     }
 
     /**
-     * Find the cargo sub-command or install it
-     */
+    Find the cargo sub-command or install it
+    */
     public async findOrInstall(program: string, version?: string): Promise<string> {
         try {
             void (await io.which(program, true));
