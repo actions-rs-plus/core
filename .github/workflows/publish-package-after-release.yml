@@ -73,7 +73,7 @@ jobs:
   publish-github-packages:
     name: Publish to GitHub Packages
     runs-on: ubuntu-latest
-    environment: release
+    environment: release-github-packages
     needs:
       - build
     permissions:
@@ -103,7 +103,7 @@ jobs:
   publish-npmjs:
     name: Publish to npmjs
     runs-on: ubuntu-latest
-    environment: release
+    environment: release-npmjs
     needs:
       - build
     permissions:
