@@ -1,13 +1,13 @@
 import * as core from "@actions/core";
 
 /**
- * Workaround for a GitHub weird input naming.
- *
- * For input `all-features: true` it will generate the `INPUT_ALL-FEATURES: true`
- * env variable, which looks too weird.
- * Here we are trying to get proper name `INPUT_NO_DEFAULT_FEATURES` first,
- * and if it does not exist, trying the `INPUT_NO-DEFAULT-FEATURES`.
- **/
+Workaround for a GitHub weird input naming.
+
+For input `all-features: true` it will generate the `INPUT_ALL-FEATURES: true`
+env variable, which looks too weird.
+Here we are trying to get proper name `INPUT_NO_DEFAULT_FEATURES` first,
+and if it does not exist, trying the `INPUT_NO-DEFAULT-FEATURES`.
+*/
 export function getInput(name: string, options?: core.InputOptions): string {
     const inputFullName = name.replaceAll("-", "_");
     const value = core.getInput(inputFullName, options);
