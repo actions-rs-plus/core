@@ -19,6 +19,8 @@ jobs:
   build:
     name: Build package
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -41,6 +43,7 @@ jobs:
           pnpm install --frozen-lockfile
 
       - name: Set version
+        id: version
         shell: bash
         run: |
           version="${{ github.ref_name }}"
@@ -48,6 +51,8 @@ jobs:
           version="${version//v/}"
 
           pnpm version "${version}" --no-git-tag-version
+
+          echo "version=${version}" >> "${GITHUB_OUTPUT}"
 
       - name: Build
         shell: bash
@@ -73,7 +78,9 @@ jobs:
   publish-github-packages:
     name: Publish to GitHub Packages
     runs-on: ubuntu-latest
-    environment: release
+    environment:
+      name: release-github-packages
+      url: https://github.com/orgs/actions-rs-plus/packages/npm/package/core
     needs:
       - build
     permissions:
@@ -103,7 +110,9 @@ jobs:
   publish-npmjs:
     name: Publish to npmjs
     runs-on: ubuntu-latest
-    environment: release
+    environment:
+      name: release-npmjs
+      url: https://www.npmjs.com/package/@actions-rs-plus/core/v/${{ needs.build.outputs.version }}
     needs:
       - build
     permissions:
