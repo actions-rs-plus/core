@@ -1,4 +1,9 @@
 <!-- header goes here -->
+## [0.9.2](https://github.com/actions-rs-plus/core/compare/v0.9.1..v0.9.2) - 2026-07-31
+
+### ⚙️ Miscellaneous Tasks
+
+- Code coverage via github by [@kristof-mattei](https://github.com/kristof-mattei) ([`7ce85a3`](https://github.com/actions-rs-plus/core/commit/7ce85a3f951fe530f43df5287450573c2c290f7f))
 ## [0.9.1](https://github.com/actions-rs-plus/core/compare/v0.9.0..v0.9.1) - 2026-07-29
 
 ### 🐛 Bug Fixes
