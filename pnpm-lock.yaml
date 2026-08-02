@@ -126,8 +126,8 @@ importers:
         specifier: 72.0.0
         version: 72.0.0(eslint@10.8.0(jiti@2.7.0)(supports-color@8.1.1))
       eslint-plugin-yml:
-        specifier: 3.6.0
-        version: 3.6.0(eslint@10.8.0(jiti@2.7.0)(supports-color@8.1.1))
+        specifier: 3.6.1
+        version: 3.6.1(eslint@10.8.0(jiti@2.7.0)(supports-color@8.1.1))
       husky:
         specifier: 9.1.7
         version: 9.1.7
@@ -1447,8 +1447,8 @@ packages:
     peerDependencies:
       eslint: '>=10.4'
 
-  eslint-plugin-yml@3.6.0:
-    resolution: {integrity: sha512-8lSqBIiOJO8ms1gktdlNaVGm3zXQJiYeKhQmtIG66XzU58kFDOjQae4sufQEMGHC4bP8VxiaH3tjU5PpDB6euw==}
+  eslint-plugin-yml@3.6.1:
+    resolution: {integrity: sha512-65KuRSfJHB3WEZfv6FytKkMUk/v94FyNEHpKMm8MDnZF5cPZHwFoIDNoA5yOrwZ/zDPjaHAV2Pf2PuNLGLGopw==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.0.0}
     peerDependencies:
       eslint: '>=9.38.0'
@@ -4475,7 +4475,7 @@ snapshots:
       strip-indent: 4.1.1
       yaml: 2.9.0
 
-  eslint-plugin-yml@3.6.0(eslint@10.8.0(jiti@2.7.0)(supports-color@8.1.1)):
+  eslint-plugin-yml@3.6.1(eslint@10.8.0(jiti@2.7.0)(supports-color@8.1.1)):
     dependencies:
       '@eslint/core': 1.2.1
       '@eslint/plugin-kit': 0.7.2
