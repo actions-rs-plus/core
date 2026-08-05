@@ -9,7 +9,7 @@ describe("resolveVersion", () => {
     it("resolves", async () => {
         const version = "1.0.107";
 
-        using spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+        const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -37,7 +37,7 @@ describe("resolveVersion", () => {
             },
         };
 
-        using spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrow(
             'Unable to fetch latest crate version of "serde_json", server returned {\n  "errors": [\n    {\n      "detail": "Not Found"\n    }\n  ]\n}',
@@ -53,7 +53,7 @@ describe("resolveVersion", () => {
             result: null,
         };
 
-        using spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrow("Unable to fetch latest crate version");
 
@@ -69,7 +69,7 @@ describe("resolveVersion", () => {
             },
         };
 
-        using spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
+        const spy = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce(response);
 
         await expect(resolveVersion("serde_json")).rejects.toThrow("Unable to fetch latest crate version");
 
