@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-barrel-files -- package entrypoint */
 export * as checks from "./checks";
 export * from "./commands/base-program";
 export * from "./commands/cargo";
