@@ -1,4 +1,14 @@
 <!-- header goes here -->
+## [0.10.0](https://github.com/actions-rs-plus/core/compare/v0.9.2..v0.10.0) - 2026-08-05
+
+### 🚀 Features
+
+- [**breaking**] Expose explicit named exports from the entrypoint by [@kristof-mattei](https://github.com/kristof-mattei) ([`6523896`](https://github.com/actions-rs-plus/core/commit/65238962f11a66473375827d96308ce223ac4a45))
+
+### 🐛 Bug Fixes
+
+- Remove exception for `node_modules/@types/`, we shouldn't be importing from those by [@kristof-mattei](https://github.com/kristof-mattei) ([`bfe4354`](https://github.com/actions-rs-plus/core/commit/bfe43543899dddfa0167f3d4e8f2d58f78537d3a))
+- Unicorn 73 rules by [@kristof-mattei](https://github.com/kristof-mattei) ([`0981365`](https://github.com/actions-rs-plus/core/commit/0981365045835bfb74f49d6b171eb2897d1efcf4))
 ## [0.9.2](https://github.com/actions-rs-plus/core/compare/v0.9.1..v0.9.2) - 2026-07-31
 
 ### ⚙️ Miscellaneous Tasks
