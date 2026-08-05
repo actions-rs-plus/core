@@ -21,7 +21,7 @@ vi.mock(import("node:os"), async (importOriginal) => {
 
 describe("rustup", () => {
     it("get", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/rustup");
 
         await expect(RustUp.get()).resolves.toEqual({
             path: "/home/user/.cargo/bin/rustup",
@@ -37,10 +37,10 @@ describe("rustup", () => {
         prepared.mockClear();
 
         // actual test
-        using spy1 = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to rustup"));
-        using spy2 = vi.spyOn(RustUp, "install").mockResolvedValueOnce(rustup);
+        const spy1 = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to rustup"));
+        const spy2 = vi.spyOn(RustUp, "install").mockResolvedValueOnce(rustup);
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        using spy3 = vi.spyOn(core, "debug").mockImplementation(() => {});
+        const spy3 = vi.spyOn(core, "debug").mockImplementation(() => {});
 
         await expect(RustUp.getOrInstall()).resolves.toEqual({
             path: "/home/user/.cargo/bin/rustup",

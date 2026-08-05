@@ -32,7 +32,7 @@ describe("cargo", () => {
     });
 
     it("Cargo", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
         await expect(Cargo.get()).resolves.toEqual({
             path: "/home/user/.cargo/bin/cargo",
@@ -42,9 +42,9 @@ describe("cargo", () => {
     });
 
     it("Cargo not found", async () => {
-        using spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
+        const spy = vi.spyOn(io, "which").mockRejectedValue(new Error("Could not find path to cargo"));
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        using spy2 = vi.spyOn(core, "error").mockImplementation(() => {});
+        const spy2 = vi.spyOn(core, "error").mockImplementation(() => {});
 
         await expect(Cargo.get()).rejects.toThrow("Could not find path to cargo");
 
@@ -53,7 +53,7 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall", async () => {
-        using spy = vi
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockResolvedValueOnce("/home/kristof/.cargo/bin/cog");
@@ -66,12 +66,12 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall not found", async () => {
-        using spy = vi
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockRejectedValueOnce(new Error("Could not find path to cog"));
 
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -85,9 +85,9 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall not found 2", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
 
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -98,12 +98,12 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall not found with version", async () => {
-        using spy = vi
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockRejectedValueOnce(new Error("Could not find path to cog"));
 
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -119,13 +119,13 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall not found with explicit version latest", async () => {
-        using spy = vi
+        const spy = vi
             .spyOn(io, "which")
             .mockResolvedValueOnce("/home/user/.cargo/bin/cargo")
             .mockRejectedValueOnce(new Error("Could not find path to cog"));
 
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-        using spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -150,9 +150,9 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall not found with explicit version latest 2", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-        using spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi.spyOn(http.HttpClient.prototype, "getJson").mockResolvedValueOnce({
             statusCode: 200,
             headers: {},
             result: {
@@ -174,8 +174,8 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -190,8 +190,8 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with no specific version and primary key", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
 
@@ -199,14 +199,11 @@ describe("cargo", () => {
 
         expect(spy.mock.calls).toEqual([["cargo", true]]);
         expect(spy2.mock.calls).toEqual([[["/home/user/.cargo/bin/cog"], "cog-cog", []]]);
-
-        spy.mockReset();
-        spy2.mockReset();
     });
 
     it("Cargo findOrInstall with no specific version, primary key & restore keys", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
 
@@ -219,8 +216,8 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key & restore keys", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
 
         const cargo = await Cargo.get();
 
@@ -235,8 +232,8 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key, no cache key", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(cache, "restoreCache").mockResolvedValueOnce("cache-key");
 
         const cargo = await Cargo.get();
 
@@ -247,11 +244,11 @@ describe("cargo", () => {
     });
 
     it("Cargo findOrInstall with primary key, cache save fails 1", async () => {
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-        using spy3 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi.spyOn(cache, "saveCache").mockRejectedValue("failed to save cache");
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        using spy4 = vi.spyOn(core, "warning").mockImplementation(() => {});
+        const spy4 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
@@ -268,9 +265,9 @@ describe("cargo", () => {
     it("Cargo findOrInstall with primary key, cache save fails 2", async () => {
         const actionsCacheActual = await vi.importActual<typeof cache>("@actions/cache");
 
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-        using spy3 = vi
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new actionsCacheActual.ValidationError("failed to save cache"));
 
@@ -290,13 +287,13 @@ describe("cargo", () => {
     it("Cargo findOrInstall with primary key, cache save fails 3", async () => {
         const actionsCacheActual = await vi.importActual<typeof cache>("@actions/cache");
 
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-        using spy3 = vi
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi
             .spyOn(cache, "saveCache")
             .mockRejectedValue(new actionsCacheActual.ReserveCacheError("failed reserve space"));
         // eslint-disable-next-line @typescript-eslint/no-empty-function -- mock
-        using spy4 = vi.spyOn(core, "warning").mockImplementation(() => {});
+        const spy4 = vi.spyOn(core, "warning").mockImplementation(() => {});
 
         const cargo = await Cargo.get();
 
@@ -319,9 +316,9 @@ describe("cargo", () => {
         }
 
         const special = new Special("I don't implement Error");
-        using spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
-        using spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
-        using spy3 = vi.spyOn(cache, "saveCache").mockRejectedValue(special);
+        const spy = vi.spyOn(io, "which").mockResolvedValueOnce("/home/user/.cargo/bin/cargo");
+        const spy2 = vi.spyOn(exec, "exec").mockResolvedValueOnce(0);
+        const spy3 = vi.spyOn(cache, "saveCache").mockRejectedValue(special);
 
         const cargo = await Cargo.get();
 
