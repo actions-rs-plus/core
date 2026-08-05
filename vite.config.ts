@@ -76,6 +76,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
                     inline: ["@actions/cache", "@actions/core", "@actions/exec", "@actions/io", "@actions/tool-cache"],
                 },
             },
+            unstubEnvs: true,
         },
     };
 
