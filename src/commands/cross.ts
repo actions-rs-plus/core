@@ -1,7 +1,7 @@
-import * as os from "node:os";
+import { tmpdir } from "node:os";
 
-import * as core from "@actions/core";
-import * as io from "@actions/io";
+import { debug } from "@actions/core";
+import { which } from "@actions/io";
 
 import { BaseProgram } from "./base-program";
 import { Cargo } from "./cargo";
@@ -11,19 +11,19 @@ export class Cross extends BaseProgram {
         super(path);
     }
 
+    public static async get(): Promise<Cross> {
+        const path = await which("cross", true);
+
+        return new Cross(path);
+    }
+
     public static async getOrInstall(): Promise<Cross> {
         try {
             return await Cross.get();
         } catch (error: unknown) {
-            core.debug(String(error));
+            debug(String(error));
             return Cross.install();
         }
-    }
-
-    public static async get(): Promise<Cross> {
-        const path = await io.which("cross", true);
-
-        return new Cross(path);
     }
 
     public static async install(version?: string): Promise<Cross> {
@@ -41,7 +41,7 @@ export class Cross extends BaseProgram {
         // install `cross` from there and then jump back.
 
         const cwd = process.cwd();
-        process.chdir(os.tmpdir());
+        process.chdir(tmpdir());
 
         try {
             const crossPath = await cargo.installCached("cross", version);

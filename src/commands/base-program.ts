@@ -1,4 +1,5 @@
-import * as exec from "@actions/exec";
+import type { ExecOptions } from "@actions/exec";
+import { exec } from "@actions/exec";
 
 export abstract class BaseProgram {
     protected readonly path: string;
@@ -7,7 +8,7 @@ export abstract class BaseProgram {
         this.path = path;
     }
 
-    public call(arguments_: string[], options?: exec.ExecOptions): Promise<number> {
-        return exec.exec(this.path, arguments_, options);
+    public call(arguments_: string[], options?: ExecOptions): Promise<number> {
+        return exec(this.path, arguments_, options);
     }
 }

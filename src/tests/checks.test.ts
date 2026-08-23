@@ -1,10 +1,10 @@
-import * as github from "@actions/github";
+import { context, getOctokit } from "@actions/github";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Check } from "../checks";
 
-function getMockedClient(): ReturnType<typeof github.getOctokit> {
-    type T0 = Awaited<ReturnType<ReturnType<typeof github.getOctokit>["rest"]["checks"]["create"]>>;
+function getMockedClient(): ReturnType<typeof getOctokit> {
+    type T0 = Awaited<ReturnType<ReturnType<typeof getOctokit>["rest"]["checks"]["create"]>>;
 
     const fakeResult1: T0 = {
         headers: {},
@@ -35,7 +35,7 @@ function getMockedClient(): ReturnType<typeof github.getOctokit> {
         status: 200 as const,
     };
 
-    const client = github.getOctokit("token");
+    const client = getOctokit("token");
 
     vi.spyOn(client.rest.checks, "create").mockResolvedValue(fakeResult1);
     vi.spyOn(client.rest.checks, "update").mockResolvedValue(fakeResult2);
@@ -45,9 +45,9 @@ function getMockedClient(): ReturnType<typeof github.getOctokit> {
 
 describe("check", () => {
     beforeEach(() => {
-        github.context.sha = "sha";
+        context.sha = "sha";
 
-        vi.spyOn(github.context, "repo", "get").mockReturnValue({
+        vi.spyOn(context, "repo", "get").mockReturnValue({
             repo: "repo",
             owner: "owner",
         });
@@ -77,6 +77,8 @@ describe("check", () => {
     });
 
     it("cancelCheck", async () => {
+        expect.assertions(1);
+
         const client = getMockedClient();
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");
@@ -85,6 +87,8 @@ describe("check", () => {
     });
 
     it("finishCheck", async () => {
+        expect.assertions(1);
+
         const client = getMockedClient();
 
         const check: Check = await Check.startCheck(client, "check-name", "in_progress");

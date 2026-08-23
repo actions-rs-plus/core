@@ -43,7 +43,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
                 entryRoot: "./src",
                 tsconfigPath: "./tsconfig.build.json",
                 bundleTypes: true,
-                exclude: ["eslint.config.ts", "prettier.config.ts", "src/tests/**", "test.setup.ts", "vite.config.ts"],
+                exclude: ["oxlint.plugin.ts", "src/tests/**", "test.setup.ts", "vite.config.ts"],
             }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["GITHUB_ACTIONS"] === "true",
@@ -56,7 +56,7 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
         ],
         test: {
             coverage: {
-                exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.mjs"],
+                exclude: [...coverageConfigDefaults.exclude, "./dependency-cruiser.config.ts"],
                 reporter: ["json", "html", "text", "lcov"],
                 provider: "v8",
                 reportsDirectory: "reports",
