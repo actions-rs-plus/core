@@ -1,10 +1,20 @@
 {
-    "private": false,
     "name": "@actions-rs-plus/core",
     "version": "0.0.0",
-    "author": "actions-rs-plus",
-    "license": "MIT",
+    "private": false,
     "description": "Core functionality for the @actions-rs-plus repos",
+    "bugs": {
+        "url": "https://github.com/actions-rs-plus/core/issues"
+    },
+    "license": "MIT",
+    "author": "actions-rs-plus",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/actions-rs-plus/core.git"
+    },
+    "files": [
+        "dist"
+    ],
     "type": "module",
     "main": "dist/core.js",
     "types": "dist/core.d.ts",
@@ -14,24 +24,9 @@
             "import": "./dist/core.js"
         }
     },
-    "files": [
-        "dist"
-    ],
     "publishConfig": {
         "access": "public",
         "provenance": true
-    },
-    "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621",
-    "engines": {
-        "node": "24.19.0",
-        "pnpm": "11.22.0"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/actions-rs-plus/core.git"
-    },
-    "bugs": {
-        "url": "https://github.com/actions-rs-plus/core/issues"
     },
     "scripts": {
         "build": "vite build",
@@ -46,15 +41,6 @@
         "deps:report": "depcruise --config dependency-cruiser.config.mjs --output-type err-html --output-to dependency-report.html src",
         "postversion": "cp package.json pnpm-lock.yaml ..",
         "prepare": "husky"
-    },
-    "lint-staged": {
-        "*.{ts,tsx}": [
-            "eslint --report-unused-disable-directives --max-warnings 0 --no-warn-ignored --",
-            "depcruise --config dependency-cruiser.config.mjs --include-only ^src/ --validate --"
-        ],
-        "*": [
-            "prettier --check --ignore-unknown --"
-        ]
     },
     "dependencies": {
         "@actions/cache": "^6.2.0",
@@ -106,5 +92,19 @@
         "vite": "catalog:default",
         "vite-plugin-checker": "0.14.5",
         "vitest": "4.1.11"
-    }
+    },
+    "lint-staged": {
+        "*.{ts,tsx}": [
+            "eslint --report-unused-disable-directives --max-warnings 0 --no-warn-ignored --",
+            "depcruise --config dependency-cruiser.config.mjs --include-only ^src/ --validate --"
+        ],
+        "*": [
+            "prettier --check --ignore-unknown --"
+        ]
+    },
+    "engines": {
+        "node": "24.19.0",
+        "pnpm": "11.22.0"
+    },
+    "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621"
 }
