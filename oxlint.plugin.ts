@@ -1,6 +1,9 @@
+type DirectiveType = "disable-line" | "disable-next-line" | "disable" | "enable";
+
 interface Directive {
     justification: string;
     node: object;
+    type: DirectiveType;
 }
 
 interface RuleContext {
@@ -25,7 +28,7 @@ const plugin: Plugin = {
                 return {
                     Program(): void {
                         for (const directive of context.sourceCode.getDisableDirectives().directives) {
-                            if (directive.justification === "") {
+                            if (directive.type !== "enable" && directive.justification === "") {
                                 context.report({
                                     message: "Disable directive requires a description (`-- reason`).",
                                     node: directive.node,
