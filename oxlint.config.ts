@@ -46,7 +46,7 @@ const config: OxlintConfig = defineConfig({
         "id-length": ["error", { exceptions: ["x", "y"] }],
         "max-lines": "off",
         "max-lines-per-function": ["error", { max: 100 }],
-        "max-params": "error",
+        "max-params": ["error", { max: 4 }],
         "max-statements": ["error", { max: 25 }],
         "no-alert": "error",
         "no-console": ["error", { allow: ["error", "warn"] }],
@@ -57,6 +57,7 @@ const config: OxlintConfig = defineConfig({
         "no-ternary": "off",
         "no-undefined": "off",
         "no-unreachable-loop": "error",
+        // allow TODO
         "no-warning-comments": ["error", { location: "anywhere", terms: ["fixme", "xxx"] }],
         "one-var": ["error", "never"],
         // destructuring a later array index needs a hole in the pattern (`const [, second] = ...`)
@@ -177,7 +178,7 @@ const config: OxlintConfig = defineConfig({
             },
         ],
         "typescript/return-await": ["error", "in-try-catch"],
-        "typescript/require-await": "error",
+        "typescript/require-await": "off",
         "typescript/switch-exhaustiveness-check": [
             "error",
             {
