@@ -3,6 +3,8 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { Check } from "../checks";
 
+vi.setConfig({ testTimeout: 1000 });
+
 function getMockedClient(): ReturnType<typeof getOctokit> {
     type T0 = Awaited<ReturnType<ReturnType<typeof getOctokit>["rest"]["checks"]["create"]>>;
 

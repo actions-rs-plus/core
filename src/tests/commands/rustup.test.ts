@@ -23,6 +23,8 @@ vi.mock(import("node:os"), async (importOriginal) => {
     return { ...actual, platform: osMocks.platform };
 });
 
+vi.setConfig({ testTimeout: 1000 });
+
 describe("rustup", () => {
     it("get", async () => {
         expect.assertions(2);
@@ -301,12 +303,12 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(
                 Buffer.from("/home/user/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/cargo"),
             );
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.which("cargo")).resolves.toEqual(
@@ -321,14 +323,14 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stderr?.(
                 Buffer.from(
                     "error: not a file: '/home/kristof/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/clippy'",
                 ),
             );
 
-            return Promise.resolve(1);
+            return 1;
         });
 
         await expect(rustup.which("clippy")).rejects.toThrow('Unable to find "clippy"');
@@ -369,10 +371,10 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("stable-x86_64-unknown-linux-gnu (default)"));
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.activeToolchain()).resolves.toEqual("stable-x86_64-unknown-linux-gnu");
@@ -385,8 +387,8 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, _options) => {
-            return Promise.resolve(1);
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, _options) => {
+            return 1;
         });
 
         await expect(rustup.activeToolchain()).rejects.toThrow("Unable to determine active toolchain");
@@ -399,10 +401,10 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.version()).resolves.toEqual("1.26.0");
@@ -415,8 +417,8 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, _options) => {
-            return Promise.resolve(1);
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, _options) => {
+            return 1;
         });
 
         await expect(rustup.version()).rejects.toThrow("Unable to determine version");
@@ -430,10 +432,10 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.supportProfiles()).resolves.toEqual(true);
@@ -447,10 +449,10 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.supportProfiles()).resolves.toEqual(false);
@@ -464,10 +466,10 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup 1.26.0 (5af9b9484 2023-04-05)"));
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.supportComponents()).resolves.toEqual(true);
@@ -481,10 +483,10 @@ describe("rustup", () => {
 
         const rustup = await RustUp.get();
 
-        vi.spyOn(exec, "exec").mockImplementationOnce((_commandLine, _arguments, options) => {
+        vi.spyOn(exec, "exec").mockImplementationOnce(async (_commandLine, _arguments, options) => {
             options?.listeners?.stdout?.(Buffer.from("rustup-init 1.18.3 (302899482 2019-05-22)"));
 
-            return Promise.resolve(0);
+            return 0;
         });
 
         await expect(rustup.supportComponents()).resolves.toEqual(false);

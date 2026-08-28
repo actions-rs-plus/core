@@ -15,6 +15,8 @@ import { Cargo } from "../../core";
 vi.mock("@actions/exec");
 vi.mock("@actions/io");
 
+vi.setConfig({ testTimeout: 1000 });
+
 describe("cargo", () => {
     let startGroupSpy: MockInstance<(message: string) => void> | null = null;
     let endGroupSpy: MockInstance<() => void> | null = null;

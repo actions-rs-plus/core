@@ -8,7 +8,7 @@ export abstract class BaseProgram {
         this.path = path;
     }
 
-    public call(arguments_: string[], options?: ExecOptions): Promise<number> {
+    public async call(arguments_: string[], options?: ExecOptions): Promise<number> {
         return exec(this.path, arguments_, options);
     }
 }

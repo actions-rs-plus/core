@@ -105,7 +105,7 @@ export class RustUp {
         return split;
     }
 
-    public addTarget(name: string, forToolchain?: string): Promise<number> {
+    public async addTarget(name: string, forToolchain?: string): Promise<number> {
         const args = ["target", "add"];
 
         if (forToolchain !== undefined) {
@@ -116,7 +116,7 @@ export class RustUp {
         return this.call(args);
     }
 
-    public call(args: string[], options?: ExecOptions): Promise<number> {
+    public async call(args: string[], options?: ExecOptions): Promise<number> {
         return exec(this.path, args, options);
     }
 
@@ -179,7 +179,7 @@ export class RustUp {
         return 0;
     }
 
-    public selfUpdate(): Promise<number> {
+    public async selfUpdate(): Promise<number> {
         return this.call(["self", "update"]);
     }
 
@@ -191,7 +191,7 @@ export class RustUp {
      * @param {Profile} name The profile
      * @returns {Promise<number>} Exitcode of the `rustup set profile ${name}` call.
      */
-    public setProfile(name: Profile): Promise<number> {
+    public async setProfile(name: Profile): Promise<number> {
         return this.call(["set", "profile", name]);
     }
 

@@ -11,6 +11,8 @@ import { Cross } from "../../core";
 
 vi.mock("@actions/exec");
 
+vi.setConfig({ testTimeout: 1000 });
+
 describe("cross", () => {
     let startGroupSpy: MockInstance<(message: string) => void> | null = null;
     let endGroupSpy: MockInstance<() => void> | null = null;
