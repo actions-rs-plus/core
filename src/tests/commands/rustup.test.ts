@@ -23,6 +23,8 @@ vi.mock(import("node:os"), async (importOriginal) => {
     return { ...actual, platform: osMocks.platform };
 });
 
+vi.setConfig({ testTimeout: 1000 });
+
 describe("rustup", () => {
     it("get", async () => {
         expect.assertions(2);

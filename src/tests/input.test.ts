@@ -2,6 +2,8 @@ import { describe, expect, it, test, vi } from "vitest";
 
 import { getInput, getInputAsArray, getInputBool, getInputList } from "../input";
 
+vi.setConfig({ testTimeout: 1000 });
+
 describe("input", () => {
     describe("getInput", () => {
         it('env.INPUT_FOO | getInput("foo")', () => {

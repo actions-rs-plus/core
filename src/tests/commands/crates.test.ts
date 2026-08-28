@@ -5,6 +5,8 @@ import { describe, expect, it, vi } from "vitest";
 import { resolveVersion } from "../../commands/crates";
 import type { CratesIO } from "../../schema";
 
+vi.setConfig({ testTimeout: 1000 });
+
 describe("resolveVersion", () => {
     it("resolves", async () => {
         expect.assertions(2);
