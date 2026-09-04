@@ -18,7 +18,7 @@ env:
 jobs:
   build:
     name: Build package
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     outputs:
       version: ${{ steps.version.outputs.version }}
     steps:
@@ -77,7 +77,7 @@ jobs:
 
   publish-github-packages:
     name: Publish to GitHub Packages
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     environment:
       name: release-github-packages
       url: https://github.com/orgs/actions-rs-plus/packages/npm/package/core
@@ -109,7 +109,7 @@ jobs:
 
   publish-npmjs:
     name: Publish to npmjs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     environment:
       name: release-npmjs
       url: https://www.npmjs.com/package/@actions-rs-plus/core/v/${{ needs.build.outputs.version }}
@@ -139,7 +139,7 @@ jobs:
     # when all upstream skips: pass
     # when all upstream success: success
     # combination of upstream skip and success: success
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     needs:
       - build
       - publish-github-packages
