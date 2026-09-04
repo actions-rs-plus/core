@@ -9,7 +9,7 @@ import { which } from "@actions/io";
 import { downloadTool } from "@actions/tool-cache";
 import { gte } from "semver";
 
-import { config } from "../config";
+import { readConfig } from "../config";
 
 const PROFILES_MIN_VERSION = "1.20.1";
 const COMPONENTS_MIN_VERSION = "1.20.1";
@@ -49,6 +49,8 @@ export class RustUp {
     }
 
     public static async install(): Promise<RustUp> {
+        const { HOME } = readConfig();
+
         const args = [
             "--default-toolchain",
             "none",
@@ -87,7 +89,7 @@ export class RustUp {
         }
 
         // rustup-init installs into `$HOME/.cargo/bin`
-        addPath(path.join(config.HOME, ".cargo", "bin"));
+        addPath(path.join(HOME, ".cargo", "bin"));
 
         // Assuming it is in the $PATH already
         return new RustUp("rustup");
