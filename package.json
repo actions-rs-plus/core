@@ -16,6 +16,7 @@
         "dist"
     ],
     "type": "module",
+    "sideEffects": false,
     "main": "dist/core.js",
     "types": "dist/core.d.ts",
     "exports": {
@@ -69,6 +70,7 @@
         "oxfmt": "0.66.0",
         "oxlint": "1.81.0",
         "oxlint-tsgolint": "7.0.2001",
+        "rolldown": "1.2.7",
         "typescript": "6.0.3",
         "unplugin-dts": "1.1.0",
         "vite": "catalog:default",
