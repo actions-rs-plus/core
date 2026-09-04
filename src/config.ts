@@ -2,9 +2,10 @@ import envSchema from "env-schema";
 import type { Static, TObject, TString } from "typebox";
 import { Type } from "typebox";
 
-const Config: TObject<{ HOME: TString }> = Type.Object({
-    HOME: Type.String(),
-});
-type Config = Static<typeof Config>;
+type Config = Static<TObject<{ HOME: TString }>>;
 
-export const config: Config = envSchema<Config>({ schema: Config });
+export function readConfig(): Config {
+    const schema: TObject<{ HOME: TString }> = Type.Object({ HOME: Type.String() });
+
+    return envSchema<Config>({ schema });
+}
