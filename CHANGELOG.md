@@ -1,4 +1,13 @@
 <!-- header goes here -->
+## [0.11.0](https://github.com/actions-rs-plus/core/compare/v0.10.0..v0.11.0) - 2026-09-08
+
+### 🐛 Bug Fixes
+
+- Stop validating `HOME` at import time by [@kristof-mattei](https://github.com/kristof-mattei) ([`470b72e`](https://github.com/actions-rs-plus/core/commit/470b72e8167bdbc140fbc3c2d36757710899619f))
+
+### ⚡ Performance
+
+- Mark the package as side-effect free and enforce it with a test by [@kristof-mattei](https://github.com/kristof-mattei) ([`e42eeb2`](https://github.com/actions-rs-plus/core/commit/e42eeb2c2819c5f95d2fb8215ef2a5f3c48e1b2a))
 ## [0.10.0](https://github.com/actions-rs-plus/core/compare/v0.9.2..v0.10.0) - 2026-08-05
 
 ### 🚀 Features
@@ -405,6 +414,10 @@
 - *(deps)* Update dependency semver to ^7.7.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`745ee07`](https://github.com/actions-rs-plus/core/commit/745ee07524b803c2e4a7f1009336c09fb2f0d360))
 - *(deps)* Update dependency @actions/cache to ^4.0.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7bd7f92`](https://github.com/actions-rs-plus/core/commit/7bd7f92a1be811bbec1be1293e40edfa7ed8803f))
 - Extract building of mocked client to function by [@kristof-mattei](https://github.com/kristof-mattei) ([`26cfe87`](https://github.com/actions-rs-plus/core/commit/26cfe8770ca5e4d684c0d4c10acd4415a63f2e59))
+
+### ⚙️ Miscellaneous Tasks
+
+- Sort props by [@kristof-mattei](https://github.com/kristof-mattei) ([`b76abd6`](https://github.com/actions-rs-plus/core/commit/b76abd6fca944418e33fa67b71094b08582d270d))
 ## [0.2.6](https://github.com/actions-rs-plus/core/compare/v0.2.5..v0.2.6) - 2025-01-12
 
 ### 🐛 Bug Fixes
@@ -440,7 +453,6 @@
 
 - Restore no-restricted-imports by [@kristof-mattei](https://github.com/kristof-mattei) ([`863c1a8`](https://github.com/actions-rs-plus/core/commit/863c1a8f2294d59da8782d4820f092dee9dd27d7))
 - Remove spurious endGroup by [@kristof-mattei](https://github.com/kristof-mattei) ([`d971d72`](https://github.com/actions-rs-plus/core/commit/d971d722a875730da67aee6970cd97e433a344e9))
-- Sort props by [@kristof-mattei](https://github.com/kristof-mattei) ([`b76abd6`](https://github.com/actions-rs-plus/core/commit/b76abd6fca944418e33fa67b71094b08582d270d))
 ## [0.2.4](https://github.com/actions-rs-plus/core/compare/v0.2.3..v0.2.4) - 2024-08-27
 
 ### 🐛 Bug Fixes
