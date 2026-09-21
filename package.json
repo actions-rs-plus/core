@@ -72,7 +72,7 @@
         "oxlint-tsgolint": "7.0.2002",
         "rolldown": "1.2.9",
         "typescript": "6.0.3",
-        "unplugin-dts": "1.1.0",
+        "unplugin-dts": "1.1.1",
         "vite": "catalog:default",
         "vite-plugin-checker": "0.14.5",
         "vitest": "5.0.1"
