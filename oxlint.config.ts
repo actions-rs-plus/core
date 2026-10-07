@@ -118,9 +118,13 @@ const config: OxlintConfig = defineConfig({
 
         "local/require-disable-directive-description": "error",
 
+        "n/hashbang": "error",
         "n/no-callback-literal": "error",
         "n/no-deprecated-api": "error",
         "n/no-extraneous-import": "error",
+        "n/no-path-concat": "error",
+        "n/no-process-exit": "error",
+        "n/no-sync": "error",
 
         "node/no-process-env": "error",
         "node/no-top-level-await": ["error", { ignoreBin: true }],
