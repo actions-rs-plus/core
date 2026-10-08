@@ -70,7 +70,7 @@
         "oxfmt": "0.72.0",
         "oxlint": "1.87.0",
         "oxlint-tsgolint": "7.0.2003",
-        "rolldown": "1.2.12",
+        "rolldown": "1.2.13",
         "typescript": "6.0.3",
         "unplugin-dts": "1.1.2",
         "vite": "catalog:default",
