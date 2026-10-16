@@ -4,8 +4,8 @@ import { ReserveCacheError, restoreCache, saveCache, ValidationError } from "@ac
 import { endGroup, info, error as logError, startGroup, warning } from "@actions/core";
 import { which } from "@actions/io";
 
-import { BaseProgram } from "./base-program";
-import { resolveVersion } from "./crates";
+import { BaseProgram } from "./base-program.js";
+import { resolveVersion } from "./crates.js";
 
 export class Cargo extends BaseProgram {
     private constructor(pathToCargo: string) {

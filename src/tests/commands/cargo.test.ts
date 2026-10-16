@@ -10,7 +10,7 @@ import * as io from "@actions/io";
 import type { MockInstance } from "vitest";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-import { Cargo } from "../../core";
+import { Cargo } from "../../core.js";
 
 vi.mock("@actions/exec");
 vi.mock("@actions/io");

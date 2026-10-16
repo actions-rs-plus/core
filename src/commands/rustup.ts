@@ -9,7 +9,7 @@ import { which } from "@actions/io";
 import { downloadTool } from "@actions/tool-cache";
 import { gte } from "semver";
 
-import { readConfig } from "../config";
+import { readConfig } from "../config.js";
 
 const PROFILES_MIN_VERSION = "1.20.1";
 const COMPONENTS_MIN_VERSION = "1.20.1";
