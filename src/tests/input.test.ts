@@ -1,6 +1,6 @@
 import { describe, expect, it, test, vi } from "vitest";
 
-import { getInput, getInputAsArray, getInputBool, getInputList } from "../input";
+import { getInput, getInputAsArray, getInputBool, getInputList } from "../input.js";
 
 vi.setConfig({ testTimeout: 1000 });
 

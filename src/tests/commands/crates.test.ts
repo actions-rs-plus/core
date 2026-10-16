@@ -2,8 +2,8 @@ import { HttpClient } from "@actions/http-client";
 import type { TypedResponse } from "@actions/http-client/lib/interfaces";
 import { describe, expect, it, vi } from "vitest";
 
-import { resolveVersion } from "../../commands/crates";
-import type { CratesIO } from "../../schema";
+import { resolveVersion } from "../../commands/crates.js";
+import type { CratesIO } from "../../schema.js";
 
 vi.setConfig({ testTimeout: 1000 });
 

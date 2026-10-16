@@ -1,7 +1,7 @@
 import { context, getOctokit } from "@actions/github";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { Check } from "../checks";
+import { Check } from "../checks.js";
 
 vi.setConfig({ testTimeout: 1000 });
 

@@ -42,8 +42,6 @@ const configFunction: ViteUserConfigFn = defineConfig(({ mode }) => {
                 insertTypesEntry: true,
                 entryRoot: "./src",
                 tsconfigPath: "./tsconfig.build.json",
-                bundleTypes: true,
-                exclude: ["oxlint.plugin.ts", "src/tests/**", "test.setup.ts", "vite.config.ts"],
             }),
             codecovVitePlugin({
                 enableBundleAnalysis: environment["GITHUB_ACTIONS"] === "true",

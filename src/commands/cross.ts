@@ -3,8 +3,8 @@ import { tmpdir } from "node:os";
 import { debug } from "@actions/core";
 import { which } from "@actions/io";
 
-import { BaseProgram } from "./base-program";
-import { Cargo } from "./cargo";
+import { BaseProgram } from "./base-program.js";
+import { Cargo } from "./cargo.js";
 
 export class Cross extends BaseProgram {
     private constructor(path: string) {
