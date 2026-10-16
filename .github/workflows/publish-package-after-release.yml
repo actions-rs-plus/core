@@ -3,7 +3,8 @@ name: Publish package
 
 on:
   release:
-    types: [released, prereleased]
+    types:
+      - released
 
 concurrency:
   group: "${{ github.workflow }}"
