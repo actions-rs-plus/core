@@ -20,6 +20,9 @@ jobs:
   compare:
     name: Compare release package against latest
     runs-on: ubuntu-26.04
+    permissions:
+      contents: read
+      pull-requests: write # to create and update the comparison comment
     if: startsWith(github.head_ref, 'release/v')
     steps:
       - name: Checkout
@@ -50,6 +53,7 @@ jobs:
           echo "tarball=${RUNNER_TEMP}/${filename}" >> "${GITHUB_OUTPUT}"
 
       - name: Diff against the latest published package
+        id: diff
         shell: bash
         env:
           TARBALL: ${{ steps.pack.outputs.tarball }}
@@ -60,6 +64,9 @@ jobs:
           # .npmrc points the scope at GitHub Packages, npmjs serves the same package without a token
           registry="--${name%%/*}:registry=https://registry.npmjs.org/"
           latest=$(npm view "${name}" dist-tags.latest "${registry}")
+
+          echo "name=${name}" >> "${GITHUB_OUTPUT}"
+          echo "latest=${latest}" >> "${GITHUB_OUTPUT}"
 
           npm diff --diff-name-only --diff="${name}@${latest}" --diff="${TARBALL}" "${registry}" > "${RUNNER_TEMP}/files.txt"
 
@@ -92,3 +99,57 @@ jobs:
               fi
             fi
           } >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Update the PR comment
+        # a run cancelled by a newer one must not overwrite the newer result
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          JOB_STATUS: ${{ job.status }}
+          LATEST: ${{ steps.diff.outputs.latest }}
+          NAME: ${{ steps.diff.outputs.name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          marker="<!-- compare-release-package -->"
+
+          {
+            echo "${marker}"
+
+            if [ "${JOB_STATUS}" = "success" ]; then
+              echo "### Package diff: \`${NAME}\` ${LATEST} → ${VERSION}"
+              echo
+
+              count=$(wc --lines < "${RUNNER_TEMP}/files.txt")
+
+              if [ "${count}" -eq 0 ]; then
+                echo "Built from \`${HEAD_SHA:0:7}\`. No file changed."
+              else
+                files=$(sed "s/.*/\`&\`/" "${RUNNER_TEMP}/files.txt" | paste --serial --delimiters=",")
+                echo "Built from \`${HEAD_SHA:0:7}\`. Changed files (${count}): ${files//,/, }"
+              fi
+
+              echo
+              echo "[Full diff in the job summary](${RUN_URL})"
+            else
+              echo "### Package diff"
+              echo
+              echo "The comparison of \`${HEAD_SHA:0:7}\` failed, see [the run](${RUN_URL})."
+            fi
+          } > "${RUNNER_TEMP}/comment.md"
+
+          # --jq applies to each page, so the first match is the first line
+          comment_ids=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+            --jq ".[] | select(.user.login == \"github-actions[bot]\" and (.body | startswith(\"${marker}\"))) | .id")
+          comment_id="${comment_ids%%$'\n'*}"
+
+          if [ -n "${comment_id}" ]; then
+            gh api --method PATCH --silent "repos/${GITHUB_REPOSITORY}/issues/comments/${comment_id}" \
+              --field "body=@${RUNNER_TEMP}/comment.md"
+          else
+            gh api --method POST --silent "repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments" \
+              --field "body=@${RUNNER_TEMP}/comment.md"
+          fi
