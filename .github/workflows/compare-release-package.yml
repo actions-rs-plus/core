@@ -1,0 +1,94 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Compare release package
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: "${{ github.workflow }} @ ${{ github.ref_name }}"
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  NPM_CONFIG_FUND: "false"
+
+jobs:
+  compare:
+    name: Compare release package against latest
+    runs-on: ubuntu-26.04
+    if: startsWith(github.head_ref, 'release/v')
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          show-progress: false
+
+      - name: Determine version
+        id: version
+        shell: bash
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+        run: |
+          # release/v1.2.3 -> 1.2.3
+          echo "version=${HEAD_REF#release/v}" >> "${GITHUB_OUTPUT}"
+
+      - name: Build package
+        uses: $/.github/actions/build-package
+        with:
+          version: ${{ steps.version.outputs.version }}
+
+      - name: Pack
+        id: pack
+        shell: bash
+        run: |
+          filename=$(npm pack --json --pack-destination "${RUNNER_TEMP}" | jq --raw-output '.[0].filename')
+          echo "tarball=${RUNNER_TEMP}/${filename}" >> "${GITHUB_OUTPUT}"
+
+      - name: Diff against the latest published package
+        shell: bash
+        env:
+          TARBALL: ${{ steps.pack.outputs.tarball }}
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          name=$(jq --raw-output '.name' package.json)
+
+          # .npmrc points the scope at GitHub Packages, npmjs serves the same package without a token
+          registry="--${name%%/*}:registry=https://registry.npmjs.org/"
+          latest=$(npm view "${name}" dist-tags.latest "${registry}")
+
+          npm diff --diff-name-only --diff="${name}@${latest}" --diff="${TARBALL}" "${registry}" > "${RUNNER_TEMP}/files.txt"
+
+          # source maps are single-line JSON, they are listed but left out of the patch
+          npm diff --diff="${name}@${latest}" --diff="${TARBALL}" "${registry}" \
+            package.json README.md 'dist/**/*.js' 'dist/**/*.d.ts' > "${RUNNER_TEMP}/patch.diff"
+
+          {
+            echo "## \`${name}\` ${latest} → ${VERSION}"
+            echo
+
+            if [ ! -s "${RUNNER_TEMP}/files.txt" ]; then
+              echo "No file changed."
+            else
+              echo "Changed files:"
+              echo
+              sed "s/.*/- \`&\`/" "${RUNNER_TEMP}/files.txt"
+
+              if [ -s "${RUNNER_TEMP}/patch.diff" ]; then
+                # the fence has to be longer than any backtick run in the patch, README.md contains Markdown
+                fence='```'
+                while grep --quiet --fixed-strings -- "${fence}" "${RUNNER_TEMP}/patch.diff"; do
+                  fence="${fence}\`"
+                done
+
+                echo
+                echo "${fence}diff"
+                cat "${RUNNER_TEMP}/patch.diff"
+                echo "${fence}"
+              fi
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"

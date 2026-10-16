@@ -1,0 +1,43 @@
+# yaml-language-server: $schema=https://json.schemastore.org/github-action.json
+name: Build package
+description: Build the npm package as it is published, with the given version
+
+inputs:
+  version:
+    description: Package version, without the `v` prefix of the tag
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Install pnpm
+      uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+    - name: Set up node
+      uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+      with:
+        node-version-file: package.json
+        cache: pnpm
+        cache-dependency-path: pnpm-lock.yaml
+
+    - name: Download dependencies
+      shell: bash
+      run: |
+        pnpm install --frozen-lockfile
+
+    - name: Set version in package.json
+      shell: bash
+      env:
+        VERSION: ${{ inputs.version }}
+      run: |
+        pnpm version "${VERSION}" --no-git-tag-version
+
+    - name: Build
+      shell: bash
+      run: |
+        pnpm run build
+
+    - name: Remove husky prepare script
+      shell: bash
+      run: |
+        npm pkg delete scripts.prepare
