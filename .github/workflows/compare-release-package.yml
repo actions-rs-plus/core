@@ -106,7 +106,6 @@ jobs:
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           JOB_STATUS: ${{ job.status }}
           LATEST: ${{ steps.diff.outputs.latest }}
           NAME: ${{ steps.diff.outputs.name }}
@@ -126,10 +125,10 @@ jobs:
               count=$(wc --lines < "${RUNNER_TEMP}/files.txt")
 
               if [ "${count}" -eq 0 ]; then
-                echo "Built from \`${HEAD_SHA:0:7}\`. No file changed."
+                echo "No file changed."
               else
                 files=$(sed "s/.*/\`&\`/" "${RUNNER_TEMP}/files.txt" | paste --serial --delimiters=",")
-                echo "Built from \`${HEAD_SHA:0:7}\`. Changed files (${count}): ${files//,/, }"
+                echo "Changed files (${count}): ${files//,/, }"
               fi
 
               echo
@@ -137,7 +136,7 @@ jobs:
             else
               echo "### Package diff"
               echo
-              echo "The comparison of \`${HEAD_SHA:0:7}\` failed, see [the run](${RUN_URL})."
+              echo "The comparison failed, see [the run](${RUN_URL})."
             fi
           } > "${RUNNER_TEMP}/comment.md"
 
