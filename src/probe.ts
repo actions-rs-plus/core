@@ -1,3 +1,3 @@
 export function compareReleasePackageProbe(): string {
-    return "probe 1";
+    return "probe 2";
 }
