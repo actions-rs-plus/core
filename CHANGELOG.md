@@ -1,4 +1,23 @@
 <!-- header goes here -->
+## [0.11.1](https://github.com/actions-rs-plus/core/compare/v0.11.0..v0.11.1) - 2026-10-16
+
+### 🐛 Bug Fixes
+
+- Stop inlining third-party declarations into `core.d.ts` by [@kristof-mattei](https://github.com/kristof-mattei) ([`fd6f68b`](https://github.com/actions-rs-plus/core/commit/fd6f68b200fc11eafd17c29dc33fbde9d332c01b))
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* Publish from the `npmjs` and `github-packages` environments restricted to `v*` tags by [@kristof-mattei](https://github.com/kristof-mattei) ([`21154fa`](https://github.com/actions-rs-plus/core/commit/21154fa0e4793475fc534bebe2815628e9ec4fe3))
+- *(release)* Check new ballot entries by default by [@kristof-mattei](https://github.com/kristof-mattei) ([`d0cbab2`](https://github.com/actions-rs-plus/core/commit/d0cbab2af3b1b13b136cb4d42418d34dce08d1d2))
+- *(release)* Rebuild the open release PRs on every push to `main` by [@kristof-mattei](https://github.com/kristof-mattei) ([`03bf5a6`](https://github.com/actions-rs-plus/core/commit/03bf5a614819a78244afbf4caa8d09d636c3d3fe))
+- *(release)* Remove pre-releases and modernize the release workflows by [@kristof-mattei](https://github.com/kristof-mattei) ([`f7e1409`](https://github.com/actions-rs-plus/core/commit/f7e14095646d491a4351e99a6d869bb48af5fc51))
+- *(release)* Modernize `cliff.toml` by [@kristof-mattei](https://github.com/kristof-mattei) ([`2423168`](https://github.com/actions-rs-plus/core/commit/242316808b9595ea930bdfc869e10a9c317f4e40))
+- *(settings)* Declare every syncable option in `settings.yml` by [@kristof-mattei](https://github.com/kristof-mattei) ([`9c2dbb6`](https://github.com/actions-rs-plus/core/commit/9c2dbb6083cdc5c79a28a87f68d6083f270a12c7))
+- Remove `engines.pnpm`, it is already enforced by `packageManager` by [@kristof-mattei](https://github.com/kristof-mattei) ([`c291918`](https://github.com/actions-rs-plus/core/commit/c291918b006dcb28f0a32f001a8aea4e1bb9ec71))
+- Enable `n/no-sync`, `n/no-process-exit`, `n/no-path-concat` and `n/hashbang` by [@kristof-mattei](https://github.com/kristof-mattei) ([`350cf55`](https://github.com/actions-rs-plus/core/commit/350cf5574775c452bbd7835eb22ec7606447cf19))
+- Enable the oxlint `nursery` category by [@kristof-mattei](https://github.com/kristof-mattei) ([`f3a1c2c`](https://github.com/actions-rs-plus/core/commit/f3a1c2cd475c5c5f337c443bbc001db89ebe52db))
+- Run the `code-quality` query suite in CodeQL instead of GitHub Code Quality by [@kristof-mattei](https://github.com/kristof-mattei) ([`249041f`](https://github.com/actions-rs-plus/core/commit/249041f56abdc283eb2219f0e7e8ae9772e17d9b))
+- Lint commits with git-cliff instead of cocogitto by [@kristof-mattei](https://github.com/kristof-mattei) ([`73c4e8b`](https://github.com/actions-rs-plus/core/commit/73c4e8b055d7f06fe296e3c6ac896317149921b1))
 ## [0.11.0](https://github.com/actions-rs-plus/core/compare/v0.10.0..v0.11.0) - 2026-09-08
 
 ### 🐛 Bug Fixes
@@ -70,23 +89,8 @@
 
 ### 🐛 Bug Fixes
 
-- *(deps)* Update semver (npm) to ^7.8.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`68a0401`](https://github.com/actions-rs-plus/core/commit/68a04015e193f56419ee1279f95914ccaafe44b5))
-- *(deps)* Update @actions/cache (npm) to ^6.0.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`2ab4aa7`](https://github.com/actions-rs-plus/core/commit/2ab4aa7c1d3921e52e1b57a19ab9ede830ae2ce4))
-- *(deps)* Update @actions/cache (npm) to ^6.0.1 (#2320) by [@renovate[bot]](https://github.com/renovate[bot]) in #2320 ([`f710e8d`](https://github.com/actions-rs-plus/core/commit/f710e8d659e69f0071f2aa6f681b6533a0704b5d))
-- *(deps)* Update semver (npm) to ^7.8.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`338ee62`](https://github.com/actions-rs-plus/core/commit/338ee628fa9c4d7cbdba41be953931770122d4c0))
-- *(deps)* Update semver (npm) to ^7.8.1 (#2326) by [@renovate[bot]](https://github.com/renovate[bot]) in #2326 ([`0ec72b7`](https://github.com/actions-rs-plus/core/commit/0ec72b72250b3829f8b86159158eb2f2cf0d14aa))
-- *(deps)* Update semver (npm) to ^7.8.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`10f43ee`](https://github.com/actions-rs-plus/core/commit/10f43eeb1f3161bf992a4b4e43183b0d8d75dffd))
-- *(deps)* Update semver (npm) to ^7.8.2 (#2375) by [@renovate[bot]](https://github.com/renovate[bot]) in #2375 ([`b13b3f9`](https://github.com/actions-rs-plus/core/commit/b13b3f918db9014dc27dbc37f80d29e61a644423))
-- *(deps)* Update semver (npm) to ^7.8.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`8fe6d88`](https://github.com/actions-rs-plus/core/commit/8fe6d886125c61d4cb624ba2607dd68b5fe3ae6a))
-- *(deps)* Update semver (npm) to ^7.8.3 (#2385) by [@renovate[bot]](https://github.com/renovate[bot]) in #2385 ([`3504390`](https://github.com/actions-rs-plus/core/commit/35043902a0505054d416d664f8770531a1eb5d01))
-- *(deps)* Update semver (npm) to ^7.8.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`dc6f5d6`](https://github.com/actions-rs-plus/core/commit/dc6f5d6aeeb85ad58278d029047fac70130fca0e))
-- *(deps)* Update semver (npm) to ^7.8.4 (#2391) by [@renovate[bot]](https://github.com/renovate[bot]) in #2391 ([`626162a`](https://github.com/actions-rs-plus/core/commit/626162acd1a163d0bb309a899adf0023ea86cbec))
-- *(deps)* Update @actions/cache (npm) to ^6.1.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f2b004d`](https://github.com/actions-rs-plus/core/commit/f2b004db45353917623a50886cef4040ebaa0991))
-- *(deps)* Update @actions/cache (npm) to ^6.1.0 (#2418) by [@renovate[bot]](https://github.com/renovate[bot]) in #2418 ([`9bf1207`](https://github.com/actions-rs-plus/core/commit/9bf1207aebdb956d1954e19d8b9e4f7c07a0efdd))
 - *(deps)* Update semver (npm) to ^7.8.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`64a227b`](https://github.com/actions-rs-plus/core/commit/64a227bccfb4150bbe5534793de1ca3385b60ae6))
-- *(deps)* Update semver (npm) to ^7.8.5 (#2421) by [@renovate[bot]](https://github.com/renovate[bot]) in #2421 ([`0ec3093`](https://github.com/actions-rs-plus/core/commit/0ec3093d32bca2be87a3fb4a37cfc107ee42917c))
 - *(deps)* Update @actions/cache (npm) to ^6.2.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`dddaf56`](https://github.com/actions-rs-plus/core/commit/dddaf56a9c1f8d4ebb58efc8db360656ab405b83))
-- *(deps)* Update @actions/cache (npm) to ^6.2.0 (#2491) by [@renovate[bot]](https://github.com/renovate[bot]) in #2491 ([`456e791`](https://github.com/actions-rs-plus/core/commit/456e7916fc71403e388eaf45d8cdc53c1989a44e))
 - ConfigError: Config (unnamed): Key "plugins": Cannot redefine plugin "n". by [@kristof-mattei](https://github.com/kristof-mattei) ([`2a53604`](https://github.com/actions-rs-plus/core/commit/2a536041845d58b5f143f61dbf4d27c156e43db0))
 - Broken update by [@kristof-mattei](https://github.com/kristof-mattei) ([`efd73ff`](https://github.com/actions-rs-plus/core/commit/efd73ff5099a0f337cad0b4887ceded20cf5b05b))
 - Eslint rules correction by [@kristof-mattei](https://github.com/kristof-mattei) ([`c6538ac`](https://github.com/actions-rs-plus/core/commit/c6538aca2850065780bee37dc9f8cc4c10eb2e3d))
@@ -277,7 +281,6 @@
 
 ### 🐛 Bug Fixes
 
-- *(deps)* Update @actions/cache (npm) to ^5.0.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`665dae7`](https://github.com/actions-rs-plus/core/commit/665dae7555e1594b289e85113abc01dfb3eadd13))
 - *(deps)* Update @actions/http-client (npm) to ^3.0.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`5681b67`](https://github.com/actions-rs-plus/core/commit/5681b6781362232f47192607019762bcc5ed41a7))
 - *(deps)* Update @actions/cache (npm) to ^5.0.5 by [@renovate[bot]](https://github.com/renovate[bot]) ([`2dea901`](https://github.com/actions-rs-plus/core/commit/2dea9017834dd567438f287f5180703d1beee1e7))
 - *(deps)* Update @actions/core (npm) to ^2.0.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`c4edf6d`](https://github.com/actions-rs-plus/core/commit/c4edf6d8953251ad31c4b44b1e5d65d9b842b840))
@@ -383,7 +386,6 @@
 
 ### 🐛 Bug Fixes
 
-- *(deps)* Update dependency @actions/cache to ^4.0.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`e2e89c2`](https://github.com/actions-rs-plus/core/commit/e2e89c26424863ea48a91441a8f76f4d110a048a))
 - *(deps)* Update dependency @actions/cache to ^4.0.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a652922`](https://github.com/actions-rs-plus/core/commit/a652922fe7fc24bdca6b6fb4f69d58b4341b9ce0))
 - *(deps)* Update dependency @actions/github to ^6.0.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`29acd42`](https://github.com/actions-rs-plus/core/commit/29acd420f11391447b2a28972255c24e9722374d))
 - *(deps)* Update dependency semver to ^7.7.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`c2f76e4`](https://github.com/actions-rs-plus/core/commit/c2f76e4f7036b7194d44b80169446da5a8bb2017))
@@ -410,7 +412,6 @@
 ### 🐛 Bug Fixes
 
 - *(deps)* Update dependency @actions/tool-cache to ^2.0.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a0d3535`](https://github.com/actions-rs-plus/core/commit/a0d3535122c6ed8f28c0a9752e76e63860ce1f0d))
-- *(deps)* Update dependency semver to ^7.7.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7666df9`](https://github.com/actions-rs-plus/core/commit/7666df90c2bb88b76f8e170df32f805b101b78ef))
 - *(deps)* Update dependency semver to ^7.7.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`745ee07`](https://github.com/actions-rs-plus/core/commit/745ee07524b803c2e4a7f1009336c09fb2f0d360))
 - *(deps)* Update dependency @actions/cache to ^4.0.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`7bd7f92`](https://github.com/actions-rs-plus/core/commit/7bd7f92a1be811bbec1be1293e40edfa7ed8803f))
 - Extract building of mocked client to function by [@kristof-mattei](https://github.com/kristof-mattei) ([`26cfe87`](https://github.com/actions-rs-plus/core/commit/26cfe8770ca5e4d684c0d4c10acd4415a63f2e59))
@@ -431,9 +432,7 @@
 
 ### 🐛 Bug Fixes
 
-- *(deps)* Update dependency @actions/core to v1.11.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`911eba8`](https://github.com/actions-rs-plus/core/commit/911eba848fbedd78d732b5d34d61a994a4dbed20))
 - *(deps)* Update dependency @actions/core to v1.11.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`f1964ed`](https://github.com/actions-rs-plus/core/commit/f1964ed75dd7d92f1d51c22437466324f1cfd5ef))
-- *(deps)* Update dependency @actions/cache to v3.3.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`159a1fe`](https://github.com/actions-rs-plus/core/commit/159a1feee333a93e768da7868e0d63a79d7b7fa5))
 - *(deps)* Update dependency @actions/cache to v4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`282e23a`](https://github.com/actions-rs-plus/core/commit/282e23a455dc7c7a1c6f7d02697c3e1a8b30b9d1))
 - Report tests and bundle to codecov by [@kristof-mattei](https://github.com/kristof-mattei) ([`0991b5e`](https://github.com/actions-rs-plus/core/commit/0991b5e60ee28d551410cd4134163f66693385f5))
 - Pass in token to build for bundle analysis by [@kristof-mattei](https://github.com/kristof-mattei) ([`80a12a9`](https://github.com/actions-rs-plus/core/commit/80a12a9b56d39e3336727fd7f80364afd19b394f))
@@ -490,14 +489,8 @@
 
 ### 🐛 Bug Fixes
 
-- *(deps)* Update dependency @actions/cache to ^3.2.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`949a846`](https://github.com/actions-rs-plus/core/commit/949a846314ac41e913ab70d14fc64ec1750a2722))
 - *(deps)* Update dependency @actions/cache to ^3.2.4 by [@renovate[bot]](https://github.com/renovate[bot]) ([`af6499b`](https://github.com/actions-rs-plus/core/commit/af6499bdeacec54630f30da6c06966c279fd88a4))
-- *(deps)* Update dependency semver to ^7.6.0 by [@renovate[bot]](https://github.com/renovate[bot]) ([`d04433e`](https://github.com/actions-rs-plus/core/commit/d04433edb56ca69b0f6346fdd243244c97823720))
-- *(deps)* Update dependency @actions/http-client to ^2.2.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a715313`](https://github.com/actions-rs-plus/core/commit/a7153139e9fd10441186ea3f6fb536391f18f6b2))
-- *(deps)* Update dependency semver to ^7.6.1 by [@renovate[bot]](https://github.com/renovate[bot]) ([`985cf16`](https://github.com/actions-rs-plus/core/commit/985cf1635ffc75c1e3d3256b7c1c948209fecd20))
-- *(deps)* Update dependency semver to ^7.6.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`a459657`](https://github.com/actions-rs-plus/core/commit/a459657490485a8208af996ba0b8715adb5d538b))
 - *(deps)* Update dependency semver to ^7.6.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`9e22128`](https://github.com/actions-rs-plus/core/commit/9e22128d47d62806b1cebf48c92256065908c56d))
-- *(deps)* Update dependency @actions/http-client to ^2.2.2 by [@renovate[bot]](https://github.com/renovate[bot]) ([`134c56e`](https://github.com/actions-rs-plus/core/commit/134c56ed7d5e333d70cef59954366d0a0b9beee0))
 - *(deps)* Update dependency @actions/http-client to ^2.2.3 by [@renovate[bot]](https://github.com/renovate[bot]) ([`fb7fe96`](https://github.com/actions-rs-plus/core/commit/fb7fe962b287b200ccbcf05b4f8974d1b89650f4))
 - Prepare for eslint-annotate-action v3 by [@kristof-mattei](https://github.com/kristof-mattei) in #790 ([`313ae3d`](https://github.com/actions-rs-plus/core/commit/313ae3d2232abda856dcefe6a0dc98657cf7832f))
 - Patch collect-v8-coverage until https://github.com/SimenB/collect-v8-coverage/pull/235 is merged in by [@kristof-mattei](https://github.com/kristof-mattei) ([`bfd34ff`](https://github.com/actions-rs-plus/core/commit/bfd34ff098f076c9bcf9efac4a0d9ed324d099d3))
@@ -653,6 +646,10 @@
 - Add required packages by [@kristof-mattei](https://github.com/kristof-mattei) ([`8894e55`](https://github.com/actions-rs-plus/core/commit/8894e55e5e2c9f2925d802e448d615e6fc3b9ffa))
 - Add releaes config by [@kristof-mattei](https://github.com/kristof-mattei) ([`61fd09e`](https://github.com/actions-rs-plus/core/commit/61fd09e6f0e3f09ff2244da19614c0c3b70aa57b))
 - Add missing conventional-changelog-conventionalcommits for semantic release by [@kristof-mattei](https://github.com/kristof-mattei) ([`0bc1cfe`](https://github.com/actions-rs-plus/core/commit/0bc1cfeaef68024050033462750fc51130e7dd3d))
+
+### ⚙️ Miscellaneous Tasks
+
+- Autoconfigure node version by [@kristof-mattei](https://github.com/kristof-mattei) ([`eb4f8fa`](https://github.com/actions-rs-plus/core/commit/eb4f8fa651dba30a72b0f99461b0bde40680434f))
 
 ### 💼 Other
 
@@ -856,10 +853,6 @@
 - *(deps-dev)* Bump eslint from 8.42.0 to 8.43.0 by [@dependabot[bot]](https://github.com/dependabot[bot]) ([`0f9e4f3`](https://github.com/actions-rs-plus/core/commit/0f9e4f35b66c0f9f8846eb0e95c494dc2868eb40))
 - *(deps-dev)* Bump @typescript-eslint/parser from 5.59.11 to 5.60.0 by [@dependabot[bot]](https://github.com/dependabot[bot]) ([`5029158`](https://github.com/actions-rs-plus/core/commit/5029158e0775ff6e4db68b0862f9d93cb4d81493))
 - *(deps-dev)* Bump @octokit/rest from 19.0.11 to 19.0.13 by [@dependabot[bot]](https://github.com/dependabot[bot]) ([`dace8ca`](https://github.com/actions-rs-plus/core/commit/dace8ca0fe5a92e5b04b1e7ec95288cfa63be172))
-
-### ⚙️ Miscellaneous Tasks
-
-- Autoconfigure node version by [@kristof-mattei](https://github.com/kristof-mattei) ([`eb4f8fa`](https://github.com/actions-rs-plus/core/commit/eb4f8fa651dba30a72b0f99461b0bde40680434f))
 ## [0.0.6] - 2019-10-17
 
 ### 💼 Other
