@@ -204,7 +204,7 @@ importers:
         version: 7.8.5
       typebox:
         specifier: ^1.3.14
-        version: 1.3.37
+        version: 1.4.0
     devDependencies:
       '@codecov/vite-plugin':
         specifier: 2.0.1
@@ -1845,8 +1845,8 @@ packages:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
 
-  typebox@1.3.37:
-    resolution: {integrity: sha512-k+Qogwk7lztlItGvFf5v4GZPPStFAFehAyOKYeuqIHzi3dfTFqPOTx38JG09hmpcK6TQgctrTD06U/0CTTpM1g==}
+  typebox@1.4.0:
+    resolution: {integrity: sha512-fn+ul/Cox0pYuGHN2WoehRhHUTJ3aj22Cn56c4AmLxELiwSoO6g2Fg6hpkOKIdCdRc16TN5N47Sdq7KDQIQqgA==}
 
   typescript@6.0.3:
     resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
@@ -3563,7 +3563,7 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
 
-  typebox@1.3.37: {}
+  typebox@1.4.0: {}
 
   typescript@6.0.3: {}
 
