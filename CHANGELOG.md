@@ -1,4 +1,14 @@
 <!-- header goes here -->
+## [0.11.2](https://github.com/actions-rs-plus/core/compare/v0.11.1..v0.11.2) - 2026-11-03
+
+### ⚙️ Miscellaneous Tasks
+
+- *(ci)* Github Actions lockfile by [@kristof-mattei](https://github.com/kristof-mattei) ([`21b4c77`](https://github.com/actions-rs-plus/core/commit/21b4c77629b2fcfc83d9d101676e110c0e7f9f71))
+- *(release)* Diff the release package against the latest published version by [@kristof-mattei](https://github.com/kristof-mattei) ([`652dad4`](https://github.com/actions-rs-plus/core/commit/652dad41f6af66d74522492330e99b19a2492396))
+- *(release)* Link the package diff from a sticky PR comment by [@kristof-mattei](https://github.com/kristof-mattei) ([`0721588`](https://github.com/actions-rs-plus/core/commit/07215884185ce92e8228878434107035369ba1b5))
+- *(release)* Drop the head SHA from the package diff comment by [@kristof-mattei](https://github.com/kristof-mattei) ([`57eaba4`](https://github.com/actions-rs-plus/core/commit/57eaba437380c948d176f03e7ae42a91dd6017e2))
+- *(release)* Verify the release commit against the rendered ballot by [@kristof-mattei](https://github.com/kristof-mattei) ([`7a0d809`](https://github.com/actions-rs-plus/core/commit/7a0d809783ebb45c79c65a69f62691e655fdf006))
+- *(release)* Exclude superseded dependency bumps through `.cliffignore` by [@kristof-mattei](https://github.com/kristof-mattei) ([`714b5d5`](https://github.com/actions-rs-plus/core/commit/714b5d59f42c3870d16e68a21e952895f927c3cf))
 ## [0.11.1](https://github.com/actions-rs-plus/core/compare/v0.11.0..v0.11.1) - 2026-10-16
 
 ### 🐛 Bug Fixes
