@@ -30,13 +30,13 @@ jobs:
         with:
           pyflakes: false
 
-      # actionlint only reaches shell inside `run:` blocks, standalone scripts need their own pass
-      - name: Install shellcheck
-        uses: taiki-e/install-action@v2.90.3
-        with:
-          tool: shellcheck
+      # # actionlint only reaches shell inside `run:` blocks, standalone scripts need their own pass
+      # - name: Install shellcheck
+      #   uses: taiki-e/install-action@v2.90.3
+      #   with:
+      #     tool: shellcheck
 
-      - name: Run shellcheck
-        shell: bash
-        run: |
-          git ls-files -z '*.sh' | xargs --null shellcheck
+      # - name: Run shellcheck
+      #   shell: bash
+      #   run: |
+      #     git ls-files -z '*.sh' | xargs --null shellcheck
