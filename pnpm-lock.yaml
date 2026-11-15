@@ -207,7 +207,7 @@ importers:
         version: 4.0.0
       env-schema:
         specifier: ^8.0.0
-        version: 8.0.1
+        version: 8.0.2
       semver:
         specifier: ^7.8.5
         version: 7.8.6
@@ -1313,8 +1313,8 @@ packages:
     resolution: {integrity: sha512-PPnnSJq3azKOIewXR/uppBV/6h98dprBJ/WaQ9Qgj10xX1lJLNfg+XShpbsrSqcDSy2yYYyhfXM1wWhftqgyzw==}
     engines: {node: '>=10.13.0'}
 
-  env-schema@8.0.1:
-    resolution: {integrity: sha512-VKqpgL3EPCnSRVsUyi+aPHbS+OJKFsqoNoT/sxSKowhyGMvqd9TgaUTZsMYFmIYTLT/tkj02HpuWXP9eCb377Q==}
+  env-schema@8.0.2:
+    resolution: {integrity: sha512-s74K92gIRbxlG3KG4CdqQimK1yaFmtrNsBsa+3dsVbtzkE+83L96i3u+HUdAOwjwq54cacaR9FilAU5q/+QdOw==}
 
   es-errors@1.3.0:
     resolution: {integrity: sha512-Zf5H2Kxt2xjTvbJvP2ZWLEICxA6j+hAmMzIlypy4xcBg1vKVnx89Wy0GbS+kf5cwCVFFzdCFh2XSCFNULS6csw==}
@@ -3155,7 +3155,7 @@ snapshots:
       graceful-fs: 4.2.11
       tapable: 2.3.3
 
-  env-schema@8.0.1:
+  env-schema@8.0.2:
     dependencies:
       ajv: 8.20.0
 
