@@ -36,7 +36,7 @@ export class Cargo extends BaseProgram {
      */
     public async findOrInstall(program: string, version?: string): Promise<string> {
         try {
-            void (await which(program, true));
+            await which(program, true);
 
             return program;
         } catch {
